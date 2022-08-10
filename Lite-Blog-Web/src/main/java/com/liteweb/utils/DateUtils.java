@@ -8,7 +8,7 @@ public class DateUtils {
     public static final String DEFAULT_DATE_PATTERN = "yyyy-MM-dd";
 
     public static final String DEFAULT_TIME_PATTERN_DETAILS = "HH:mm:ss:SSS";
-    public static final String DEFAULT_TIME_PATTERN_ROUGH = "HH:mm:ss:SSS";
+    public static final String DEFAULT_TIME_PATTERN_ROUGH = "HH:mm:ss";
 
     public static String formatNow(){
         LocalDateTime now = LocalDateTime.now();
