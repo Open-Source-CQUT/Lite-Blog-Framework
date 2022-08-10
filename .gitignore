@@ -2,7 +2,7 @@ HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
-!**/src/com.liteweb.test/**/target/
+!**/src/com.liteweb.LiteBlogWebApplicationTest/**/target/
 
 ### STS ###
 .apt_generated
@@ -27,7 +27,7 @@ target/
 /.nb-gradle/
 build/
 !**/src/main/**/build/
-!**/src/com.liteweb.test/**/build/
+!**/src/com.liteweb.LiteBlogWebApplicationTest/**/build/
 
 ### VS Code ###
 .vscode/
