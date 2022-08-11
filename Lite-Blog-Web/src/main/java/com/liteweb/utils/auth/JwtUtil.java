@@ -1,5 +1,6 @@
 package com.liteweb.utils.auth;
 
+import com.liteweb.utils.serializer.PasswordEncoder;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
@@ -19,10 +20,10 @@ public class JwtUtil {
     //有效期为
     public static final Long JWT_TTL = 24 * 60 * 60 * 1000L;// 一天
     //设置秘钥明文
-    public static final String JWT_KEY = "1eb7e442e393faf142af0f121fa3ca00688b7226";
+    public static final String JWT_KEY = PasswordEncoder.enCode("Lite-Blog-Key");
 
     //签发者
-    public static final String ISSUER = "ad8d2454bb1e01f5a32c77bd6e3e0dabd6edb979";
+    public static final String ISSUER = PasswordEncoder.enCode("Lite-Blog");
 
     public static String getUUID() {
         String token = UUID.randomUUID().toString().replaceAll("-", "");
@@ -99,15 +100,13 @@ public class JwtUtil {
      *
      * @param jwt
      * @return
-     * @throws Exception
      */
-    public static Claims parseJWT(String jwt) throws Exception {
+    public static Claims parseJWT(String jwt) {
         SecretKey secretKey = generalKey();
         return Jwts.parser()
                 .setSigningKey(secretKey)
                 .parseClaimsJws(jwt)
                 .getBody();
     }
-
 
 }
