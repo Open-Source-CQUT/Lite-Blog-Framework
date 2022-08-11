@@ -1,6 +1,6 @@
 package com.liteweb.controller.auth;
 
-import com.liteweb.dto.ResultResponse;
+import com.liteweb.dto.global.ResultResponse;
 import com.liteweb.entity.auth.User;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,4 +1,4 @@
-package com.liteweb.dto;
+package com.liteweb.dto.global;
 
 import com.liteweb.utils.tool.StringUtils;
 import lombok.AllArgsConstructor;
