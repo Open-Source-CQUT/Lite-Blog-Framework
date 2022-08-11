@@ -1,4 +1,4 @@
-package com.liteweb.utils;
+package com.liteweb.utils.tool;
 
 public class StringUtils {
 

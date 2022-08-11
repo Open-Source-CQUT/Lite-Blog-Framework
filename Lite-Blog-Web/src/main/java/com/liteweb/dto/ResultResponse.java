@@ -1,12 +1,9 @@
 package com.liteweb.dto;
 
-import com.liteweb.utils.StringUtils;
-import io.jsonwebtoken.lang.Strings;
+import com.liteweb.utils.tool.StringUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.Objects;
 
 @Data
 @NoArgsConstructor

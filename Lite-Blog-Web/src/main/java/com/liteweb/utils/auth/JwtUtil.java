@@ -1,4 +1,4 @@
-package com.liteweb.utils;
+package com.liteweb.utils.auth;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;

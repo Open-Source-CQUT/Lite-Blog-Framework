@@ -1,4 +1,4 @@
-package com.liteweb.utils;
+package com.liteweb.utils.serializer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.BoundSetOperations;

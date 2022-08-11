@@ -1,4 +1,4 @@
-package com.liteweb.utils;
+package com.liteweb.utils.serializer;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
