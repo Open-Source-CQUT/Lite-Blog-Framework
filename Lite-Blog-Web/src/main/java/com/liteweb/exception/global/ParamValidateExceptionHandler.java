@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
 
@@ -38,23 +39,31 @@ public class ParamValidateExceptionHandler {
 
     /**
      * 约束校验异常
+     *
      * @param ex 抛出的异常
      * @return 异常信息
      */
     @ResponseBody
     @ExceptionHandler(ConstraintViolationException.class)
     public ResultResponse<String> ConstraintViolationExceptionHandler(ConstraintViolationException ex) {
-        return ResultResponseUtils.error(ex.getMessage());
+        String errMsg = ex
+                .getConstraintViolations()
+                .stream()
+                .map(ConstraintViolation::getMessage)
+                .reduce(Strings.EMPTY, (result, element) -> result + element + ";");
+
+        return ResultResponseUtils.error(errMsg);
     }
 
     /**
      * 绑定异常
+     *
      * @param ex 抛出的异常
      * @return 异常信息
      */
     @ResponseBody
     @ExceptionHandler(BindException.class)
-    public ResultResponse<String> BindExceptionHandler(BindException ex){
+    public ResultResponse<String> BindExceptionHandler(BindException ex) {
         String resultMsg = ex
                 .getBindingResult()
                 .getAllErrors()
