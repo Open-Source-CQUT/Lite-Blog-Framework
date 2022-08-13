@@ -1,17 +1,13 @@
-package com.liteweb.entity.auth;
+package com.liteweb.dto.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
-import javax.validation.constraints.NotNull;
-import java.sql.Date;
-
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class User {
+@AllArgsConstructor
+public class UserNormalDto {
 
     private String mail;
 
@@ -28,11 +24,4 @@ public class User {
     private Integer gender;
 
     private Integer roleId;
-
-    private String createdTime;
-
-    private String updatedTime;
-
-    private Integer deleted;
-
 }
