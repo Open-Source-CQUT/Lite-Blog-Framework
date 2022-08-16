@@ -1,4 +1,5 @@
 package com.liteweb.controller;
+
 import com.liteweb.dto.global.ResultResponse;
 import com.liteweb.utils.tool.ResultResponseUtils;
 import org.springframework.boot.web.servlet.error.ErrorController;
@@ -15,17 +16,17 @@ public class LiteBlogExceptionController implements ErrorController {
 
     private static final String STATUS_CODE = "javax.servlet.error.status_code";
 
-    private static final String ERROR_MESSAGE = "javax.servlet.error.status_code";
+    private static final String ERROR_MESSAGE = "javax.servlet.error.message";
 
 
     @RequestMapping("/error")
-    public ResultResponse<String> error(HttpServletRequest request){
+    public ResultResponse<String> error(HttpServletRequest request) {
 
-       Integer status = (Integer) request.getAttribute(STATUS_CODE);
+        Integer status = (Integer) request.getAttribute(STATUS_CODE);
 
-       String msg = (String) request.getAttribute(ERROR_MESSAGE);
+        String msg = (String) request.getAttribute(ERROR_MESSAGE);
 
-       return ResultResponseUtils.error(status,msg);
+        return ResultResponseUtils.error(status, msg);
 
     }
 
