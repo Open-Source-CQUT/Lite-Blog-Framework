@@ -3,6 +3,7 @@ package com.liteweb.convert.auth;
 import com.liteweb.convert.auth.rule.GenderRule;
 import com.liteweb.dto.auth.UserNormalDto;
 import com.liteweb.entity.auth.User;
+import com.liteweb.vo.Auth.UserTokenVo;
 import com.liteweb.vo.Auth.UserVo;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -53,7 +54,17 @@ public interface UserConverter {
     })
     User voToEntity(UserVo userVo);
 
-    @Mappings({})
+    @Mappings({
+            @Mapping(source = "password",target = "password", ignore = true),
+            @Mapping(source = "gender",target = "gender"),
+    })
     UserVo entityToVo(User user);
+
+    @Mappings({
+            @Mapping(source = "gender",target = "gender"),
+            @Mapping(target = "loginTime",expression = "java(com.liteweb.utils.tool.DateUtils.formatNow())"),
+            @Mapping(target = "uuid",expression = "java(com.liteweb.utils.auth.JwtUtil.getUUID())")
+    })
+    UserTokenVo entityToTokenVo(User user);
 
 }
