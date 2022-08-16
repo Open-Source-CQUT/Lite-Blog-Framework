@@ -6,9 +6,8 @@ import org.springframework.http.HttpStatus;
 public class ResultResponseUtils {
 
     /**
-     *
      * @param data 要传输的数据
-     * @param msg 信息
+     * @param msg  信息
      * @return ResultResponse<T> 包装好的代表<成功>状态的响应类
      */
     public static <T> ResultResponse<T> success(T data, String msg) {
@@ -24,9 +23,8 @@ public class ResultResponseUtils {
     }
 
     /**
-     *
      * @param data 要传输的数据
-     * @param msg 信息
+     * @param msg  信息
      * @return ResultResponse<T> 包装好的代表<失败>状态的响应类
      */
     public static <T> ResultResponse<T> error(T data, String msg) {
@@ -39,6 +37,10 @@ public class ResultResponseUtils {
 
     public static <T> ResultResponse<T> error(T data) {
         return new ResultResponse<>(data, HttpStatus.BAD_REQUEST.value());
+    }
+
+    public static <T> ResultResponse<T> error(Integer code, String msg) {
+        return new ResultResponse<>(null, code, msg);
     }
 
 }
