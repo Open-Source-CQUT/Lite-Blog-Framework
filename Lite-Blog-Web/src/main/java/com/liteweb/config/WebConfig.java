@@ -1,6 +1,7 @@
 package com.liteweb.config;
 
 import com.liteweb.interceptor.auth.AuthInterceptor;
+import com.liteweb.interceptor.auth.RefreshInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -15,16 +16,28 @@ public class WebConfig implements WebMvcConfigurer {
     @Autowired
     AuthInterceptor authInterceptor;
 
+    @Autowired
+    RefreshInterceptor refreshInterceptor;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {//添加自定义拦截器
 
+        //access-token 拦截器
         registry.addInterceptor(authInterceptor)
+                //放行url
                 .excludePathPatterns(Arrays.asList(
                         "/auth/login",
                         "/auth/register",
-                        "/hello"
+                        "/auth/refreshToken",
+                        "/error"
                 ))
+                //拦截url
                 .addPathPatterns("/**");
+
+        //refresh-token 拦截器
+        registry.addInterceptor(refreshInterceptor)
+                //拦截url
+                .addPathPatterns("/auth/refreshToken");
 
     }
 }
