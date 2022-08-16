@@ -1,4 +1,4 @@
-package com.liteweb.exception.global;
+package com.liteweb.exception.Handler;
 
 import com.liteweb.dto.global.ResultResponse;
 import com.liteweb.utils.tool.ResultResponseUtils;
