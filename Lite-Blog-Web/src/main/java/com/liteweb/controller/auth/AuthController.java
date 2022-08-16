@@ -14,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 @RestController
 @Slf4j
@@ -28,6 +30,9 @@ public class AuthController {
     @Autowired
     UserConverter userConverter;
 
+    @Autowired
+    HttpServletRequest httpRequest;
+
     @PostMapping("/register")
     public ResultResponse<Boolean> register(
             @Validated(NormalGroups.Crud.Insert.class) @RequestBody UserVo userVo)
@@ -40,15 +45,15 @@ public class AuthController {
     public ResultResponse<JwtTokenWrapper> login(
             @RequestParam @Email @NotBlank String mail,
             @RequestParam @NotBlank String password)
-            throws AuthException{
+            throws AuthException {
 
         return service.login(mail, password);
     }
 
     @GetMapping("/refreshToken")
-    public ResultResponse<JwtTokenWrapper> refreshToken(@RequestParam @NotBlank String mail)
+    public ResultResponse<JwtTokenWrapper> refreshToken()
             throws UserNotFoundException {
-        return service.refreshToken(mail);
+        return service.refreshToken(httpRequest);
     }
 
 }

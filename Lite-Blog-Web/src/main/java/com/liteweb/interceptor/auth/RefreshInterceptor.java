@@ -1,6 +1,7 @@
 package com.liteweb.interceptor.auth;
 
 import com.liteweb.exception.auth.AuthException;
+import com.liteweb.exception.lang.LiteBlogExceptionStatus;
 import com.liteweb.utils.auth.Authenticator;
 import com.liteweb.utils.auth.JwtUtil;
 import io.jsonwebtoken.lang.Assert;
@@ -30,11 +31,11 @@ public class RefreshInterceptor implements HandlerInterceptor {
             String accessToken = request.getHeader(JwtUtil.JWT_ACCESS_KEY);
 
             //断言
-            Assert.notNull(refreshToken,"refreshToken不能为空");
-            Assert.notNull(accessToken,"accessToken不能");
+            Assert.notNull(refreshToken, LiteBlogExceptionStatus.REFRESH_NULL.value());
+            Assert.notNull(accessToken, LiteBlogExceptionStatus.ACCESS_EXPIRED.value());
 
             //校验
-            if (!authenticator.authenticateRefreshToken(refreshToken,accessToken))
+            if (!authenticator.authenticateRefreshToken(refreshToken, accessToken))
                 throw new AuthException();
 
             //因为获取的是refresh-token，此时再做时效判断没有意义，解析失败一律403，需要重新登陆获取refresh-token

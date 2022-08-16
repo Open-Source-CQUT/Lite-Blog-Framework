@@ -3,12 +3,12 @@ package com.liteweb.service.auth;
 import com.liteweb.dto.auth.UserNormalDto;
 import com.liteweb.dto.global.JwtTokenWrapper;
 import com.liteweb.dto.global.ResultResponse;
-import com.liteweb.entity.auth.User;
 import com.liteweb.exception.auth.AuthException;
 import com.liteweb.exception.auth.PasswordErrorException;
 import com.liteweb.exception.auth.UserDuplicateException;
 import com.liteweb.exception.auth.UserNotFoundException;
-import com.liteweb.vo.Auth.UserVo;
+
+import javax.servlet.http.HttpServletRequest;
 
 public interface AuthService {
 
@@ -17,6 +17,6 @@ public interface AuthService {
 
     ResultResponse<Boolean> register(UserNormalDto userNormalDto) throws UserDuplicateException;
 
-    ResultResponse<JwtTokenWrapper> refreshToken(String mail) throws UserNotFoundException;
+    ResultResponse<JwtTokenWrapper> refreshToken(HttpServletRequest request) throws UserNotFoundException;
 
 }

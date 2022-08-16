@@ -1,11 +1,11 @@
 package com.liteweb.interceptor.auth;
 
 import com.liteweb.exception.auth.AuthException;
+import com.liteweb.exception.lang.LiteBlogExceptionStatus;
 import com.liteweb.utils.auth.Authenticator;
 import com.liteweb.utils.auth.JwtUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -30,17 +30,17 @@ public class AuthInterceptor implements HandlerInterceptor {
             String accessToken = request.getHeader(JwtUtil.JWT_ACCESS_KEY);
 
             //断言
-            Assert.notNull(accessToken,"AccessToken为空");
+            Assert.notNull(accessToken, LiteBlogExceptionStatus.ACCESS_NULL.value());
 
             if (!authenticator.authenticateAccessToken(accessToken))
                 throw new AuthException();
 
         } catch (ExpiredJwtException e) {
             //token过期
-            response.sendError(HttpStatus.UNAUTHORIZED.value(),HttpStatus.UNAUTHORIZED.toString());
+            response.sendError(LiteBlogExceptionStatus.ACCESS_EXPIRED.code(), LiteBlogExceptionStatus.ACCESS_EXPIRED.value());
             return false;
-        } catch (Exception e){
-            response.sendError(HttpStatus.FORBIDDEN.value(),HttpStatus.FORBIDDEN.toString());
+        } catch (Exception e) {
+            response.sendError(LiteBlogExceptionStatus.ACCESS_ILLEGAL.code(), LiteBlogExceptionStatus.ACCESS_ILLEGAL.value());
             return false;
         }
 
