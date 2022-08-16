@@ -6,8 +6,8 @@
 
     <insert id="insertUser" parameterType="com.liteweb.entity.auth.User">
         INSERT INTO `user`
-            (mail, password, avatar, nick_name, gender, description, birth,created_time,updated_time,roleId)
-        VALUE
+        (mail, password, avatar, nick_name, gender, description, birth, created_time, updated_time, roleId)
+            VALUE
             (#{mail},
             #{password},
             #{avatar},
@@ -20,12 +20,15 @@
             #{roleId});
     </insert>
 
+    <update id="updateUserPassword" parameterType="java.lang.String">
+        UPDATE user
+        SET password = #{newPassword}
+        WHERE mail = #{mail};
+    </update>
+
     <select id="getUser" resultType="com.liteweb.entity.auth.User" parameterType="java.lang.String">
-        SELECT
-            *
-        FROM
-            `user`
-        WHERE
-            mail = #{mail};
+        SELECT *
+        FROM `user`
+        WHERE mail = #{mail};
     </select>
 </mapper>

@@ -13,10 +13,14 @@ import javax.servlet.http.HttpServletRequest;
 public interface AuthService {
 
 
-    ResultResponse<JwtTokenWrapper> login(String mail, String password) throws PasswordErrorException, AuthException;
+    ResultResponse<JwtTokenWrapper> login(String mail, String password) throws AuthException;
 
     ResultResponse<Boolean> register(UserNormalDto userNormalDto) throws UserDuplicateException;
 
     ResultResponse<JwtTokenWrapper> refreshToken(HttpServletRequest request) throws UserNotFoundException;
+
+    ResultResponse<Boolean> logout(HttpServletRequest request);
+
+    ResultResponse<Boolean> changePassword(String mail, String oldPassword, String newPassword) throws UserNotFoundException, PasswordErrorException;
 
 }

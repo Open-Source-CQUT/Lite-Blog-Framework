@@ -53,7 +53,7 @@ public class AuthServiceIml implements AuthService {
             throw new UserNotFoundException(LiteBlogExceptionStatus.USER_NOT_FOUND.value());
 
         //密码是否相同
-        if (user.getPassword().equals(password))
+        if (!user.getPassword().equals(PasswordEncoder.enCode(password)))
             throw new PasswordErrorException(LiteBlogExceptionStatus.PASSWORD_ERROR.value());
 
         //将对象转换成dto
@@ -84,6 +84,7 @@ public class AuthServiceIml implements AuthService {
 
         //sha1加密
         newUser.setPassword(PasswordEncoder.enCode(newUser.getPassword()));
+        
         //默认设置为普通用户
         newUser.setRoleId(0);
 
@@ -109,5 +110,47 @@ public class AuthServiceIml implements AuthService {
                 new JwtTokenWrapper(accessToken, null),
                 LiteBlogExceptionStatus.ACCESS_REFRESH_OK.value()
         );
+    }
+
+    @Override
+    public ResultResponse<Boolean> logout(HttpServletRequest request) {
+
+        //能走到这里说明已经通过了拦截器的校验，所以这里的代码不用做安全性检查，如果有发生异常直接抛出交给全局异常处理即可
+        //从请求头中读取数据
+        UserTokenVo userTokenVo = JSON.parseObject(
+                JwtUtil.parseAccessJwt(
+                        request.getHeader(JwtUtil.JWT_ACCESS_KEY)).getSubject(), UserTokenVo.class);
+
+        //获取key
+        String accessKey = JwtUtil.getRedisAccessKey(userTokenVo.getMail(), userTokenVo.getUuid());
+
+        String refreshKey = JwtUtil.getRedisRefreshKey(userTokenVo.getMail(), userTokenVo.getUuid());
+
+        //是否注销成功
+        if (!redisCache.deleteObject(accessKey) || !redisCache.deleteObject(refreshKey))
+            return ResultResponseUtils.error(false, LiteBlogExceptionStatus.LOGOUT_FAIL.value());
+
+        return ResultResponseUtils.success(true, LiteBlogExceptionStatus.LOGOUT_OK.value());
+    }
+
+    @Override
+    public ResultResponse<Boolean> changePassword(String mail, String oldPassword, String newPassword)
+            throws UserNotFoundException, PasswordErrorException {
+
+        User user = authMapper.getUser(mail).orElseGet(User::new);
+
+        //验证用户是否存在
+        if (Objects.isNull(user.getMail()))
+            throw new UserNotFoundException(LiteBlogExceptionStatus.USER_NOT_FOUND.value());
+
+        //验证密码是否正确
+        if (!PasswordEncoder.enCode(oldPassword).equals(user.getPassword()))
+            throw new PasswordErrorException(LiteBlogExceptionStatus.PASSWORD_ERROR.value());
+
+        //是否成功修改密码
+        if (!authMapper.updateUserPassword(mail, PasswordEncoder.enCode(newPassword)))
+            return ResultResponseUtils.error(false, LiteBlogExceptionStatus.PASSWORD_CHANGE_FAIL.value());
+
+        return ResultResponseUtils.success(true, LiteBlogExceptionStatus.PASSWORD_CHANGE_OK.value());
     }
 }

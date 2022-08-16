@@ -9,4 +9,6 @@ public interface AuthMapper {
     Optional<User> getUser(String mail);
 
     Boolean insertUser(User user);
+
+    Boolean updateUserPassword(String mail, String newPassword);
 }

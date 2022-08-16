@@ -4,6 +4,7 @@ import com.liteweb.convert.auth.UserConverter;
 import com.liteweb.dto.global.JwtTokenWrapper;
 import com.liteweb.dto.global.ResultResponse;
 import com.liteweb.exception.auth.AuthException;
+import com.liteweb.exception.auth.PasswordErrorException;
 import com.liteweb.exception.auth.UserDuplicateException;
 import com.liteweb.exception.auth.UserNotFoundException;
 import com.liteweb.service.auth.AuthService;
@@ -33,6 +34,15 @@ public class AuthController {
     @Autowired
     HttpServletRequest httpRequest;
 
+    @GetMapping("/login")
+    public ResultResponse<JwtTokenWrapper> login(
+            @RequestParam @Email @NotBlank String mail,
+            @RequestParam @NotBlank String password)
+            throws AuthException {
+
+        return service.login(mail, password);
+    }
+
     @PostMapping("/register")
     public ResultResponse<Boolean> register(
             @Validated(NormalGroups.Crud.Insert.class) @RequestBody UserVo userVo)
@@ -41,13 +51,22 @@ public class AuthController {
         return service.register(userConverter.voToNormalDto(userVo));
     }
 
-    @GetMapping("/login")
-    public ResultResponse<JwtTokenWrapper> login(
+    @PostMapping("/changePassword")
+    public ResultResponse<Boolean> changePassword(
             @RequestParam @Email @NotBlank String mail,
-            @RequestParam @NotBlank String password)
-            throws AuthException {
+            @RequestParam @NotBlank String oldPassword,
+            @RequestParam @NotBlank String newPassword)
+            throws UserNotFoundException, PasswordErrorException {
 
-        return service.login(mail, password);
+        //TODO 修改密码
+        return service.changePassword(mail, oldPassword, newPassword);
+    }
+
+    @PostMapping("/logout")
+    public ResultResponse<Boolean> logout() {
+
+        //TODO 注销登陆
+        return service.logout(httpRequest);
     }
 
     @GetMapping("/refreshToken")
