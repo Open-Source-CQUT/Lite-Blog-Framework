@@ -1,4 +1,4 @@
-package com.liteweb.controller;
+package com.liteweb.controller.error;
 
 import com.liteweb.dto.global.ResultResponse;
 import com.liteweb.utils.tool.ResultResponseUtils;
