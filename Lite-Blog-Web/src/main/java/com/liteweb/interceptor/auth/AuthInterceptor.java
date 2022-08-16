@@ -3,17 +3,17 @@ package com.liteweb.interceptor.auth;
 import com.liteweb.exception.auth.AuthException;
 import com.liteweb.utils.auth.Authenticator;
 import com.liteweb.utils.auth.JwtUtil;
+import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.rmi.RemoteException;
-import java.util.Objects;
 
 @Component
 public class AuthInterceptor implements HandlerInterceptor {
@@ -21,23 +21,25 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Autowired
     Authenticator authenticator;
 
-
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
 
         try {
+
             //获取请求头中的token
-            String token = request.getHeader(JwtUtil.JWT_KEY);
+            String accessToken = request.getHeader(JwtUtil.JWT_ACCESS_KEY);
 
-            //非空检验
-            if (Objects.isNull(token))
-                throw new AuthException(HttpStatus.FORBIDDEN.toString());
+            //断言
+            Assert.notNull(accessToken,"AccessToken为空");
 
-            //进行token校验
-            if (!authenticator.authenticate(token))
-                throw new AuthException(HttpStatus.FORBIDDEN.toString());
+            if (!authenticator.authenticateAccessToken(accessToken))
+                throw new AuthException();
 
-        }catch (Exception e){
+        } catch (ExpiredJwtException e) {
+            //token过期
+            response.sendError(HttpStatus.UNAUTHORIZED.value(),HttpStatus.UNAUTHORIZED.toString());
+            return false;
+        } catch (Exception e){
             response.sendError(HttpStatus.FORBIDDEN.value(),HttpStatus.FORBIDDEN.toString());
             return false;
         }
