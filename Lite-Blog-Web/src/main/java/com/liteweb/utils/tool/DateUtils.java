@@ -18,10 +18,11 @@ public class DateUtils {
 
     public static final Long DAY = HOURS * 24;
 
+    public static DateTimeFormatter DEFAULT_FORMATTER = DateTimeFormatter.ofPattern(String.format("%s %s",DEFAULT_DATE_PATTERN,DEFAULT_TIME_PATTERN_ROUGH));
+
     public static String formatNow(){
         LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(String.format("%s %s",DEFAULT_DATE_PATTERN,DEFAULT_TIME_PATTERN_ROUGH));
-        return now.format(formatter);
+        return now.format(DEFAULT_FORMATTER);
     }
 
     public static String formatNow(String pattern){
@@ -30,4 +31,21 @@ public class DateUtils {
         return now.format(formatter);
     }
 
+    public static Boolean isBefore(String dateA,String dateB){
+
+        LocalDateTime localDateTimeA = LocalDateTime.parse(dateA,DEFAULT_FORMATTER);
+
+        LocalDateTime localDateTimeB = LocalDateTime.parse(dateB,DEFAULT_FORMATTER);
+
+        return localDateTimeA.isBefore(localDateTimeB);
+    }
+
+    public static Boolean isBefore(String dateA,String dateB,DateTimeFormatter dft){
+
+        LocalDateTime localDateTimeA = LocalDateTime.parse(dateA,dft);
+
+        LocalDateTime localDateTimeB = LocalDateTime.parse(dateB,dft);
+
+        return localDateTimeA.isBefore(localDateTimeB);
+    }
 }
