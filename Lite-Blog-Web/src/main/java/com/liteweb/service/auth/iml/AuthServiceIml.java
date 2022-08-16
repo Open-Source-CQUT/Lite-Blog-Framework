@@ -84,7 +84,7 @@ public class AuthServiceIml implements AuthService {
 
         //sha1加密
         newUser.setPassword(PasswordEncoder.enCode(newUser.getPassword()));
-        
+
         //默认设置为普通用户
         newUser.setRoleId(0);
 
