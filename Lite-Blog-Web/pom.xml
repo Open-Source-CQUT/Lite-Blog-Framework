@@ -121,10 +121,11 @@
             <version>1.4.2.Final</version>
         </dependency>
 
+        <!--tencent cos service-->
         <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct-processor</artifactId>
-            <version>1.4.2.Final</version>
+            <groupId>com.qcloud</groupId>
+            <artifactId>cos_api</artifactId>
+            <version>5.6.75</version>
         </dependency>
 
 
