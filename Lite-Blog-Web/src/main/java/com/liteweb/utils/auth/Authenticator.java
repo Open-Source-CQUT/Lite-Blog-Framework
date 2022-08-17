@@ -1,11 +1,11 @@
 package com.liteweb.utils.auth;
 
 import com.alibaba.fastjson.JSON;
-import com.liteweb.dto.global.JwtToken;
-import com.liteweb.exception.auth.AuthException;
+import com.liteweb.modules.auth.dto.token.JwtToken;
+import com.liteweb.modules.auth.exception.AuthException;
+import com.liteweb.modules.auth.vo.user.UserTokenVo;
 import com.liteweb.utils.serializer.RedisCache;
 import com.liteweb.utils.tool.DateUtils;
-import com.liteweb.vo.Auth.UserTokenVo;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -86,7 +86,7 @@ public class Authenticator {
             return false;
 
         //access登陆时间只能大于等于refresh,绝对不可能小于refresh
-        if (DateUtils.isBefore(accessPayload.getLoginTime(),refreshPayload.getLoginTime()))
+        if (DateUtils.isBefore(accessPayload.getLoginTime(), refreshPayload.getLoginTime()))
             return false;
 
         //redis中获取不到则过期,refresh过期用户必须重新登陆

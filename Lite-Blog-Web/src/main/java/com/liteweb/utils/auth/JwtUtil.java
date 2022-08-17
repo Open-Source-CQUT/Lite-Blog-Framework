@@ -1,10 +1,9 @@
 package com.liteweb.utils.auth;
 
-import com.liteweb.dto.global.JwtToken;
+import com.liteweb.modules.auth.dto.token.JwtToken;
 import com.liteweb.utils.serializer.PasswordEncoder;
 import com.liteweb.utils.tool.DateUtils;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -136,12 +135,12 @@ public class JwtUtil {
         return parseJWT(jwt, JWT_REFRESH_KEY);
     }
 
-    public static String getRedisAccessKey(String mail,String uuid) {
-        return String.format("%s-%s-%s",uuid,JWT_ACCESS_KEY, mail);
+    public static String getRedisAccessKey(String mail, String uuid) {
+        return String.format("%s-%s-%s", uuid, JWT_ACCESS_KEY, mail);
     }
 
-    public static String getRedisRefreshKey(String mail,String uuid) {
-        return String.format("%s-%s-%s",uuid,JWT_REFRESH_KEY, mail);
+    public static String getRedisRefreshKey(String mail, String uuid) {
+        return String.format("%s-%s-%s", uuid, JWT_REFRESH_KEY, mail);
     }
 
     public static Long getTTL(JwtToken token) {

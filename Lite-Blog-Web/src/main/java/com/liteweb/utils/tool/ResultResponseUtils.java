@@ -1,6 +1,6 @@
 package com.liteweb.utils.tool;
 
-import com.liteweb.dto.global.ResultResponse;
+import com.liteweb.modules.common.dto.ResultResponse;
 import org.springframework.http.HttpStatus;
 
 public class ResultResponseUtils {

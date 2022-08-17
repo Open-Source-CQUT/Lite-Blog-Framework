@@ -1,7 +1,7 @@
 package com.liteweb.config;
 
-import com.liteweb.interceptor.auth.AuthInterceptor;
-import com.liteweb.interceptor.auth.RefreshInterceptor;
+import com.liteweb.modules.auth.interceptor.AuthInterceptor;
+import com.liteweb.modules.auth.interceptor.RefreshInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
