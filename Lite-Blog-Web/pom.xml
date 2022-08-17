@@ -16,6 +16,13 @@
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
+        <!--configuration-processor-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
         <!--rabbtimq-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
