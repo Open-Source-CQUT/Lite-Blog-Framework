@@ -1,9 +1,0 @@
-cos:
-  # secretId secretKey 这两个是腾讯云永久密钥,泄露了的话就很麻烦，只能在控制台禁用了重写开个新的
-  # 两个密钥平时推送代码的时候不要把这个也推了，除了部署上线的时候，开发时候都是自己用。
-  appId: appId
-  secretId: secretId
-  secretKey: secretKey
-  region: region
-  mainBucket: lite-blog-bucket-1308755698
-  logBucket: lite-blog-log-1308755698

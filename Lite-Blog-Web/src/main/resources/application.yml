@@ -39,3 +39,34 @@ logging:
   level:
     com.liteweb: debug
     web: debug
+
+cos:
+  # secretId secretKey 这两个是腾讯云永久密钥,泄露了的话就很麻烦，只能在控制台禁用了重写开个新的
+  # 两个密钥平时推送代码的时候不要把这个也推了，除了部署上线的时候，开发时候都是自己用。
+  appId: appId
+  #私钥id
+  secretId: secretId
+  #私钥
+  secretKey: secretKey
+  #地区归属
+  region: region
+  #连接超时时间
+  connection-Timeout: 30000
+  #Socket超时时间
+  socket-timeout: 30000
+  #线程池大小
+  threadSizes: 32
+  #分块上传阈值 20MB
+  MultipartUploadThreshold: 4044121000
+  #分块大小 2MB
+  MinimumUploadPartSize: 2121440
+  #URL
+  BaseUrl: https://bucket-name.cos.ap-chongqing.myqcloud.com/
+  #静态文件桶
+  static-bucket: static-1308755698
+  #公共桶
+  public-bucket: public-1308755698
+  #私有桶
+  private-bucket: private-1308755698
+  #日志桶
+  log-bucket: log-1308755698

@@ -2,34 +2,43 @@ package com.liteweb.config;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 
 @Data
+@Slf4j
 @Configuration
-@PropertySource(ignoreResourceNotFound = true, encoding = "UTF-8", value = "classpath:cos.yml")
 @ConfigurationProperties("cos")
 @NoArgsConstructor
 public class CosConfig {
 
-    @Value("appId")
     private String appId;
 
-    @Value("secretId")
     private String secretId;
 
-    @Value("secretKey")
     private String secretKey;
 
-    @Value("region")
     private String region;
 
-    @Value("mainBucket")
-    private String mainBucket;
+    private String staticBucket;
 
-    @Value("logBucket")
+    private String publicBucket;
+
+    private String privateBucket;
+
     private String logBucket;
+
+    private Integer connectionTimeout;
+
+    private Integer socketTimeout;
+
+    private Integer threadSizes;
+
+    private Long multipartUploadThreshold;
+
+    private Long minimumUploadPartSize;
+
+    private String BaseUrl;
 
 }
