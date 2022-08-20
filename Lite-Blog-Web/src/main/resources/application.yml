@@ -47,9 +47,9 @@ cos:
   # 两个密钥平时推送代码的时候不要把这个也推了，除了部署上线的时候，开发时候都是自己用。
   appId: 1308755698
   #私钥id
-  secretId: AKIDLZbQ1NWQ5VgdMq55qMdgV5QWP4UgdMr8
+  secretId: secretId
   #私钥
-  secretKey: A5mFUWMzPbYGivue8OQCj394kALHyQed
+  secretKey: secretKey
   #地区归属
   region: ap-chongqing
   #连接超时时间
