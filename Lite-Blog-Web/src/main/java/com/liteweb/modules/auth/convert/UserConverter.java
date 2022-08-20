@@ -3,8 +3,8 @@ package com.liteweb.modules.auth.convert;
 import com.liteweb.modules.auth.convert.rules.GenderRule;
 import com.liteweb.modules.auth.dto.user.UserNormalDto;
 import com.liteweb.modules.auth.entity.User;
-import com.liteweb.modules.auth.vo.user.UserTokenVo;
-import com.liteweb.modules.auth.vo.user.UserVo;
+import com.liteweb.modules.auth.vo.UserTokenVo;
+import com.liteweb.modules.auth.vo.UserVo;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -66,7 +66,7 @@ public interface UserConverter {
     @Mappings({
             @Mapping(source = "gender", target = "gender"),
             @Mapping(target = "loginTime", expression = "java(com.liteweb.utils.tool.DateUtils.formatNow())"),
-            @Mapping(target = "uuid", expression = "java(com.liteweb.utils.auth.JwtUtil.getUUID())")
+            @Mapping(target = "uuid", expression = "java(com.liteweb.modules.auth.utils.JwtUtil.getUUID())")
     })
     UserTokenVo entityToTokenVo(User user);
 
