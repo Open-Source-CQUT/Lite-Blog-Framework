@@ -13,7 +13,7 @@ public class GlobalExceptionHandler {
 
     @ResponseBody
     @ExceptionHandler(Exception.class)
-    public ResultResponse<String> AuthExceptionProcessor(Exception e) {
+    public ResultResponse<String> BaseExceptionProcessor(Exception e) {
         if (e instanceof BaseException) {
             BaseException baseException = (BaseException) e;
             return ResultResponseUtils.error(baseException.getStatus(), baseException.getMessage());
