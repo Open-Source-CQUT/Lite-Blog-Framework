@@ -1,6 +1,7 @@
 package com.liteweb.modules.auth.service.iml;
 
 import com.alibaba.fastjson2.JSON;
+import com.liteweb.i18n.LocalMessages;
 import com.liteweb.modules.auth.convert.UserConverter;
 import com.liteweb.modules.auth.dao.AuthMapper;
 import com.liteweb.modules.auth.dto.token.JwtToken;
@@ -12,16 +13,16 @@ import com.liteweb.modules.auth.exception.PasswordErrorException;
 import com.liteweb.modules.auth.exception.UserDuplicateException;
 import com.liteweb.modules.auth.exception.UserNotFoundException;
 import com.liteweb.modules.auth.service.AuthService;
-import com.liteweb.modules.auth.vo.user.UserTokenVo;
+import com.liteweb.modules.auth.utils.Authenticator;
+import com.liteweb.modules.auth.utils.JwtUtil;
+import com.liteweb.modules.auth.vo.UserTokenVo;
 import com.liteweb.modules.common.dto.ResultResponse;
-import com.liteweb.modules.common.exception.lang.LiteBlogExceptionStatus;
-import com.liteweb.utils.auth.Authenticator;
-import com.liteweb.utils.auth.JwtUtil;
+import com.liteweb.modules.common.utils.ResultResponseUtils;
 import com.liteweb.utils.serializer.PasswordEncoder;
 import com.liteweb.utils.serializer.RedisCache;
-import com.liteweb.utils.tool.ResultResponseUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -50,11 +51,11 @@ public class AuthServiceIml implements AuthService {
 
         //用户不存在
         if (Objects.isNull(user.getMail()))
-            throw new UserNotFoundException(LiteBlogExceptionStatus.USER_NOT_FOUND.value());
+            throw new UserNotFoundException(LocalMessages.get("error.user.auth.userNotFound"));
 
         //密码是否相同
         if (!user.getPassword().equals(PasswordEncoder.enCode(password)))
-            throw new PasswordErrorException(LiteBlogExceptionStatus.PASSWORD_ERROR.value());
+            throw new PasswordErrorException(LocalMessages.get("error.user.auth.password"));
 
         //将对象转换成dto
         UserTokenVo userVo = userConverter.entityToTokenVo(user);
@@ -67,7 +68,7 @@ public class AuthServiceIml implements AuthService {
 
         return ResultResponseUtils.success(
                 new JwtTokenWrapper(accessToken, refreshToken),
-                LiteBlogExceptionStatus.LOGIN_OK.value());
+                LocalMessages.get("success.user.auth.login"));
     }
 
     @Override
@@ -80,7 +81,7 @@ public class AuthServiceIml implements AuthService {
         if (!Objects.isNull(authMapper.getUser(newUser.getMail())
                 .orElseGet(User::new)
                 .getMail()))
-            throw new UserDuplicateException(LiteBlogExceptionStatus.USER_ALREADY_EXIST.value());
+            throw new UserDuplicateException(LocalMessages.get("error.user.auth.userExisted"));
 
         //sha1加密
         newUser.setPassword(PasswordEncoder.enCode(newUser.getPassword()));
@@ -90,10 +91,10 @@ public class AuthServiceIml implements AuthService {
 
         if (!authMapper.insertUser(newUser))
             return ResultResponseUtils.error(
-                    LiteBlogExceptionStatus.REGISTER_OK.code(),
-                    LiteBlogExceptionStatus.REGISTER_FAIL.value());
+                    HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                    LocalMessages.get("error.user.auth.register"));
 
-        return ResultResponseUtils.success(true, LiteBlogExceptionStatus.REGISTER_OK.value());
+        return ResultResponseUtils.success(true, LocalMessages.get("success.user.auth.register"));
     }
 
     @Override
@@ -108,7 +109,7 @@ public class AuthServiceIml implements AuthService {
 
         return ResultResponseUtils.success(
                 new JwtTokenWrapper(accessToken, null),
-                LiteBlogExceptionStatus.ACCESS_REFRESH_OK.value()
+                LocalMessages.get("success.jwt.access.refresh")
         );
     }
 
@@ -128,29 +129,29 @@ public class AuthServiceIml implements AuthService {
 
         //是否注销成功
         if (!redisCache.deleteObject(accessKey) || !redisCache.deleteObject(refreshKey))
-            return ResultResponseUtils.error(false, LiteBlogExceptionStatus.LOGOUT_FAIL.value());
+            return ResultResponseUtils.error(false, LocalMessages.get("error.user.auth.logout"));
 
-        return ResultResponseUtils.success(true, LiteBlogExceptionStatus.LOGOUT_OK.value());
+        return ResultResponseUtils.success(true, LocalMessages.get("success.user.auth.logout"));
     }
 
     @Override
     public ResultResponse<Boolean> changePassword(String mail, String oldPassword, String newPassword)
-            throws UserNotFoundException, PasswordErrorException {
+            throws AuthException {
 
         User user = authMapper.getUser(mail).orElseGet(User::new);
 
         //验证用户是否存在
         if (Objects.isNull(user.getMail()))
-            throw new UserNotFoundException(LiteBlogExceptionStatus.USER_NOT_FOUND.value());
+            throw new UserNotFoundException(LocalMessages.get("error.user.auth.userNotFound"));
 
         //验证密码是否正确
         if (!PasswordEncoder.enCode(oldPassword).equals(user.getPassword()))
-            throw new PasswordErrorException(LiteBlogExceptionStatus.PASSWORD_ERROR.value());
+            throw new PasswordErrorException(LocalMessages.get("error.user.auth.password"));
 
         //是否成功修改密码
         if (!authMapper.updateUserPassword(mail, PasswordEncoder.enCode(newPassword)))
-            return ResultResponseUtils.error(false, LiteBlogExceptionStatus.PASSWORD_CHANGE_FAIL.value());
+            throw new AuthException(HttpStatus.INTERNAL_SERVER_ERROR.value(), LocalMessages.get("error.user.auth.passwordChange"));
 
-        return ResultResponseUtils.success(true, LiteBlogExceptionStatus.PASSWORD_CHANGE_OK.value());
+        return ResultResponseUtils.success(true, LocalMessages.get("success.user.auth.passwordChange"));
     }
 }

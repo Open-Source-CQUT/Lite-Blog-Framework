@@ -1,7 +1,7 @@
 package com.liteweb.modules.common.exception.handler;
 
 import com.liteweb.modules.common.dto.ResultResponse;
-import com.liteweb.utils.tool.ResultResponseUtils;
+import com.liteweb.modules.common.utils.ResultResponseUtils;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;

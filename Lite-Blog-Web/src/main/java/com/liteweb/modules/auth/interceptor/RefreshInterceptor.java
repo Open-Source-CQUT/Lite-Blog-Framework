@@ -1,9 +1,10 @@
 package com.liteweb.modules.auth.interceptor;
 
+import com.liteweb.i18n.LocalMessages;
 import com.liteweb.modules.auth.exception.AuthException;
-import com.liteweb.modules.common.exception.lang.LiteBlogExceptionStatus;
-import com.liteweb.utils.auth.Authenticator;
-import com.liteweb.utils.auth.JwtUtil;
+import com.liteweb.modules.auth.utils.Authenticator;
+import com.liteweb.modules.auth.utils.JwtUtil;
+import com.liteweb.modules.common.exception.BaseException;
 import io.jsonwebtoken.lang.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,16 +32,19 @@ public class RefreshInterceptor implements HandlerInterceptor {
             String accessToken = request.getHeader(JwtUtil.JWT_ACCESS_KEY);
 
             //断言
-            Assert.notNull(refreshToken, LiteBlogExceptionStatus.REFRESH_NULL.value());
-            Assert.notNull(accessToken, LiteBlogExceptionStatus.ACCESS_EXPIRED.value());
+            Assert.notNull(refreshToken, LocalMessages.get("error.jwt.access.notNull"));
+            Assert.notNull(accessToken, LocalMessages.get("error.jwt.refresh.notNull"));
 
             //校验
             if (!authenticator.authenticateRefreshToken(refreshToken, accessToken))
-                throw new AuthException();
+                throw new AuthException(HttpStatus.FORBIDDEN.value(), LocalMessages.get("error.jwt.refresh.invalid"));
 
             //因为获取的是refresh-token，此时再做时效判断没有意义，解析失败一律403，需要重新登陆获取refresh-token
+        } catch (BaseException e) {
+            response.sendError(e.getStatus(), e.getMessage());
+            return false;
         } catch (Exception e) {
-            response.sendError(HttpStatus.FORBIDDEN.value(), HttpStatus.FORBIDDEN.toString());
+            response.sendError(HttpStatus.FORBIDDEN.value(), e.getMessage());
             return false;
         }
 

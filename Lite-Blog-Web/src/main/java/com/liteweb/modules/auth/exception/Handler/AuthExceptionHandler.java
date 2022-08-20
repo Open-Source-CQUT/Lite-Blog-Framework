@@ -5,7 +5,7 @@ import com.liteweb.modules.auth.exception.PasswordErrorException;
 import com.liteweb.modules.auth.exception.UserDuplicateException;
 import com.liteweb.modules.auth.exception.UserNotFoundException;
 import com.liteweb.modules.common.dto.ResultResponse;
-import com.liteweb.utils.tool.ResultResponseUtils;
+import com.liteweb.modules.common.utils.ResultResponseUtils;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

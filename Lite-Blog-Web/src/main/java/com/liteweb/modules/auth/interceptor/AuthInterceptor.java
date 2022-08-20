@@ -1,11 +1,12 @@
 package com.liteweb.modules.auth.interceptor;
 
+import com.liteweb.i18n.LocalMessages;
 import com.liteweb.modules.auth.exception.AuthException;
-import com.liteweb.modules.common.exception.lang.LiteBlogExceptionStatus;
-import com.liteweb.utils.auth.Authenticator;
-import com.liteweb.utils.auth.JwtUtil;
+import com.liteweb.modules.auth.utils.Authenticator;
+import com.liteweb.modules.auth.utils.JwtUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -30,17 +31,17 @@ public class AuthInterceptor implements HandlerInterceptor {
             String accessToken = request.getHeader(JwtUtil.JWT_ACCESS_KEY);
 
             //断言
-            Assert.notNull(accessToken, LiteBlogExceptionStatus.ACCESS_NULL.value());
+            Assert.notNull(accessToken, LocalMessages.get("error.jwt.access.notNull"));
 
             if (!authenticator.authenticateAccessToken(accessToken))
-                throw new AuthException();
+                throw new AuthException(HttpStatus.FORBIDDEN.value(), LocalMessages.get("error.jwt.access.invalid"));
 
         } catch (ExpiredJwtException e) {
             //token过期
-            response.sendError(LiteBlogExceptionStatus.ACCESS_EXPIRED.code(), LiteBlogExceptionStatus.ACCESS_EXPIRED.value());
+            response.sendError(HttpStatus.UNAUTHORIZED.value(), LocalMessages.get("error.jwt.access.expired"));
             return false;
         } catch (Exception e) {
-            response.sendError(LiteBlogExceptionStatus.ACCESS_ILLEGAL.code(), LiteBlogExceptionStatus.ACCESS_ILLEGAL.value());
+            response.sendError(HttpStatus.FORBIDDEN.value(), LocalMessages.get("error.jwt.access.invalid"));
             return false;
         }
 

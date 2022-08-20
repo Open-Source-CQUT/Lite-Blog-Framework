@@ -1,5 +1,6 @@
-package com.liteweb.utils.auth;
+package com.liteweb.modules.auth.utils;
 
+import com.alibaba.fastjson.JSON;
 import com.liteweb.modules.auth.dto.token.JwtToken;
 import com.liteweb.utils.serializer.PasswordEncoder;
 import com.liteweb.utils.tool.DateUtils;
@@ -135,12 +136,20 @@ public class JwtUtil {
         return parseJWT(jwt, JWT_REFRESH_KEY);
     }
 
+
     public static String getRedisAccessKey(String mail, String uuid) {
         return String.format("%s-%s-%s", uuid, JWT_ACCESS_KEY, mail);
     }
 
     public static String getRedisRefreshKey(String mail, String uuid) {
         return String.format("%s-%s-%s", uuid, JWT_REFRESH_KEY, mail);
+    }
+
+    public static <T> T parseObject(String jwt, Class<T> clazz, String key) {
+
+        return JWT_ACCESS_KEY.equals(key) ?
+                JSON.parseObject(parseAccessJwt(jwt).getSubject(), clazz) :
+                JSON.parseObject(parseRefreshJwt(jwt).getSubject(), clazz);
     }
 
     public static Long getTTL(JwtToken token) {

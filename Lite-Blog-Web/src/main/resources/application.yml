@@ -8,7 +8,9 @@ spring:
     multipart:
       max-file-size: 100MB
       max-request-size: 100MB
-
+  messages:
+    encoding: UTF-8
+    basename: i18n.messages
   redis:
     port: 6379
     host: localhost
@@ -43,13 +45,13 @@ logging:
 cos:
   # secretId secretKey 这两个是腾讯云永久密钥,泄露了的话就很麻烦，只能在控制台禁用了重写开个新的
   # 两个密钥平时推送代码的时候不要把这个也推了，除了部署上线的时候，开发时候都是自己用。
-  appId: appId
+  appId: 1308755698
   #私钥id
-  secretId: secretId
+  secretId: AKIDLZbQ1NWQ5VgdMq55qMdgV5QWP4UgdMr8
   #私钥
-  secretKey: secretKey
+  secretKey: A5mFUWMzPbYGivue8OQCj394kALHyQed
   #地区归属
-  region: region
+  region: ap-chongqing
   #连接超时时间
   connection-Timeout: 30000
   #Socket超时时间

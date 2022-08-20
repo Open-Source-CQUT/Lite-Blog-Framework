@@ -3,11 +3,16 @@ package com.liteweb.config;
 import com.liteweb.modules.auth.interceptor.AuthInterceptor;
 import com.liteweb.modules.auth.interceptor.RefreshInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import java.util.Arrays;
+import java.util.Locale;
 
 
 @Configuration
@@ -39,5 +44,17 @@ public class WebConfig implements WebMvcConfigurer {
                 //拦截url
                 .addPathPatterns("/auth/refreshToken");
 
+        //设置多语言拦截配置
+        LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
+        localeChangeInterceptor.setParamName("lang");
+        registry.addInterceptor(localeChangeInterceptor);
+
+    }
+
+    @Bean
+    public LocaleResolver localeResolver() {//自定义解析本地语言解析器
+        SessionLocaleResolver localeResolver = new SessionLocaleResolver();
+        localeResolver.setDefaultLocale(Locale.CHINA);
+        return localeResolver;
     }
 }

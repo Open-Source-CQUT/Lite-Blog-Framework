@@ -3,7 +3,6 @@ package com.liteweb.modules.auth.service;
 import com.liteweb.modules.auth.dto.token.JwtTokenWrapper;
 import com.liteweb.modules.auth.dto.user.UserNormalDto;
 import com.liteweb.modules.auth.exception.AuthException;
-import com.liteweb.modules.auth.exception.PasswordErrorException;
 import com.liteweb.modules.auth.exception.UserDuplicateException;
 import com.liteweb.modules.auth.exception.UserNotFoundException;
 import com.liteweb.modules.common.dto.ResultResponse;
@@ -21,6 +20,6 @@ public interface AuthService {
 
     ResultResponse<Boolean> logout(HttpServletRequest request);
 
-    ResultResponse<Boolean> changePassword(String mail, String oldPassword, String newPassword) throws UserNotFoundException, PasswordErrorException;
+    ResultResponse<Boolean> changePassword(String mail, String oldPassword, String newPassword) throws AuthException;
 
 }

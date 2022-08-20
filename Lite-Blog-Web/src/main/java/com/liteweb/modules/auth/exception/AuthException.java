@@ -1,12 +1,10 @@
 package com.liteweb.modules.auth.exception;
 
-public class AuthException extends Exception {
+import com.liteweb.modules.common.exception.BaseException;
 
-    public AuthException() {
-        super();
-    }
+public class AuthException extends BaseException {
 
-    public AuthException(String msg) {
-        super(msg);
+    public AuthException(Integer code, String msg) {
+        super(code, msg);
     }
 }

@@ -1,12 +1,10 @@
 package com.liteweb.modules.auth.exception;
 
-public class UserDuplicateException extends Exception {
+import org.springframework.http.HttpStatus;
 
-    public UserDuplicateException() {
-        super();
-    }
+public class UserDuplicateException extends AuthException {
 
     public UserDuplicateException(String message) {
-        super(message);
+        super(HttpStatus.BAD_REQUEST.value(), message);
     }
 }

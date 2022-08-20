@@ -3,11 +3,10 @@ package com.liteweb.modules.auth.controller;
 import com.liteweb.modules.auth.convert.UserConverter;
 import com.liteweb.modules.auth.dto.token.JwtTokenWrapper;
 import com.liteweb.modules.auth.exception.AuthException;
-import com.liteweb.modules.auth.exception.PasswordErrorException;
 import com.liteweb.modules.auth.exception.UserDuplicateException;
 import com.liteweb.modules.auth.exception.UserNotFoundException;
 import com.liteweb.modules.auth.service.AuthService;
-import com.liteweb.modules.auth.vo.user.UserVo;
+import com.liteweb.modules.auth.vo.UserVo;
 import com.liteweb.modules.common.dto.ResultResponse;
 import com.liteweb.modules.common.validation.groups.NormalGroups;
 import lombok.extern.slf4j.Slf4j;
@@ -56,7 +55,7 @@ public class AuthController {
             @RequestParam @Email @NotBlank String mail,
             @RequestParam @NotBlank String oldPassword,
             @RequestParam @NotBlank String newPassword)
-            throws UserNotFoundException, PasswordErrorException {
+            throws AuthException {
 
         //TODO 修改密码
         return service.changePassword(mail, oldPassword, newPassword);

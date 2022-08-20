@@ -1,9 +1,9 @@
-package com.liteweb.utils.auth;
+package com.liteweb.modules.auth.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.liteweb.modules.auth.dto.token.JwtToken;
 import com.liteweb.modules.auth.exception.AuthException;
-import com.liteweb.modules.auth.vo.user.UserTokenVo;
+import com.liteweb.modules.auth.vo.UserTokenVo;
 import com.liteweb.utils.serializer.RedisCache;
 import com.liteweb.utils.tool.DateUtils;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -38,10 +38,7 @@ public class Authenticator {
         //redis中获取不到则过期
         if (Objects.isNull(
                 redisCache.getCacheObject(
-                        JwtUtil.getRedisAccessKey(
-                                userVo.getMail(),
-                                userVo.getUuid())
-                )))
+                        JwtUtil.getRedisAccessKey(userVo.getMail(), userVo.getUuid()))))
             throw new ExpiredJwtException(null, null, null);
 
         return true;
@@ -90,14 +87,9 @@ public class Authenticator {
             return false;
 
         //redis中获取不到则过期,refresh过期用户必须重新登陆
-        if (Objects.isNull(
+        return !Objects.isNull(
                 redisCache.getCacheObject(
-                        JwtUtil.getRedisRefreshKey(
-                                refreshPayload.getMail(), refreshPayload.getUuid()
-                        ))))
-            throw new AuthException();
-
-        return true;
+                        JwtUtil.getRedisRefreshKey(refreshPayload.getMail(), refreshPayload.getUuid())));
     }
 
     public JwtToken processAndGetAccessToken(UserTokenVo userVo) {
