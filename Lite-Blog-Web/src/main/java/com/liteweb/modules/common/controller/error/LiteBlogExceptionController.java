@@ -1,7 +1,7 @@
 package com.liteweb.modules.common.controller.error;
 
 import com.liteweb.modules.common.dto.ResultResponse;
-import com.liteweb.utils.tool.ResultResponseUtils;
+import com.liteweb.modules.common.utils.ResultResponseUtils;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
