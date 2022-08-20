@@ -1,4 +1,4 @@
-package com.liteweb.modules.auth.vo.user;
+package com.liteweb.modules.auth.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

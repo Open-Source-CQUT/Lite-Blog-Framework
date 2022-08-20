@@ -1,4 +1,4 @@
-package com.liteweb.utils.tool;
+package com.liteweb.modules.common.utils;
 
 import com.liteweb.modules.common.dto.ResultResponse;
 import org.springframework.http.HttpStatus;

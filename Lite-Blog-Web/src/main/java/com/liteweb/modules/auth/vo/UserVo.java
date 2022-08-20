@@ -1,4 +1,4 @@
-package com.liteweb.modules.auth.vo.user;
+package com.liteweb.modules.auth.vo;
 
 import com.liteweb.modules.common.validation.groups.NormalGroups;
 import lombok.AllArgsConstructor;
