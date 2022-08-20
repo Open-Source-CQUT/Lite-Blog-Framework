@@ -13,8 +13,8 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class UserVo {
 
-    @NotBlank(message = "用户邮箱不能为空", groups = {NormalGroups.Crud.Insert.class, NormalGroups.Crud.Query.class})
-    @Email(message = "错误的邮箱格式", groups = {NormalGroups.Crud.Insert.class, NormalGroups.Crud.Query.class})
+    @NotBlank(message = "用户邮箱不能为空", groups = {NormalGroups.Crud.Insert.class, NormalGroups.Crud.Query.class, NormalGroups.Crud.Update.class})
+    @Email(message = "错误的邮箱格式", groups = {NormalGroups.Crud.Insert.class, NormalGroups.Crud.Query.class, NormalGroups.Crud.Update.class})
     private String mail;
 
     @NotBlank(message = "用户密码不能为空", groups = {NormalGroups.Crud.Insert.class, NormalGroups.Crud.Query.class})

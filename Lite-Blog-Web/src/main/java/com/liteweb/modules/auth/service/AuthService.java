@@ -3,22 +3,22 @@ package com.liteweb.modules.auth.service;
 import com.liteweb.modules.auth.dto.token.JwtTokenWrapper;
 import com.liteweb.modules.auth.dto.user.UserNormalDto;
 import com.liteweb.modules.auth.exception.AuthException;
-import com.liteweb.modules.auth.exception.UserDuplicateException;
 import com.liteweb.modules.auth.exception.UserNotFoundException;
+import com.liteweb.modules.auth.vo.UserVo;
 import com.liteweb.modules.common.dto.ResultResponse;
-
-import javax.servlet.http.HttpServletRequest;
 
 public interface AuthService {
 
 
     ResultResponse<JwtTokenWrapper> login(String mail, String password) throws AuthException;
 
-    ResultResponse<Boolean> register(UserNormalDto userNormalDto) throws UserDuplicateException;
+    ResultResponse<Boolean> register(UserNormalDto userNormalDto) throws AuthException;
 
-    ResultResponse<JwtTokenWrapper> refreshToken(HttpServletRequest request) throws UserNotFoundException;
+    ResultResponse<JwtTokenWrapper> refreshToken() throws UserNotFoundException;
 
-    ResultResponse<Boolean> logout(HttpServletRequest request);
+    ResultResponse<Boolean> logout();
+
+    ResultResponse<Boolean> updateUserInfo(UserVo userVo) throws AuthException;
 
     ResultResponse<Boolean> changePassword(String mail, String oldPassword, String newPassword) throws AuthException;
 

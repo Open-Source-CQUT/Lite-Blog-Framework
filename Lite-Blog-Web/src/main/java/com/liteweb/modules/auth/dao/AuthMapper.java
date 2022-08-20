@@ -11,4 +11,6 @@ public interface AuthMapper {
     Boolean insertUser(User user);
 
     Boolean updateUserPassword(String mail, String newPassword);
+
+    Boolean updateUserInfo(User user);
 }

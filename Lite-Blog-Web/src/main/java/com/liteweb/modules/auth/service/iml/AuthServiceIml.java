@@ -1,6 +1,5 @@
 package com.liteweb.modules.auth.service.iml;
 
-import com.alibaba.fastjson2.JSON;
 import com.liteweb.i18n.LocalMessages;
 import com.liteweb.modules.auth.convert.UserConverter;
 import com.liteweb.modules.auth.dao.AuthMapper;
@@ -16,7 +15,9 @@ import com.liteweb.modules.auth.service.AuthService;
 import com.liteweb.modules.auth.utils.Authenticator;
 import com.liteweb.modules.auth.utils.JwtUtil;
 import com.liteweb.modules.auth.vo.UserTokenVo;
+import com.liteweb.modules.auth.vo.UserVo;
 import com.liteweb.modules.common.dto.ResultResponse;
+import com.liteweb.modules.common.utils.LiteBlogContextUtils;
 import com.liteweb.modules.common.utils.ResultResponseUtils;
 import com.liteweb.utils.serializer.PasswordEncoder;
 import com.liteweb.utils.serializer.RedisCache;
@@ -25,7 +26,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 
 @Slf4j
@@ -43,6 +43,9 @@ public class AuthServiceIml implements AuthService {
 
     @Autowired
     Authenticator authenticator;
+
+    @Autowired
+    LiteBlogContextUtils contextUtils;
 
     @Override
     public ResultResponse<JwtTokenWrapper> login(String mail, String password) throws AuthException {
@@ -72,7 +75,7 @@ public class AuthServiceIml implements AuthService {
     }
 
     @Override
-    public ResultResponse<Boolean> register(UserNormalDto userNormalDto) throws UserDuplicateException {
+    public ResultResponse<Boolean> register(UserNormalDto userNormalDto) throws AuthException {
 
         //转换成实体类
         User newUser = userConverter.dtoToEntity(userNormalDto);
@@ -90,20 +93,15 @@ public class AuthServiceIml implements AuthService {
         newUser.setRoleId(0);
 
         if (!authMapper.insertUser(newUser))
-            return ResultResponseUtils.error(
-                    HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                    LocalMessages.get("error.user.auth.register"));
+            throw new AuthException(HttpStatus.INTERNAL_SERVER_ERROR.value(), LocalMessages.get("error.user.auth.register"));
 
         return ResultResponseUtils.success(true, LocalMessages.get("success.user.auth.register"));
     }
 
     @Override
-    public ResultResponse<JwtTokenWrapper> refreshToken(HttpServletRequest request) {
+    public ResultResponse<JwtTokenWrapper> refreshToken() {
 
-        UserTokenVo refreshPayload = JSON.parseObject(
-                JwtUtil.parseRefreshJwt(
-                        request.getHeader(
-                                JwtUtil.JWT_REFRESH_KEY)).getSubject(), UserTokenVo.class);
+        UserTokenVo refreshPayload = contextUtils.getUserContextInfo();
 
         JwtToken accessToken = authenticator.processAndGetAccessToken(refreshPayload);
 
@@ -114,13 +112,11 @@ public class AuthServiceIml implements AuthService {
     }
 
     @Override
-    public ResultResponse<Boolean> logout(HttpServletRequest request) {
+    public ResultResponse<Boolean> logout() {
 
         //能走到这里说明已经通过了拦截器的校验，所以这里的代码不用做安全性检查，如果有发生异常直接抛出交给全局异常处理即可
         //从请求头中读取数据
-        UserTokenVo userTokenVo = JSON.parseObject(
-                JwtUtil.parseAccessJwt(
-                        request.getHeader(JwtUtil.JWT_ACCESS_KEY)).getSubject(), UserTokenVo.class);
+        UserTokenVo userTokenVo = contextUtils.getUserContextInfo();
 
         //获取key
         String accessKey = JwtUtil.getRedisAccessKey(userTokenVo.getMail(), userTokenVo.getUuid());
@@ -132,6 +128,20 @@ public class AuthServiceIml implements AuthService {
             return ResultResponseUtils.error(false, LocalMessages.get("error.user.auth.logout"));
 
         return ResultResponseUtils.success(true, LocalMessages.get("success.user.auth.logout"));
+    }
+
+    @Override
+    public ResultResponse<Boolean> updateUserInfo(UserVo userVo) throws AuthException {
+
+        User user = userConverter.voToEntity(userVo);
+
+        if (Objects.isNull(authMapper.getUser(user.getMail()).orElseGet(User::new).getMail()))
+            throw new UserNotFoundException(LocalMessages.get("error.user.auth.userNotFound"));
+
+        if (!authMapper.updateUserInfo(user))
+            throw new AuthException(HttpStatus.INTERNAL_SERVER_ERROR.value(), LocalMessages.get("error.user.auth.update"));
+
+        return ResultResponseUtils.success(true, LocalMessages.get("success.user.auth.update"));
     }
 
     @Override

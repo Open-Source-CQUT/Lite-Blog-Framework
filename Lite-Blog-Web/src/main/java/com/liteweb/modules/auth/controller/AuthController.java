@@ -3,7 +3,6 @@ package com.liteweb.modules.auth.controller;
 import com.liteweb.modules.auth.convert.UserConverter;
 import com.liteweb.modules.auth.dto.token.JwtTokenWrapper;
 import com.liteweb.modules.auth.exception.AuthException;
-import com.liteweb.modules.auth.exception.UserDuplicateException;
 import com.liteweb.modules.auth.exception.UserNotFoundException;
 import com.liteweb.modules.auth.service.AuthService;
 import com.liteweb.modules.auth.vo.UserVo;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
@@ -30,9 +28,6 @@ public class AuthController {
     @Autowired
     UserConverter userConverter;
 
-    @Autowired
-    HttpServletRequest httpRequest;
-
     @GetMapping("/login")
     public ResultResponse<JwtTokenWrapper> login(
             @RequestParam @Email @NotBlank String mail,
@@ -45,9 +40,14 @@ public class AuthController {
     @PostMapping("/register")
     public ResultResponse<Boolean> register(
             @Validated(NormalGroups.Crud.Insert.class) @RequestBody UserVo userVo)
-            throws UserDuplicateException {
+            throws AuthException {
 
         return service.register(userConverter.voToNormalDto(userVo));
+    }
+
+    @PostMapping("/updateInfo")
+    public ResultResponse<Boolean> updateInfo(@RequestBody UserVo userVo) throws AuthException {
+        return service.updateUserInfo(userVo);
     }
 
     @PostMapping("/changePassword")
@@ -65,13 +65,13 @@ public class AuthController {
     public ResultResponse<Boolean> logout() {
 
         //TODO 注销登陆
-        return service.logout(httpRequest);
+        return service.logout();
     }
 
     @GetMapping("/refreshToken")
     public ResultResponse<JwtTokenWrapper> refreshToken()
             throws UserNotFoundException {
-        return service.refreshToken(httpRequest);
+        return service.refreshToken();
     }
 
 }

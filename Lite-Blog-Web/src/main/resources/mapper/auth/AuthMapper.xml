@@ -21,8 +21,25 @@
     </insert>
 
     <update id="updateUserPassword" parameterType="java.lang.String">
-        UPDATE user
+        UPDATE `user`
         SET password = #{newPassword}
+        WHERE mail = #{mail};
+    </update>
+    <update id="updateUserInfo" parameterType="com.liteweb.modules.auth.entity.User">
+        UPDATE user
+        SET
+        <if test="avatar != null">avatar = #{avatar},</if>
+
+        <if test="nickName != null">nick_name = #{nickName},</if>
+
+        <if test="gender != null">gender = #{gender},</if>
+
+        <if test="description != null">description = #{description},</if>
+
+        <if test="birth != null">birth = #{birth},</if>
+
+        updated_time = #{updatedTime}
+
         WHERE mail = #{mail};
     </update>
 
