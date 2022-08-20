@@ -29,6 +29,6 @@ public class User {
 
     private String updatedTime;
 
-    private Integer deleted;
+    private Boolean deleted;
 
 }
