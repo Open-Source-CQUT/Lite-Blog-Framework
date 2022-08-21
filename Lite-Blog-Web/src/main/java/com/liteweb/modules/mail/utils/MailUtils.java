@@ -1,5 +1,7 @@
 package com.liteweb.modules.mail.utils;
 
+import com.liteweb.modules.auth.utils.JwtUtil;
+
 public class MailUtils {
 
     public static final String KEY = "Auth-Mail-";
@@ -10,5 +12,9 @@ public class MailUtils {
 
     public static String getMailRedisKey(String mail) {
         return KEY + mail;
+    }
+
+    public static String generateAuthCode() {
+        return JwtUtil.getUUID().substring(0, 6);
     }
 }

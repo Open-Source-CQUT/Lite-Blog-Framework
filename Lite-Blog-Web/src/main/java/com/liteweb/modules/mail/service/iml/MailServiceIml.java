@@ -2,7 +2,6 @@ package com.liteweb.modules.mail.service.iml;
 
 import com.liteweb.config.MailConfig;
 import com.liteweb.i18n.LocalMessages;
-import com.liteweb.modules.auth.utils.JwtUtil;
 import com.liteweb.modules.common.dto.ResultResponse;
 import com.liteweb.modules.common.utils.ResultResponseUtils;
 import com.liteweb.modules.mail.Vo.AuthMailVo;
@@ -83,7 +82,7 @@ public class MailServiceIml implements MailService {
     public ResultResponse<Boolean> sendAuthMail(String to) throws MessagingException, MailException {
 
         //生成验证码
-        String authCode = JwtUtil.getUUID().substring(0, 6);
+        String authCode = MailUtils.generateAuthCode();
 
         //包装实体类
         AuthMailVo authMailVo = new AuthMailVo(authCode, to, DateUtils.formatNow());
@@ -107,13 +106,15 @@ public class MailServiceIml implements MailService {
         //5分钟后过期
         redisCache.expire(key, DateUtils.MINUTES * 5);
 
-        //发送邮件
-        ResultResponse<Boolean> resultResponse = sendHtmlMail(new MailVo(to, LocalMessages.get("info.mail.auth.subject"), content));
+        ResultResponse<Boolean> resultResponse;
 
-        //发送成功继续往下执行
-        if (!resultResponse.getData()) {
+        //发送邮件
+        try {
+            resultResponse = sendHtmlMail(new MailVo(to, LocalMessages.get("info.mail.auth.subject"), content));
+        } catch (Exception e) {
+            //如果过程中发送什么异常直接抛出，并将redis中的数据删掉
             redisCache.deleteObject(key);
-            throw new MailException(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            throw e;
         }
 
         return resultResponse;

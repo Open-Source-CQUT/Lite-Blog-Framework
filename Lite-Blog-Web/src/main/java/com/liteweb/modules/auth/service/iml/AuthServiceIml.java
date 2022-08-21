@@ -1,5 +1,6 @@
 package com.liteweb.modules.auth.service.iml;
 
+import com.alibaba.fastjson.JSON;
 import com.liteweb.i18n.LocalMessages;
 import com.liteweb.modules.auth.convert.UserConverter;
 import com.liteweb.modules.auth.dao.AuthMapper;
@@ -79,8 +80,9 @@ public class AuthServiceIml implements AuthService {
     @Override
     public ResultResponse<Boolean> register(UserNormalDto userNormalDto) throws AuthException {
 
+        String key = MailUtils.getMailRedisKey(userNormalDto.getMail());
         //进行验证码比对
-        AuthMailVo authMailVo = redisCache.getCacheObject(MailUtils.getMailRedisKey(userNormalDto.getMail()));
+        AuthMailVo authMailVo = JSON.toJavaObject(redisCache.getCacheObject(key), AuthMailVo.class);
 
         //如果redis中不存在 或者 验证不匹配
         if (Objects.isNull(authMailVo) || !authMailVo.getAuthCode().equals(userNormalDto.getAuthCode()))
@@ -102,6 +104,9 @@ public class AuthServiceIml implements AuthService {
 
         if (!authMapper.insertUser(newUser))
             throw new AuthException(HttpStatus.INTERNAL_SERVER_ERROR.value(), LocalMessages.get("error.user.auth.register"));
+
+        //操作成功后删除redis中的缓存
+        redisCache.deleteObject(key);
 
         return ResultResponseUtils.success(true, LocalMessages.get("success.user.auth.register"));
     }
