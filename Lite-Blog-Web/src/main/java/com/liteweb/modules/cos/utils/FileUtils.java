@@ -2,6 +2,7 @@ package com.liteweb.modules.cos.utils;
 
 import com.liteweb.modules.auth.utils.JwtUtil;
 import com.liteweb.modules.cos.entity.File;
+import com.liteweb.utils.serializer.PasswordEncoder;
 import com.liteweb.utils.tool.DateUtils;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.web.multipart.MultipartFile;
@@ -40,7 +41,7 @@ public class FileUtils {
         String uuid = JwtUtil.getUUID();
 
         //cos对象的key
-        String fileKey = uuid + suffix;
+        String fileKey = String.format("%s/%s/%s", System.currentTimeMillis(), PasswordEncoder.enCode(uploader), uuid + suffix);
 
         //新的url
         String url = basUrl.replace(BUCKET_FLAG, bucket) + fileKey;
@@ -51,6 +52,7 @@ public class FileUtils {
         wrapFile.setFileName(fileKey);
         wrapFile.setOriginalName(originalName);
         wrapFile.setType(suffix);
+        wrapFile.setBucket(bucket);
         wrapFile.setUrl(url);
         wrapFile.setUploader(uploader);
         wrapFile.setUploadTime(DateUtils.formatNow());
