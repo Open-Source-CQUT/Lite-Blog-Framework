@@ -1,17 +1,25 @@
 package com.liteweb;
 
 import com.alibaba.fastjson2.JSON;
+import com.liteweb.config.CosConfig;
+import com.liteweb.config.MailConfig;
+import com.liteweb.config.WebUrlConfig;
 import com.liteweb.modules.auth.convert.UserConverter;
 import com.liteweb.modules.auth.dao.AuthMapper;
 import com.liteweb.modules.auth.dto.user.UserNormalDto;
 import com.liteweb.modules.auth.entity.User;
-import com.liteweb.modules.auth.vo.user.UserVo;
+import com.liteweb.modules.auth.vo.UserVo;
+import com.liteweb.modules.mail.exception.MailException;
+import com.liteweb.modules.mail.service.MailService;
 import com.liteweb.utils.serializer.RedisCache;
 import com.liteweb.utils.tool.DateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import javax.mail.MessagingException;
+import java.io.IOException;
 
 @Slf4j
 @SpringBootTest
@@ -25,6 +33,18 @@ public class LiteBlogWebApplicationTest {
 
     @Autowired
     RedisCache redisCache;
+
+    @Autowired
+    CosConfig cosConfig;
+
+    @Autowired
+    MailConfig mailConfig;
+
+    @Autowired
+    MailService mailService;
+
+    @Autowired
+    WebUrlConfig webUrlConfig;
 
     @Test
     void test() {
@@ -55,12 +75,17 @@ public class LiteBlogWebApplicationTest {
     }
 
     @Test
-    void test4() {
-        log.info(redisCache.keys("*263@qq.com*").toString());
+    void test4() throws MessagingException, MailException {
+        log.info(webUrlConfig.toString());
     }
 
     @Test
-    void test5() {
+    void test5() throws IOException {
 
+        User user = new User();
+        user.setMail("123456@qq.com");
+        user.setAvatar("1123");
+
+        authMapper.updateUserInfo(user);
     }
 }
