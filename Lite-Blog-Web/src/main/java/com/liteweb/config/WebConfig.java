@@ -11,7 +11,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
-import java.util.Arrays;
 import java.util.Locale;
 
 
@@ -24,25 +23,23 @@ public class WebConfig implements WebMvcConfigurer {
     @Autowired
     RefreshInterceptor refreshInterceptor;
 
+    @Autowired
+    WebUrlConfig webUrlConfig;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {//添加自定义拦截器
 
         //access-token 拦截器
         registry.addInterceptor(authInterceptor)
                 //放行url
-                .excludePathPatterns(Arrays.asList(
-                        "/auth/login",
-                        "/auth/register",
-                        "/auth/refreshToken",
-                        "/error"
-                ))
+                .excludePathPatterns(webUrlConfig.getAccessExclude())
                 //拦截url
-                .addPathPatterns("/**");
+                .addPathPatterns(webUrlConfig.getAccessInclude());
 
         //refresh-token 拦截器
         registry.addInterceptor(refreshInterceptor)
                 //拦截url
-                .addPathPatterns("/auth/refreshToken");
+                .addPathPatterns(webUrlConfig.getRefreshInclude());
 
         //设置多语言拦截配置
         LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
