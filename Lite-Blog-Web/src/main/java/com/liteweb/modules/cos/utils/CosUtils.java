@@ -1,12 +1,18 @@
 package com.liteweb.modules.cos.utils;
 
 import com.liteweb.config.CosConfig;
+import com.liteweb.modules.cos.entity.File;
+import com.liteweb.utils.tool.DateUtils;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;
+import com.qcloud.cos.Headers;
 import com.qcloud.cos.auth.BasicCOSCredentials;
 import com.qcloud.cos.auth.COSCredentials;
+import com.qcloud.cos.http.HttpMethodName;
 import com.qcloud.cos.http.HttpProtocol;
+import com.qcloud.cos.model.GeneratePresignedUrlRequest;
 import com.qcloud.cos.model.ObjectMetadata;
+import com.qcloud.cos.model.ResponseHeaderOverrides;
 import com.qcloud.cos.model.UploadResult;
 import com.qcloud.cos.region.Region;
 import com.qcloud.cos.transfer.TransferManager;
@@ -15,11 +21,17 @@ import com.qcloud.cos.transfer.Upload;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
 public class CosUtils {
+
+    //预签名URL过期时间默认30分钟
+    public static final Long DEFAULT_EXPIRED = DateUtils.MINUTES * 30;
 
     public static COSClient initCosClient(CosConfig cosConfig) {
 
@@ -86,7 +98,15 @@ public class CosUtils {
         transferManager.shutdownNow(true);
     }
 
-    //上传一个文件
+    /**
+     * 上传一个文件
+     *
+     * @param transferManager 上传文件的对象
+     * @param bucket          目标桶
+     * @param key             对象的键值
+     * @param file            要上传的文件对象
+     * @return UploadResult 上传结果对象
+     */
     public static UploadResult uploadFile(
             TransferManager transferManager,
             String bucket,
@@ -112,9 +132,59 @@ public class CosUtils {
             e.printStackTrace();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
+        } finally {
+            //关闭连接
+            shutDownTransferManager(transferManager);
         }
 
         return uploadResult;
     }
+
+    public static URL generatePreDownloadUrl(COSClient cosClient, File fileInfo) {
+
+        URL preSignedURL = null;
+
+        try {
+            //获取 GeneratePresignedUrlRequest 对象
+            GeneratePresignedUrlRequest urlRequest = new GeneratePresignedUrlRequest(
+                    fileInfo.getBucket(), fileInfo.getFileName(), HttpMethodName.GET);
+
+            //设置响应头重载对象
+            ResponseHeaderOverrides headerOverrides = new ResponseHeaderOverrides();
+            //设置下载时显示的文件名
+            String responseContentDispositon = String.format("filename=%s", fileInfo.getOriginalName());
+            //设置语言
+            String responseContentLanguage = Locale.getDefault().toString();
+
+            headerOverrides.setContentDisposition(responseContentDispositon);
+            headerOverrides.setContentLanguage(responseContentLanguage);
+
+            //设置响应头headers
+            urlRequest.setResponseHeaders(headerOverrides);
+            //设置过期时间 默认30分钟
+            urlRequest.setExpiration(getExpiredDate());
+
+            //设置请求头
+            urlRequest.putCustomRequestHeader(Headers.HOST,
+                    cosClient.getClientConfig().getEndpointBuilder().buildGeneralApiEndpoint(fileInfo.getBucket()));
+
+            //生成url
+            preSignedURL = cosClient.generatePresignedUrl(urlRequest);
+
+        } finally {
+            shutDownCosClient(cosClient);
+        }
+
+        return preSignedURL;
+    }
+
+    public static Date getExpiredDate() {
+        return new Date(System.currentTimeMillis() + DEFAULT_EXPIRED);
+    }
+
+    public static Date getExpiredDate(Long interval) {
+        return new Date(System.currentTimeMillis() + interval);
+    }
+
 
 }
