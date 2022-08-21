@@ -15,6 +15,8 @@ public class UserNormalDto {
 
     private String nickName;
 
+    private String authCode;
+
     private String description;
 
     private String avatar;

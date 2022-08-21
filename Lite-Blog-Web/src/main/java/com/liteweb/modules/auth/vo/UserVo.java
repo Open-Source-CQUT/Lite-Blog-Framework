@@ -23,6 +23,9 @@ public class UserVo {
     @NotBlank(message = "用户昵称不能为空", groups = {NormalGroups.Crud.Insert.class})
     private String nickName;
 
+    @NotBlank(message = "验证码不能能为空", groups = {NormalGroups.Crud.Insert.class})
+    private String authCode;
+
     private String description;
 
     private String birth;
