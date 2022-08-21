@@ -9,6 +9,8 @@ import com.liteweb.modules.auth.dao.AuthMapper;
 import com.liteweb.modules.auth.dto.user.UserNormalDto;
 import com.liteweb.modules.auth.entity.User;
 import com.liteweb.modules.auth.vo.UserVo;
+import com.liteweb.modules.cos.dao.CosMapper;
+import com.liteweb.modules.cos.service.CosService;
 import com.liteweb.modules.mail.exception.MailException;
 import com.liteweb.modules.mail.service.MailService;
 import com.liteweb.utils.serializer.RedisCache;
@@ -46,6 +48,13 @@ public class LiteBlogWebApplicationTest {
     @Autowired
     WebUrlConfig webUrlConfig;
 
+
+    @Autowired
+    CosMapper cosMapper;
+
+    @Autowired
+    CosService cosService;
+
     @Test
     void test() {
         log.info(JSON.parseObject("{\"gender\":\"男\",\"mail\":\"263@qq.com\",\"nickName\":\"wyh\"}", UserVo.class).toString());
@@ -82,10 +91,5 @@ public class LiteBlogWebApplicationTest {
     @Test
     void test5() throws IOException {
 
-        User user = new User();
-        user.setMail("123456@qq.com");
-        user.setAvatar("1123");
-
-        authMapper.updateUserInfo(user);
     }
 }
