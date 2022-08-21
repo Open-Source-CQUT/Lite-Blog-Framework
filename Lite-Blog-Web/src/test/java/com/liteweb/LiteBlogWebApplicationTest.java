@@ -86,9 +86,4 @@ public class LiteBlogWebApplicationTest {
     void test4() throws MessagingException, MailException {
         log.info(webUrlConfig.toString());
     }
-
-    @Test
-    void test5() {
-
-    }
 }
