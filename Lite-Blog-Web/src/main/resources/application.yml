@@ -24,6 +24,12 @@ spring:
   devtools:
     restart:
       enabled: true
+  mail:
+    default-encoding: UTF-8
+    host: smtp.qq.com
+    username: 584124402@qq.com
+    password: password
+
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
@@ -72,3 +78,21 @@ cos:
   private-bucket: private-1308755698
   #日志桶
   log-bucket: log-1308755698
+
+interceptor:
+  #access 放行url
+  access-exclude:
+    - /auth/login
+    - /auth/register
+    - /auth/refreshToken
+    - /mail/sendAuthMail
+    - /error
+  #access 拦截url
+  access-include:
+    - /**
+  #refesh 拦截url
+  refresh-include:
+    - /auth/refreshToken
+  #refresh 放行url
+  refresh-exclude:
+    - /**
