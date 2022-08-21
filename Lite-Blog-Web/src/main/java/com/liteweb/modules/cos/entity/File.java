@@ -19,6 +19,8 @@ public class File {
 
     private Boolean access;
 
+    private String bucket;
+
     private String uploader;
 
     private String uploadTime;

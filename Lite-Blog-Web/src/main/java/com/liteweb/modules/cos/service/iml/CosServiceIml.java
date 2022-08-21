@@ -17,6 +17,7 @@ import com.liteweb.modules.cos.service.CosService;
 import com.liteweb.modules.cos.utils.CosUtils;
 import com.liteweb.modules.cos.utils.FileUtils;
 import com.liteweb.modules.cos.vo.FileVo;
+import com.qcloud.cos.COSClient;
 import com.qcloud.cos.model.UploadResult;
 import com.qcloud.cos.transfer.TransferManager;
 import org.apache.logging.log4j.util.Strings;
@@ -24,6 +25,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.net.URL;
+import java.util.Objects;
 
 
 @Service
@@ -76,6 +80,40 @@ public class CosServiceIml implements CosService {
     }
 
 
+    @Override
+    public ResultResponse<FileVo> getPreSignedDownLoadUrl(String url) throws CosFileException {
+
+        //数据库查找信息
+        File file = cosMapper.getFile(url).orElseGet(File::new);
+
+        //如果文件不存在
+        if (Strings.isBlank(file.getFileName()))
+            throw new CosFileException(HttpStatus.BAD_REQUEST.value(), LocalMessages.get("error.cos.invalidURL"));
+
+        if (file.getAccess())
+            throw new CosFileException(HttpStatus.BAD_REQUEST.value(), LocalMessages.get("error.cos.accessIsTrue"));
+
+
+        //创建COSClient
+        COSClient cosClient = CosUtils.initCosClient(cosConfig);
+
+        //生成URL
+        URL downloadURL = CosUtils.generatePreDownloadUrl(cosClient, file);
+
+        //非空校验
+        if (Objects.isNull(downloadURL))
+            throw new CosFileException(HttpStatus.INTERNAL_SERVER_ERROR.value(), LocalMessages.get("error.cos.generateURL"));
+
+        //设置url
+        file.setUrl(downloadURL.toString());
+
+        FileVo fileVo = fileConverter.entityToVo(file);
+
+        //返回信息
+        return ResultResponseUtils.success(fileVo, LocalMessages.get("success.cos.generateURL"));
+    }
+
+
     /**
      * @param file       待上传的文件对象
      * @param fileAccess 文件的可访问权限 true是公有访问，false是私有访问
@@ -94,17 +132,17 @@ public class CosServiceIml implements CosService {
         String bucket = fileAccess ? cosConfig.getPublicBucket() : cosConfig.getPrivateBucket();
 
         //包装对象
-        File publicFile = FileUtils.wrapperEntity(bucket,
+        File wrapFile = FileUtils.wrapperEntity(bucket,
                 tokenVo.getMail(), cosConfig.getBaseUrl(), fileAccess, file);
 
         //上传至cos，获取同步上传结果
-        UploadResult uploadResult = CosUtils.uploadFile(transferManager, bucket, publicFile.getFileName(), file);
+        UploadResult uploadResult = CosUtils.uploadFile(transferManager, bucket, wrapFile.getFileName(), file);
 
         //上传成功则将信息包装存入数据库
-        if (Strings.isBlank(uploadResult.getCrc64Ecma()) || !cosMapper.insertFile(publicFile))
+        if (Strings.isBlank(uploadResult.getCrc64Ecma()) || !cosMapper.insertFile(wrapFile))
             throw new CosFileException(HttpStatus.INTERNAL_SERVER_ERROR.value(), LocalMessages.get("error.cos.upload"));
 
-        return ResultResponseUtils.success(fileConverter.entityToVo(publicFile), LocalMessages.get("success.cos.upload"));
+        return ResultResponseUtils.success(fileConverter.entityToVo(wrapFile), LocalMessages.get("success.cos.upload"));
     }
 
 }

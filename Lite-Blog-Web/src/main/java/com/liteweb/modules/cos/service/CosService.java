@@ -14,5 +14,6 @@ public interface CosService {
 
     ResultResponse<FileVo> uploadPrivateFile(MultipartFile file) throws CosFileException;
 
+    ResultResponse<FileVo> getPreSignedDownLoadUrl(String url) throws CosFileException;
 
 }

@@ -6,12 +6,13 @@
 
     <insert id="insertFile" parameterType="com.liteweb.modules.cos.entity.File">
         INSERT INTO `file`
-        (file_name, original_name, url, type, upload_time, operator, deleted, access)
-            VALUE (#{fileName},#{originalName},#{url},#{type},#{uploadTime},#{uploader},#{deleted},#{access});
+        (file_name, original_name, url, type, upload_time, operator, deleted, access, bucket)
+            VALUE (#{fileName},#{originalName},#{url},#{type},#{uploadTime},#{uploader},#{deleted},#{access},#{bucket});
     </insert>
+
     <select id="getFile" resultType="com.liteweb.modules.cos.entity.File" parameterType="java.lang.String">
         SELECT *
         FROM `file`
-        WHERE file_name = #{fileName}
+        WHERE url = #{fileName}
     </select>
 </mapper>

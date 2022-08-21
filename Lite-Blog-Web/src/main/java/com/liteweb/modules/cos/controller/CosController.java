@@ -7,12 +7,10 @@ import com.liteweb.modules.cos.service.CosService;
 import com.liteweb.modules.cos.vo.FileVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @RestController
@@ -44,6 +42,11 @@ public class CosController {
 
         //TODO 上传private文件
         return cosService.uploadPrivateFile(file);
+    }
+
+    @GetMapping("/download/preSigned")
+    public ResultResponse<FileVo> getPreSignedDownloadUrl(@RequestParam @NotBlank String url) throws CosFileException {
+        return cosService.getPreSignedDownLoadUrl(url);
     }
 
 }
