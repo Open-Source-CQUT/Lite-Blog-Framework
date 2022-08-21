@@ -21,7 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.mail.MessagingException;
-import java.io.IOException;
 
 @Slf4j
 @SpringBootTest
@@ -89,7 +88,7 @@ public class LiteBlogWebApplicationTest {
     }
 
     @Test
-    void test5() throws IOException {
+    void test5() {
 
     }
 }
