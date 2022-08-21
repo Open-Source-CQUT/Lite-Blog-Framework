@@ -23,4 +23,8 @@ public class LiteBlogContextUtils {
     public UserTokenVo getUserContextInfo() {
         return JwtUtil.parseObject(request.getHeader(JwtUtil.JWT_ACCESS_KEY), UserTokenVo.class, JwtUtil.JWT_ACCESS_KEY);
     }
+
+    public void setResponseStatus(Integer status) {
+        response.setStatus(status);
+    }
 }
