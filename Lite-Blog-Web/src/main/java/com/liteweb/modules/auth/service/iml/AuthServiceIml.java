@@ -19,6 +19,8 @@ import com.liteweb.modules.auth.vo.UserVo;
 import com.liteweb.modules.common.dto.ResultResponse;
 import com.liteweb.modules.common.utils.LiteBlogContextUtils;
 import com.liteweb.modules.common.utils.ResultResponseUtils;
+import com.liteweb.modules.mail.Vo.AuthMailVo;
+import com.liteweb.modules.mail.utils.MailUtils;
 import com.liteweb.utils.serializer.PasswordEncoder;
 import com.liteweb.utils.serializer.RedisCache;
 import lombok.extern.slf4j.Slf4j;
@@ -77,9 +79,15 @@ public class AuthServiceIml implements AuthService {
     @Override
     public ResultResponse<Boolean> register(UserNormalDto userNormalDto) throws AuthException {
 
+        //进行验证码比对
+        AuthMailVo authMailVo = redisCache.getCacheObject(MailUtils.getMailRedisKey(userNormalDto.getMail()));
+
+        //如果redis中不存在 或者 验证不匹配
+        if (Objects.isNull(authMailVo) || !authMailVo.getAuthCode().equals(userNormalDto.getAuthCode()))
+            throw new AuthException(HttpStatus.BAD_REQUEST.value(), LocalMessages.get("error.user.auth.authCodeFail"));
+
         //转换成实体类
         User newUser = userConverter.dtoToEntity(userNormalDto);
-
 
         if (!Objects.isNull(authMapper.getUser(newUser.getMail())
                 .orElseGet(User::new)
