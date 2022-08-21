@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>邮箱注册验证</title>
+</head>
+<body>
+<div style="background-color:#ECECEC; padding: 35px;">
+    <table cellpadding="0" align="center"
+           style="width: 800px;height: 100%; margin: 0 auto; text-align: left; position: relative; border-radius: 5px;font-size: 14px; font-family:微软雅黑, 黑体,serif; line-height: 1.5; box-shadow: rgb(153, 153, 153) 0 0 5px; border-collapse: collapse; background: #fff initial initial initial;">
+        <tbody>
+        <tr>
+            <th valign="middle"
+                style="height: 25px; line-height: 25px; padding: 15px 35px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: RGB(63,126,247); background-color: RGB(63,126,247); border-radius: 5px 5px 0 0;">
+                <span style="color: rgb(255, 255, 255);  font-family: 微软雅黑,serif; font-size: large; ">邮箱注册验证</span>
+            </th>
+        </tr>
+        <tr>
+            <td style="word-break:break-all">
+                <div style="padding:25px 35px 40px; background-color:#fff;opacity:0.8;">
+
+                    <h2 style="margin: 5px 0; ">
+                        <font color="#333333" style="line-height: 20px; ">
+                            <font style="line-height: 22px; " size="4">
+                                尊敬的用户：</font>
+                        </font>
+                    </h2>
+                    <!-- 中文 -->
+                    <p>您好！感谢您使用轻言博客，您的账号正在进行邮箱验证，验证码为：<span style="color: rgb(63,126,247); "
+                                                            th:text="${authCode}"></span>，有效期5分钟，请尽快填写验证码完成验证！
+                    </p><br>
+                    <!-- 英文 -->
+                    <h2 style="margin: 5px 0; ">
+                        <span style="line-height: 20px;  color: #333333; ">
+                            <span style="line-height: 22px;  font-size: medium; ">
+                                Dear user:</span>
+                        </span>
+                    </h2>
+                    <p>Hello! Thanks for using Lite-Blog, your account is being authenticated by email, the
+                        verification code is: <span style="color: rgb(63,126,247); " th:text="${authCode}"></span>,
+                        valid
+                        for 5
+                        minutes. Please fill
+                        in the verification code as soon as
+                        possible!</p>
+                    <div style="width:100%;margin:0 auto;">
+                        <div style="padding:10px 10px 0;border-top:1px solid #ccc;color:#747474;margin-bottom:20px;line-height:1.3em;font-size:12px;">
+                            <p>Vegetable-Programmer 团队</p>
+                            <p>联系我们: 2633565580@qq.com</p>
+                            <br>
+                            <p>此为系统邮件，请勿回复<br>
+                                Please do not reply to this system email
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
