@@ -29,6 +29,15 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {//添加自定义拦截器
 
+        //设置多语言拦截配置
+        LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
+        localeChangeInterceptor.setParamName("lang");
+        registry.addInterceptor(localeChangeInterceptor);
+
+        //配置中是否开启拦截器
+        if (!webUrlConfig.getEnable())
+            return;
+
         //access-token 拦截器
         registry.addInterceptor(authInterceptor)
                 //放行url
@@ -41,15 +50,12 @@ public class WebConfig implements WebMvcConfigurer {
                 //拦截url
                 .addPathPatterns(webUrlConfig.getRefreshInclude());
 
-        //设置多语言拦截配置
-        LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
-        localeChangeInterceptor.setParamName("lang");
-        registry.addInterceptor(localeChangeInterceptor);
 
     }
 
+    //自定义解析本地语言解析器
     @Bean
-    public LocaleResolver localeResolver() {//自定义解析本地语言解析器
+    public LocaleResolver localeResolver() {
         SessionLocaleResolver localeResolver = new SessionLocaleResolver();
         localeResolver.setDefaultLocale(Locale.CHINA);
         return localeResolver;

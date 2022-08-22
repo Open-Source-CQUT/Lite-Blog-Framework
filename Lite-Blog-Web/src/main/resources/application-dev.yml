@@ -2,10 +2,15 @@ spring:
 
   datasource:
 
+    #数据库驱动
     driver-class-name: com.mysql.cj.jdbc.Driver
+    #数据库连接URL
     url: jdbc:mysql://localhost:3306/lite_blog?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Hongkong&allowMultiQueries=true
+    #数据库用户名
     username: root
+    #数据库密码
     password: wyh246859
+    #连接池类型
     type: com.zaxxer.hikari.HikariDataSource
 
     hikari:
@@ -23,57 +28,89 @@ spring:
       #自动提交
       auto-commit: true
 
+  #servlet配置
   servlet:
+    #上传文件设置
     multipart:
-      max-file-size: 100MB
-      max-request-size: 100MB
+      #最大接收20MB
+      max-file-size: 20MB
+      #最大请求20MB
+      max-request-size: 20MB
 
+  #语言配置
   messages:
+    #编码
     encoding: UTF-8
+    #默认名称
     basename: i18n.messages
 
+
   redis:
+    #端口
     port: 6379
+    #主机
     host: localhost
+    #密码
     password: wyh246859
+    #连接池
     lettuce:
       pool:
-        max-active: 100 # 最大连接数
-        max-idle: 20 # 最大空闲连接
-        min-idle: 5 #最小空闲连接
-        max-wait: 12000 #连接等待时间
+        # 最大连接数
+        max-active: 100
+        # 最大空闲连接
+        max-idle: 20
+        #最小空闲连接
+        min-idle: 5
+        #连接等待时间
+        max-wait: 12000
 
+  #热部署工具
   devtools:
+    #重启
     restart:
+      #是否开启
       enabled: true
 
+  #邮件服务
   mail:
+    #默认编码
     default-encoding: UTF-8
+    #邮件服务器
     host: smtp.exmail.qq.com
+    #用户名即发信邮箱
     username: vegetable-programmer@halfiisland.com
+    #邮箱密码或者授权码
     password: password
 
-#jasypt:
-#  encryptor:
-#    password: 1eb7e442e393faf142af0f121fa3ca00688b7226
-
+#mp配置
 mybatis-plus:
+  #xml扫描路径
   mapper-locations: classpath*:/mapper/**/*.xml
 
+#服务器
 server:
+  #工作端口
   port: 8088
+  #容器
   tomcat:
+    #url编码
     uri-encoding: utf-8
+  #错误重定向URL
   error:
     path: /error
-  servlet:
-    context-path: /api # 默认地址/api开头
 
+  servlet:
+    #默认容器路径/api开头
+    context-path: /api
+#日志
 logging:
+  #等级
   level:
+    #debug级别会输出每个请求的详细情况，以及每个sql的执行细节
     com.liteweb: debug
     web: debug
 
+#腾讯云COS服务
 cos:
   # secretId secretKey 这两个是腾讯云永久密钥,泄露了的话就很麻烦，只能在控制台禁用了重写开个新的
   # 两个密钥平时推送代码的时候不要把这个也推了，除了部署上线的时候，开发时候都是自己用。
@@ -105,7 +142,10 @@ cos:
   #日志桶
   log-bucket: log-1308755698
 
+#拦截器配置
 interceptor:
+  #是否开启拦截器默认是true，方便开发可以暂时关闭
+  enable: false
   #access 放行url
   access-exclude:
     - /auth/login

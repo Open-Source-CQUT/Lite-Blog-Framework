@@ -11,11 +11,13 @@ import java.util.List;
 @ConfigurationProperties(prefix = "interceptor")
 public class WebUrlConfig {
 
-    List<String> accessExclude;
+    private Boolean enable;
 
-    List<String> accessInclude;
+    private List<String> accessExclude;
 
-    List<String> refreshExclude;
+    private List<String> accessInclude;
 
-    List<String> refreshInclude;
+    private List<String> refreshExclude;
+
+    private List<String> refreshInclude;
 }
