@@ -1,0 +1,124 @@
+spring:
+
+  datasource:
+
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/lite_blog?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Hongkong&allowMultiQueries=true
+    username: root
+    password: wyh246859
+    type: com.zaxxer.hikari.HikariDataSource
+
+    hikari:
+      #连接池名称
+      pool-name: Lite-Blog-Pool
+      #最大连接数
+      maximum-pool-size: 50
+      #最小空闲连接
+      minimum-idle: 10
+      #最大超时过期时间
+      max-lifetime: 1800000
+      #连接超时时间
+      connection-timeout: 30000
+      idle-timeout: 30000
+      #自动提交
+      auto-commit: true
+
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+  messages:
+    encoding: UTF-8
+    basename: i18n.messages
+
+  redis:
+    port: 6379
+    host: localhost
+    password: wyh246859
+    lettuce:
+      pool:
+        max-active: 100 # 最大连接数
+        max-idle: 20 # 最大空闲连接
+        min-idle: 5 #最小空闲连接
+        max-wait: 12000 #连接等待时间
+
+  devtools:
+    restart:
+      enabled: true
+
+  mail:
+    default-encoding: UTF-8
+    host: smtp.exmail.qq.com
+    username: vegetable-programmer@halfiisland.com
+    password: password
+
+#jasypt:
+#  encryptor:
+#    password: 1eb7e442e393faf142af0f121fa3ca00688b7226
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+
+server:
+  port: 8088
+  tomcat:
+    uri-encoding: utf-8
+  error:
+    path: /error
+  servlet:
+    context-path: /api # 默认地址/api开头
+
+logging:
+  level:
+    com.liteweb: debug
+    web: debug
+
+cos:
+  # secretId secretKey 这两个是腾讯云永久密钥,泄露了的话就很麻烦，只能在控制台禁用了重写开个新的
+  # 两个密钥平时推送代码的时候不要把这个也推了，除了部署上线的时候，开发时候都是自己用。
+  appId: 1308755698
+  #私钥id
+  secretId: secretId
+  #私钥
+  secretKey: secretKey
+  #地区归属
+  region: ap-chongqing
+  #连接超时时间
+  connection-Timeout: 30000
+  #Socket超时时间
+  socket-timeout: 30000
+  #线程池大小
+  threadSizes: 32
+  #分块上传阈值 20MB
+  MultipartUploadThreshold: 4044121000
+  #分块大小 2MB
+  MinimumUploadPartSize: 2121440
+  #URL
+  BaseUrl: https://bucket-name.cos.ap-chongqing.myqcloud.com/
+  #静态文件桶
+  static-bucket: static-1308755698
+  #公共桶
+  public-bucket: public-1308755698
+  #私有桶
+  private-bucket: private-1308755698
+  #日志桶
+  log-bucket: log-1308755698
+
+interceptor:
+  #access 放行url
+  access-exclude:
+    - /auth/login
+    - /auth/register
+    - /auth/refreshToken
+    - /mail/sendAuthMail
+    - /error
+  #access 拦截url
+  access-include:
+    - /**
+  #refesh 拦截url
+  refresh-include:
+    - /auth/refreshToken
+  #refresh 放行url
+  refresh-exclude:
+    - /**
