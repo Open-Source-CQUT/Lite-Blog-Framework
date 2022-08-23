@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserTokenVo {
 
+    private Long id;
+
     private String mail;
 
     private String nickName;
