@@ -5,14 +5,14 @@
 <mapper namespace="com.liteweb.modules.cos.dao.CosMapper">
 
     <insert id="insertFile" parameterType="com.liteweb.modules.cos.entity.File">
-        INSERT INTO `file`
-        (file_name, original_name, url, type, upload_time, operator, deleted, access, bucket)
+        INSERT INTO `info_file`
+        (file_name, original_name, url, type, upload_time, uploader, deleted, access, bucket)
             VALUE (#{fileName},#{originalName},#{url},#{type},#{uploadTime},#{uploader},#{deleted},#{access},#{bucket});
     </insert>
 
     <select id="getFile" resultType="com.liteweb.modules.cos.entity.File" parameterType="java.lang.String">
         SELECT *
-        FROM `file`
+        FROM `info_file`
         WHERE url = #{fileName}
     </select>
 </mapper>
