@@ -1,9 +1,11 @@
 package com.liteweb;
 
 import com.alibaba.fastjson2.JSON;
-import com.liteweb.config.CosConfig;
-import com.liteweb.config.MailConfig;
-import com.liteweb.config.WebUrlConfig;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.liteweb.config.cos.CosConfig;
+import com.liteweb.config.mail.MailConfig;
+import com.liteweb.config.web.WebUrlConfig;
 import com.liteweb.modules.auth.convert.UserConverter;
 import com.liteweb.modules.auth.dao.AuthMapper;
 import com.liteweb.modules.auth.dto.user.UserNormalDto;
@@ -21,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.mail.MessagingException;
+import java.util.List;
 
 @Slf4j
 @SpringBootTest
@@ -47,43 +50,20 @@ public class LiteBlogWebApplicationTest {
     @Autowired
     WebUrlConfig webUrlConfig;
 
-
     @Autowired
     CosMapper cosMapper;
 
     @Autowired
     CosService cosService;
 
+    /**
+     * 这是一个非常简单的查询执行用户的测试方法
+     * 建议用于测试后端应用是否可以正常运行
+     */
     @Test
-    void test() {
-        log.info(JSON.parseObject("{\"gender\":\"男\",\"mail\":\"263@qq.com\",\"nickName\":\"wyh\"}", UserVo.class).toString());
-    }
-
-    @Test
-    void test2() {
-        log.info(DateUtils.isBefore("2022-08-15 21:39:59", "2022-08-15 22:39:59").toString());
-    }
-
-    @Test
-    void test3() {
-        //手动建一个dto
-        UserNormalDto userNormalDto = new UserNormalDto();
-
-        userNormalDto.setMail("2633565580@qq.com");
-        userNormalDto.setPassword("123456");
-        userNormalDto.setGender(1);
-        userNormalDto.setRoleId(0);
-        userNormalDto.setAvatar("hh");
-        userNormalDto.setDescription("hello");
-
-        User user = userConverter.dtoToEntity(userNormalDto);
-
-        log.info(userConverter.entityToTokenVo(user).toString());
-
-    }
-
-    @Test
-    void test4() throws MessagingException, MailException {
-        log.info(webUrlConfig.toString());
+    void applicationTest(){
+        LambdaQueryWrapper<User> queryWrapper =new LambdaQueryWrapper<>();
+        queryWrapper.eq(User::getMail,"2633565580@qq.com");
+        log.info(authMapper.selectList(queryWrapper).toString());
     }
 }
