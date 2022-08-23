@@ -30,16 +30,7 @@ public interface UserConverter {
     })
     UserVo normalDtoToVo(UserNormalDto userNormalDto);
 
-    /**
-     * Dto转换为实体时自动注入updateTime,createdTime字段
-     *
-     * @param dto
-     * @return
-     */
-    @Mappings({
-            @Mapping(target = "createdTime", expression = "java(com.liteweb.utils.tool.DateUtils.formatNow())"),
-            @Mapping(target = "updatedTime", expression = "java(com.liteweb.utils.tool.DateUtils.formatNow())")
-    })
+
     User dtoToEntity(UserNormalDto dto);
 
     /**
@@ -51,10 +42,7 @@ public interface UserConverter {
     @Mappings({})
     UserNormalDto entityToDto(User user);
 
-    @Mappings({
-            @Mapping(target = "createdTime", expression = "java(com.liteweb.utils.tool.DateUtils.formatNow())"),
-            @Mapping(target = "updatedTime", expression = "java(com.liteweb.utils.tool.DateUtils.formatNow())")
-    })
+   @Mappings({})
     User voToEntity(UserVo userVo);
 
     @Mappings({
