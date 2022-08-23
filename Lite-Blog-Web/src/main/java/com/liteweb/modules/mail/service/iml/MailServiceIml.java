@@ -1,6 +1,6 @@
 package com.liteweb.modules.mail.service.iml;
 
-import com.liteweb.config.MailConfig;
+import com.liteweb.config.mail.MailConfig;
 import com.liteweb.i18n.LocalMessages;
 import com.liteweb.modules.common.dto.ResultResponse;
 import com.liteweb.modules.common.utils.ResultResponseUtils;

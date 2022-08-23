@@ -1,6 +1,6 @@
 package com.liteweb.modules.cos.utils;
 
-import com.liteweb.config.CosConfig;
+import com.liteweb.config.cos.CosConfig;
 import com.liteweb.modules.cos.entity.File;
 import com.liteweb.utils.tool.DateUtils;
 import com.qcloud.cos.COSClient;
