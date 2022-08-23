@@ -1,11 +1,13 @@
 package com.liteweb.config.web;
 
 import com.liteweb.modules.auth.interceptor.AuthInterceptor;
+import com.liteweb.modules.auth.interceptor.CorsInterceptor;
 import com.liteweb.modules.auth.interceptor.RefreshInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
@@ -17,11 +19,16 @@ import java.util.Locale;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
+
+    @Autowired
+    CorsInterceptor corsInterceptor;
+
     @Autowired
     AuthInterceptor authInterceptor;
 
     @Autowired
     RefreshInterceptor refreshInterceptor;
+
 
     @Autowired
     WebUrlConfig webUrlConfig;
@@ -38,7 +45,10 @@ public class WebConfig implements WebMvcConfigurer {
         if (!webUrlConfig.getEnable())
             return;
 
-        //access-token 拦截器
+        registry.addInterceptor(corsInterceptor)
+                        .addPathPatterns("/**");
+
+                //access-token 拦截器
         registry.addInterceptor(authInterceptor)
                 //放行url
                 .excludePathPatterns(webUrlConfig.getAccessExclude())
@@ -51,6 +61,17 @@ public class WebConfig implements WebMvcConfigurer {
                 .addPathPatterns(webUrlConfig.getRefreshInclude());
 
 
+    }
+
+    //cors配置
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("*")
+                .allowedMethods("POST", "GET", "PUT", "OPTIONS", "DELETE")
+                .maxAge(3600)
+                .allowedHeaders("*")
+                .allowCredentials(false);
     }
 
     //自定义解析本地语言解析器
