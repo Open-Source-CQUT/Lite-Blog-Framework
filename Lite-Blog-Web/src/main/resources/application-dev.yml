@@ -86,6 +86,23 @@ spring:
 mybatis-plus:
   #xml扫描路径
   mapper-locations: classpath*:/mapper/**/*.xml
+  global-config:
+    db-config:
+      logic-delete-field: deleted
+      logic-not-delete-value: 0
+      logic-delete-value: 1
+
+#mp的自动填充配置
+auto-inject:
+  #自动在插入时注入时间的字段名
+  time-insert:
+    - createdTime
+    - updatedTime
+    - uploadTime
+  #自动在更新时注入时间的字段名
+  time-update:
+    - updatedTime
+
 
 #服务器
 server:
@@ -145,7 +162,7 @@ cos:
 #拦截器配置
 interceptor:
   #是否开启拦截器默认是true，方便开发可以暂时关闭
-  enable: false
+  enable: true
   #access 放行url
   access-exclude:
     - /auth/login
