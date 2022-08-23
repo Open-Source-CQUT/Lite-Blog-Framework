@@ -1,6 +1,7 @@
 package com.liteweb.modules.cos.utils;
 
 import com.liteweb.modules.auth.utils.JwtUtil;
+import com.liteweb.modules.auth.vo.UserTokenVo;
 import com.liteweb.modules.cos.entity.File;
 import com.liteweb.utils.serializer.PasswordEncoder;
 import com.liteweb.utils.tool.DateUtils;
@@ -25,7 +26,7 @@ public class FileUtils {
     //快速将一堆信息打包成一个文件实体类
     public static File wrapperEntity(
             String bucket,
-            String uploader,
+            UserTokenVo userTokenVo,
             String basUrl,
             Boolean access,
             MultipartFile file) {
@@ -41,7 +42,7 @@ public class FileUtils {
         String uuid = JwtUtil.getUUID();
 
         //cos对象的key
-        String fileKey = String.format("%s/%s/%s", System.currentTimeMillis(), PasswordEncoder.enCode(uploader), uuid + suffix);
+        String fileKey = String.format("%s/%s/%s", System.currentTimeMillis(), PasswordEncoder.enCode(userTokenVo.getMail()), uuid + suffix);
 
         //新的url
         String url = basUrl.replace(BUCKET_FLAG, bucket) + fileKey;
@@ -54,7 +55,7 @@ public class FileUtils {
         wrapFile.setType(suffix);
         wrapFile.setBucket(bucket);
         wrapFile.setUrl(url);
-        wrapFile.setUploader(uploader);
+        wrapFile.setUploader(userTokenVo.getId());
         wrapFile.setUploadTime(DateUtils.formatNow());
         wrapFile.setAccess(access);
         wrapFile.setDeleted(false);

@@ -1,6 +1,6 @@
 package com.liteweb.modules.cos.service.iml;
 
-import com.liteweb.config.CosConfig;
+import com.liteweb.config.cos.CosConfig;
 import com.liteweb.i18n.LocalMessages;
 import com.liteweb.modules.auth.exception.AuthException;
 import com.liteweb.modules.auth.service.AuthService;
@@ -24,6 +24,7 @@ import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URL;
@@ -120,6 +121,7 @@ public class CosServiceIml implements CosService {
      * @return 带有文件信息的响应体
      * @throws CosFileException cos异常，抛出将被全局异常处理器拦截
      */
+    @Transactional
     public ResultResponse<FileVo> doUploadService(MultipartFile file, Boolean fileAccess) throws CosFileException {
 
         //获取用户信息
@@ -133,7 +135,7 @@ public class CosServiceIml implements CosService {
 
         //包装对象
         File wrapFile = FileUtils.wrapperEntity(bucket,
-                tokenVo.getMail(), cosConfig.getBaseUrl(), fileAccess, file);
+                tokenVo, cosConfig.getBaseUrl(), fileAccess, file);
 
         //上传至cos，获取同步上传结果
         UploadResult uploadResult = CosUtils.uploadFile(transferManager, bucket, wrapFile.getFileName(), file);
