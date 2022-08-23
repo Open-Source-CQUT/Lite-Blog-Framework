@@ -1,4 +1,4 @@
-package com.liteweb.config;
+package com.liteweb.config.redis;
 
 import com.liteweb.utils.serializer.FastJsonRedisSerializer;
 import org.springframework.context.annotation.Bean;

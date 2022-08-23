@@ -1,4 +1,4 @@
-package com.liteweb.config;
+package com.liteweb.config.cos;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

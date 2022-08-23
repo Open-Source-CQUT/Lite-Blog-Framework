@@ -1,4 +1,4 @@
-package com.liteweb.config;
+package com.liteweb.config.web;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

@@ -1,4 +1,4 @@
-package com.liteweb.config;
+package com.liteweb.config.web;
 
 import com.liteweb.modules.auth.interceptor.AuthInterceptor;
 import com.liteweb.modules.auth.interceptor.RefreshInterceptor;

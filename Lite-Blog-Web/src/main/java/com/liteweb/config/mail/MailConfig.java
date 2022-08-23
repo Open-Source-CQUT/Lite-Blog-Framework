@@ -1,4 +1,4 @@
-package com.liteweb.config;
+package com.liteweb.config.mail;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
