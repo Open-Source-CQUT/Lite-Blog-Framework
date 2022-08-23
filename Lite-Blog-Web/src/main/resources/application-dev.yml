@@ -87,9 +87,13 @@ mybatis-plus:
   #xml扫描路径
   mapper-locations: classpath*:/mapper/**/*.xml
   global-config:
+    #数据库配置
     db-config:
+      #逻辑删除字段
       logic-delete-field: deleted
+      #逻辑删除 false
       logic-not-delete-value: 0
+      #逻辑删除 true
       logic-delete-value: 1
 
 #mp的自动填充配置
