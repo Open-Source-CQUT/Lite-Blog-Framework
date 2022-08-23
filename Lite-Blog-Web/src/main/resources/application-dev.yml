@@ -81,6 +81,8 @@ spring:
     username: vegetable-programmer@halfiisland.com
     #邮箱密码或者授权码
     password: password
+  mvc:
+    log-request-details: true
 
 #mp配置
 mybatis-plus:
@@ -95,6 +97,11 @@ mybatis-plus:
       logic-not-delete-value: 0
       #逻辑删除 true
       logic-delete-value: 1
+      #主键策略
+      id-type: auto
+  #sql日志
+  configuration:
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
 
 #mp的自动填充配置
 auto-inject:
