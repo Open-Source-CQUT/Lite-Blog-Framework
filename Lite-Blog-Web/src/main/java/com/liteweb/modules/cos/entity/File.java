@@ -1,5 +1,6 @@
 package com.liteweb.modules.cos.entity;
 
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,7 +8,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@TableName("info_file")
 public class File {
+
+    @TableId(type = IdType.AUTO)
+    private Long id;
 
     private String fileName;
 
@@ -21,8 +26,9 @@ public class File {
 
     private String bucket;
 
-    private String uploader;
+    private Long uploader;
 
+    @TableField(fill = FieldFill.INSERT)
     private String uploadTime;
 
     private Boolean deleted;
