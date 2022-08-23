@@ -19,19 +19,17 @@ import java.util.Locale;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-
     @Autowired
     CorsInterceptor corsInterceptor;
-
     @Autowired
     AuthInterceptor authInterceptor;
-
     @Autowired
     RefreshInterceptor refreshInterceptor;
-
-
     @Autowired
     WebUrlConfig webUrlConfig;
+
+    @Autowired
+    CorsConfig corsConfig;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {//添加自定义拦截器
@@ -45,8 +43,10 @@ public class WebConfig implements WebMvcConfigurer {
         if (!webUrlConfig.getEnable())
             return;
 
+        //Cors拦截器
         registry.addInterceptor(corsInterceptor)
-                        .addPathPatterns("/**");
+                //拦截所有url
+                        .addPathPatterns(webUrlConfig.getCorsInclude());
 
                 //access-token 拦截器
         registry.addInterceptor(authInterceptor)
@@ -66,11 +66,11 @@ public class WebConfig implements WebMvcConfigurer {
     //cors配置
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOrigins("*")
-                .allowedMethods("POST", "GET", "PUT", "OPTIONS", "DELETE")
-                .maxAge(3600)
-                .allowedHeaders("*")
+        registry.addMapping(corsConfig.getPathMapping())
+                .allowedOrigins(corsConfig.getAllowedOrigins())
+                .allowedMethods(corsConfig.getAllowedMethods())
+                .allowedHeaders(corsConfig.getAllowedHeaders())
+                .maxAge(corsConfig.getMaxAge())
                 .allowCredentials(false);
     }
 

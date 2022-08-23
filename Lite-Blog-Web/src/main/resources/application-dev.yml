@@ -81,8 +81,54 @@ spring:
     username: vegetable-programmer@halfiisland.com
     #邮箱密码或者授权码
     password: password
+
   mvc:
+    #打印请求细节
     log-request-details: true
+    #跨域配置
+    cors:
+      #路径映射
+      path-mapping: /**
+      #允许的来源
+      allowed-origins:
+        - '*'
+      #允许的header
+      allowed-headers:
+        - '*'
+      #允许的请求方法
+      allowed-methods:
+        - POST
+        - GET
+        - PUT
+        - OPTIONS
+        - DELETE
+      #开启验证 如果开启的话allowed-origins不能为*
+      allowed-credentials: false
+      max-age: 3600
+
+    #拦截器配置
+    interceptor:
+      #是否开启拦截器默认是true，方便开发可以暂时关闭
+      enable: true
+      #access 放行url
+      access-exclude:
+        - /auth/login
+        - /auth/register
+        - /auth/refreshToken
+        - /mail/sendAuthMail
+        - /error
+      #access 拦截url
+      access-include:
+        - /**
+      #refesh 拦截url
+      refresh-include:
+        - /auth/refreshToken
+      #refresh 放行url
+      refresh-exclude:
+        - /**
+      cors-include:
+        - /**
+
 
 #mp配置
 mybatis-plus:
@@ -169,24 +215,3 @@ cos:
   private-bucket: private-1308755698
   #日志桶
   log-bucket: log-1308755698
-
-#拦截器配置
-interceptor:
-  #是否开启拦截器默认是true，方便开发可以暂时关闭
-  enable: true
-  #access 放行url
-  access-exclude:
-    - /auth/login
-    - /auth/register
-    - /auth/refreshToken
-    - /mail/sendAuthMail
-    - /error
-  #access 拦截url
-  access-include:
-    - /**
-  #refesh 拦截url
-  refresh-include:
-    - /auth/refreshToken
-  #refresh 放行url
-  refresh-exclude:
-    - /**

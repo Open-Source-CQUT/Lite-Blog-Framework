@@ -8,10 +8,11 @@ import java.util.List;
 
 @Data
 @Configuration
-@ConfigurationProperties(prefix = "interceptor")
+@ConfigurationProperties(prefix = "spring.mvc.interceptor")
 public class WebUrlConfig {
 
     private Boolean enable;
+
 
     private List<String> accessExclude;
 
@@ -20,4 +21,6 @@ public class WebUrlConfig {
     private List<String> refreshExclude;
 
     private List<String> refreshInclude;
+
+    private List<String> corsInclude;
 }
