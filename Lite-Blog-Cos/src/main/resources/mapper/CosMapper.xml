@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lite.cos.dao.CosMapper">
+
+    <insert id="insertFile" parameterType="com.lite.cos.entity.File">
+        INSERT INTO `info_file`
+        (file_name, original_name, url, type, upload_time, uploader, deleted, access, bucket)
+            VALUE (#{fileName},#{originalName},#{url},#{type},#{uploadTime},#{uploader},#{deleted},#{access},#{bucket});
+    </insert>
+
+    <select id="getFile" resultType="com.lite.cos.entity.File" parameterType="java.lang.String">
+        SELECT *
+        FROM `info_file`
+        WHERE url = #{fileName}
+    </select>
+</mapper>

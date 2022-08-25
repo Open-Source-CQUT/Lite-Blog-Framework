@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.liteblog</groupId>
+        <artifactId>Lite-Blog</artifactId>
+        <version>1.0.1</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.lite.cos</groupId>
+    <artifactId>Lite-Blog-Cos</artifactId>
+    <version>1.0.1</version>
+
+    <dependencies>
+        <!--腾讯云cos-->
+        <dependency>
+            <groupId>com.qcloud</groupId>
+            <artifactId>cos_api</artifactId>
+        </dependency>
+        <!--Common-->
+        <dependency>
+            <groupId>com.lite.common</groupId>
+            <artifactId>Lite-Blog-Common</artifactId>
+        </dependency>
+        <!--Auth-->
+        <dependency>
+            <groupId>com.lite.auth</groupId>
+            <artifactId>Lite-Blog-Auth</artifactId>
+        </dependency>
+        <!--configuration-processor-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+
+</project>

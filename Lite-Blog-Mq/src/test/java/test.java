@@ -1,10 +1,8 @@
-import org.junit.jupiter.api.Test;
+import com.lite.mq.LiteBlogMqApplication;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+@Slf4j
+@SpringBootTest(classes = LiteBlogMqApplication.class)
 public class test {
-    @Test
-    void test() throws ClassNotFoundException {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-    }
 }

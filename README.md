@@ -18,13 +18,43 @@
 
 
 
+## 模块
+
+
+
+```
+|
+|
+|----Lite-Blog                 Maven父工程
+|
+|-------Lite-Blog-Common       公共模块，语言管理，通用工具
+|
+|-------Lite-Blog-Auth         权限管理模块
+|
+|-------Lite-Blog-Cos          腾讯云COS对象存储模块
+|
+|-------Lite-Blog-Mail         邮件服务模块
+|
+|-------Lite-Blog-Mq           消息队列模块
+|
+|-------Lite-Blog-Generator    代码生成模块
+|
+|-------Lite-Blog-Schedule     定时任务模块
+|
+|-------Lite-Blog-Business     业务模块
+|
+|-------Lite-Blog-System       系统模块
+|
+|-------Lite-Blog-Api          Web接口Api模块
+```
+
+
+
 ## 技术栈
 
 
 
 **技术总栈**:[Lite-Blog-Doc/所用技术.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/所用技术.md)
-
-
 
 **登陆校验**：[Lite-Blog-Doc/Token校验.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/Token校验.md)
 
@@ -34,14 +64,9 @@
 
 **邮件服务：**[Lite-Blog-Doc/邮件服务.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/邮件服务.md)
 
-
 **多语言配置**：[Lite-Blog-Doc/dev at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/i18n多语言.md)
 
-
-
 **腾讯COS：**[Lite-Blog-Doc/dev at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/腾讯COS.md)
-
-
 
 **接口文档：**[项目概览 - 轻言博客 (apifox.cn)](https://www.apifox.cn/apidoc/shared-25197369-00c2-4c14-a603-1c453cfcc812/doc-881581)
 

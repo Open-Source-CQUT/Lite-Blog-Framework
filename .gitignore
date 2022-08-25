@@ -2,7 +2,7 @@ HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
-!**/src/com.liteweb.LiteBlogWebApplicationTest/**/target/
+!**/src/LiteBlogWebApplicationTest/**/target/
 secret.txt
 
 ### STS ###
@@ -28,7 +28,7 @@ secret.txt
 /.nb-gradle/
 build/
 !**/src/main/**/build/
-!**/src/com.liteweb.LiteBlogWebApplicationTest/**/build/
+!**/src/LiteBlogWebApplicationTest/**/build/
 
 ### VS Code ###
 .vscode/
