@@ -1,0 +1,78 @@
+spring:
+  datasource:
+    #数据库驱动
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #数据库连接URL
+    url: jdbc:mysql://localhost:3306/lite_blog?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Hongkong&allowMultiQueries=true
+    #数据库用户名
+    username: root
+    #数据库密码
+    password: wyh246859
+    #连接池类型
+    type: com.zaxxer.hikari.HikariDataSource
+
+    hikari:
+      #连接池名称
+      pool-name: Lite-Blog-Pool
+      #最大连接数
+      maximum-pool-size: 50
+      #最小空闲连接
+      minimum-idle: 10
+      #最大超时过期时间
+      max-lifetime: 1800000
+      #连接超时时间
+      connection-timeout: 30000
+      idle-timeout: 30000
+      #自动提交
+      auto-commit: true
+
+  redis:
+    #端口
+    port: 6379
+    #主机
+    host: localhost
+    #密码
+    password: wyh246859
+    #连接池
+    lettuce:
+      pool:
+        # 最大连接数
+        max-active: 100
+        # 最大空闲连接
+        max-idle: 20
+        #最小空闲连接
+        min-idle: 5
+        #连接等待时间
+        max-wait: 12000
+
+#mp配置
+mybatis-plus:
+  #xml扫描路径
+  mapper-locations: classpath*:/mapper/**/*.xml
+  global-config:
+    #数据库配置
+    db-config:
+      #逻辑删除字段
+      logic-delete-field: deleted
+      #逻辑删除 false
+      logic-not-delete-value: 0
+      #逻辑删除 true
+      logic-delete-value: 1
+      #主键策略
+      id-type: auto
+  #sql日志
+  configuration:
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+  type-aliases-package: com.**.**.mapper
+
+#mp的自动填充配置
+auto-inject:
+  #自动在插入时注入时间的字段名
+  time-insert:
+    - createdTime
+    - updatedTime
+    - uploadTime
+  #自动在更新时注入时间的字段名
+  time-update:
+    - updatedTime
+

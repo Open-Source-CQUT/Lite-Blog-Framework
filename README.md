@@ -46,6 +46,16 @@
 
 
 
+**windows启动脚本：**
+
+`./LiteBlogBoot.bat`
+
+**Linux启动脚本：**
+
+`./LiteBlogBoot.sh`
+
+
+
 ## **版本要求**
 
 - **Mysql：**`8.0.27`

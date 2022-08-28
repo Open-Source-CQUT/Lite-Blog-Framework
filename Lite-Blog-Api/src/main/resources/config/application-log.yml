@@ -1,0 +1,20 @@
+#日志
+logging:
+  #等级
+  level:
+    web: debug
+    com.lite.api: debug
+  charset:
+    file: UTF-8
+    console: UTF-8
+  logback:
+    rollingpolicy:
+      # 单文件的大小，默认10M, 超过之后打包成一个日志文件
+      max-file-size: 1MB
+      # 日志保存的天数
+      max-history: 30
+      # 打包文件格式,默认： ${LOG_FILE}.%d{yyyy-MM-dd}.%i.gz,书写格式为：文件路径/文件名.%i.文件后缀,其中%i不可省去，否则无日志显示
+      # 例如： 日期为：2021/11/5 ,则打包文件之后为： log/ota.2021-11-05.0.gz,0表示日志的第一部分，后续就是，1,2,3...
+      # 如果是压缩包，里面会多一个名log/ota.2021-11-05.0的日志文件
+      # 如下面的例子，打包之后为: log/2021-11/ota.2020-11-5.0.log，这是一个日志文件
+      file-name-pattern: log/%d{yyyy-MM}/ota.%d{yyyy-MM-dd}.%i.log

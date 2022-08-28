@@ -57,6 +57,12 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources/config</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins>
             <!-- 打包成可执行jar,防止中文乱码，必须要下面这一个插件  -->
             <plugin>

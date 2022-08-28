@@ -1,0 +1,55 @@
+spring:
+  #语言配置
+  messages:
+    #编码
+    encoding: UTF-8
+    #默认名称
+    basename: i18n.messages
+  #邮件服务
+  mail:
+    #默认编码
+    default-encoding: UTF-8
+    #邮件服务器
+    host: smtp.exmail.qq.com
+    #用户名即发信邮箱
+    username: vegetable-programmer@halfiisland.com
+    #邮箱密码或者授权码
+    password: password
+
+
+#腾讯云COS服务
+cos:
+  # secretId secretKey 这两个是腾讯云永久密钥,泄露了的话就很麻烦，只能在控制台禁用了重写开个新的
+  # 两个密钥平时推送代码的时候不要把这个也推了，除了部署上线的时候，开发时候都是自己用。
+  appId: 1308755698
+  #私钥id
+  secretId: secretId
+  #私钥
+  secretKey: secretKey
+  #地区归属
+  region: ap-chongqing
+  #连接超时时间
+  connection-Timeout: 30000
+  #Socket超时时间
+  socket-timeout: 30000
+  #线程池大小
+  threadSizes: 32
+  #分块上传阈值 20MB
+  MultipartUploadThreshold: 4044121000
+  #分块大小 2MB
+  MinimumUploadPartSize: 2121440
+  #URL
+  BaseUrl: https://bucket-name.cos.ap-chongqing.myqcloud.com/
+  #静态文件桶
+  static-bucket: static-1308755698
+  #公共桶
+  public-bucket: public-1308755698
+  #私有桶
+  private-bucket: private-1308755698
+  #日志桶
+  log-bucket: log-1308755698
+
+#系统设置
+sys:
+  #开发时建议打开此项
+  log-enable: true
