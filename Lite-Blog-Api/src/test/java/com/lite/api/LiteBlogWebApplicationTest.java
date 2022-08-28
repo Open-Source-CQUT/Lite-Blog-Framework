@@ -118,6 +118,7 @@ public class LiteBlogWebApplicationTest {
     @Autowired
     SystemConfig systemConfig;
 
+
     @Test
     void applicationContext() {
         Map<String, SystemApi> map = redisCache.getCacheMap(systemConfig.getRedisMapKey());

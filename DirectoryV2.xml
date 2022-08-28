@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <trees>
+     <tree path="/Lite-Blog-Api" title="Web接口API模块"/>
+     <tree path="/Lite-Blog-Auth" title="用户校验模块"/>
+     <tree path="/Lite-Blog-Business" title="系统业务模块"/>
+     <tree path="/Lite-Blog-Common" title="通用公共模块"/>
+     <tree path="/Lite-Blog-Cos" title="对象存储模块"/>
+     <tree path="/Lite-Blog-Generator" title="代码生成模块"/>
+     <tree path="/Lite-Blog-Mail" title="邮件服务模块"/>
+     <tree path="/Lite-Blog-Mq" title="消息队列模块"/>
+     <tree path="/Lite-Blog-Schedule" title="定时任务模块"/>
+     <tree path="/Lite-Blog-System" title="系统服务模块"/>
+ </trees>

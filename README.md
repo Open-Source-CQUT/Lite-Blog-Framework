@@ -41,13 +41,32 @@
 ## **版本要求**
 
 - **Mysql：**`8.0.27`
+
 - **Tomcat:**  `8.5.73`
+
 - **RabbitMq:** `3.10.6`
+
 - **Nginx:** `1.16.1`
+
 - **Redis:**`3.0.504`
+
 - **Maven:**`3.8.1`
 
+    
 
+**开发工具：**`Intellj IDEA Ultimate 2022.3`
+
+**必需插件：**
+
+- MybatisX
+
+- MybatisCodesHelper
+
+- TreeInfoTips
+
+- Comments Highlighter
+
+    
 
 ## 模块
 

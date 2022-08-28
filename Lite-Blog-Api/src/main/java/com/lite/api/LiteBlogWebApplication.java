@@ -9,9 +9,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 
 
+// * 开启跨域注解
 @CrossOrigin
+// * Mapper注解
 @MapperScan("com.lite.**.dao")
+// * 声明式事务开启注解
 @EnableTransactionManagement
+// * 扫描包的路径，多模块注入必需
 @SpringBootApplication(scanBasePackages = {"com.lite"})
 public class LiteBlogWebApplication {
     public static void main(String[] args) {
