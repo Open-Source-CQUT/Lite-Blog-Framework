@@ -3,47 +3,44 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lite.system.dao.SystemApiMapper">
-
     <insert id="insertApiList" parameterType="java.util.List">
         INSERT INTO info_sys_api
-        (`simple_name`,full_name,url, `method`, `enable`, permission_id, created_time, updated_time, deleted,version)
+        (`simple_name`, full_name, url, `method`, `enable`, permission_id, created_time, updated_time, deleted, version)
         VALUES
         <foreach item="api" collection="list" open="" close="" separator="," index="index">
-            (
-            #{api.simpleName},
-            #{api.fullName},
-            #{api.url},
-            #{api.method},
-            #{api.enable},
-            #{api.permissionId},
-            #{api.createdTime},
-            #{api.updatedTime},
-            #{api.deleted},
-            #{api.version}
-            )
+            (#{api.simpleName},
+             #{api.fullName},
+             #{api.url},
+             #{api.method},
+             #{api.enable},
+             #{api.permissionId},
+             #{api.createdTime},
+             #{api.updatedTime},
+             #{api.deleted},
+             #{api.version})
         </foreach>
     </insert>
     <update id="updateList" parameterType="java.util.List">
-            <foreach collection="list" index="index" item="api" separator=";" open="" close="">
-                UPDATE info_sys_api
-                <set>
-                    <if test="api.url != null">
-                        url = #{api.url} ,
-                    </if>
-                    <if test="api.method != null">
-                        `method` =#{api.method} ,
-                    </if>
-                    <if test="api.permissionId != null">
-                        permission_id = #{api.permissionId} ,
-                    </if>
-                    <if test="api.updatedTime != null">
-                        updated_time = #{api.updatedTime} ,
-                    </if>
-                    <if test="api.version != null">
-                        version = version + 1
-                    </if>
-                </set>
-                WHERE id = #{api.id}
-            </foreach>
+        <foreach collection="list" index="index" item="api" separator=";" open="" close="">
+            UPDATE info_sys_api
+            <set>
+                <if test="api.url != null">
+                    url = #{api.url},
+                </if>
+                <if test="api.method != null">
+                    `method` =#{api.method},
+                </if>
+                <if test="api.permissionId != null">
+                    permission_id = #{api.permissionId},
+                </if>
+                <if test="api.updatedTime != null">
+                    updated_time = #{api.updatedTime},
+                </if>
+                <if test="api.version != null">
+                    version = version + 1
+                </if>
+            </set>
+            WHERE id = #{api.id}
+        </foreach>
     </update>
 </mapper>

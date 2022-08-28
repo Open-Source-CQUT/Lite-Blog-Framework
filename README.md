@@ -22,19 +22,27 @@
 
 
 
-**数据库SQL构建脚本位于 :**`Lite-Blog-Api/src/main/resources/dbScript/lite_blog_2022_8_28_15_11.sql`
+**数据库SQL构建脚本位于 :**
+
+`Lite-Blog-Api/src/main/resources/dbScript/lite_blog_2022_8_28_15_11.sql`
 
 
 
-**POST接口调试导出数据位于:**`Lite-Blog-Api/src/main/resources/postmanCollection/lite-blog.postman_collection_latest.json`
+**POST接口调试导出数据位于:**
+
+`Lite-Blog-Api/src/main/resources/postmanCollection/lite-blog.postman_collection_latest.json`
 
 
 
-**项目的配置文件位于：**`Lite-Blog-Api/src/main/resources/application-dev.yml`
+**项目的配置文件位于：**
+
+`Lite-Blog-Api/src/main/resources/application-dev.yml`
 
 
 
-**项目的语言文件位于：**`Lite-Blog-Common/src/main/resources/i18n/messages.properties`
+**项目的语言文件位于：**
+
+`Lite-Blog-Common/src/main/resources/i18n/messages.properties`
 
 
 
