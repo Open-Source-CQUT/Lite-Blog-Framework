@@ -37,6 +37,7 @@
     <packaging>pom</packaging>
 
     <!--公共属性-->
+    <!--这些版本不要随便改，有些依赖之间存在版本冲突，以下版本是测试过可以正常运行的-->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <lite.api.version>1.0.1</lite.api.version>

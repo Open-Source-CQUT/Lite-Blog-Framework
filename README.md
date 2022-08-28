@@ -18,6 +18,33 @@
 
 
 
+## 开发说明
+
+**数据库SQL构建脚本位于 :**`Lite-Blog-Api/src/main/resources/dbScript/lite_blog_2022_8_28_15_11.sql`
+
+**POST接口调试导出数据位于:**`Lite-Blog-Api/src/main/resources/postmanCollection/lite-blog.postman_collection_latest.json`
+
+**项目的配置文件位于：**`Lite-Blog-Api/src/main/resources/application-dev.yml`
+
+**在进行开发之前，请确保你已做好以下配置：**
+
+- 仔细阅读以上的文档
+- 仔细阅读配置文件的注释
+- 仔细阅读代码里的注释
+
+
+
+## **版本要求**
+
+- **Mysql：**`8.0.27`
+- **Tomcat:**  `8.5.73`
+- **RabbitMq:** `3.10.6`
+- **Nginx:** `1.16.1`
+- **Redis:**`3.0.504`
+- **Maven:**`3.8.1`
+
+
+
 ## 模块
 
 
@@ -70,7 +97,7 @@
 
 **接口文档：**[项目概览 - 轻言博客 (apifox.cn)](https://www.apifox.cn/apidoc/shared-25197369-00c2-4c14-a603-1c453cfcc812/doc-881581)
 
-**接口权限：**：[Lite-Blog-Doc/接口权限管理.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/接口权限管理.md)
+**接口权限：**[Lite-Blog-Doc/接口权限管理.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/接口权限管理.md)
 
 ------
 
@@ -89,3 +116,4 @@
 ## 部署文档
 
 即将推出
+
