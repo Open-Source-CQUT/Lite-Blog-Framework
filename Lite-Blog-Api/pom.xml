@@ -15,6 +15,7 @@
     <artifactId>Lite-Blog-Api</artifactId>
     <version>1.0.1</version>
 
+
     <dependencies>
 
         <!--common-->
@@ -31,6 +32,11 @@
         <dependency>
             <groupId>com.lite.auth</groupId>
             <artifactId>Lite-Blog-Auth</artifactId>
+        </dependency>
+        <!--系统模块-->
+        <dependency>
+            <groupId>com.lite.system</groupId>
+            <artifactId>Lite-Blog-System</artifactId>
         </dependency>
         <!--cos-->
         <dependency>
@@ -52,6 +58,16 @@
 
     <build>
         <plugins>
+            <!-- 打包成可执行jar,防止中文乱码，必须要下面这一个插件  -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>utf-8</encoding>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

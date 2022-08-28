@@ -1,6 +1,9 @@
 package com.lite.auth.convert.rules;
 
+import com.lite.common.utils.DateUtils;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDateTime;
 
 @Component
 public class GenderRule {
@@ -11,5 +14,9 @@ public class GenderRule {
 
     public Integer toCode(String gender) {
         return "女".equals(gender) ? 0 : 1;
+    }
+
+    public String dateToStr(LocalDateTime dateTime){
+        return DateUtils.formatDefault(dateTime);
     }
 }

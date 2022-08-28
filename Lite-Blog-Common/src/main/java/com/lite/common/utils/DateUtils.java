@@ -25,6 +25,10 @@ public class DateUtils {
         return now.format(DEFAULT_FORMATTER);
     }
 
+    public static String formatDefault(LocalDateTime dateTime){
+        return dateTime.format(DEFAULT_FORMATTER);
+    }
+
     public static String formatNow(String pattern){
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);

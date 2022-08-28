@@ -8,6 +8,7 @@ import com.lite.auth.exception.AuthException;
 import com.lite.auth.exception.UserNotFoundException;
 import com.lite.auth.service.AuthService;
 import com.lite.auth.vo.UserVo;
+import com.lite.system.annotation.Module;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;

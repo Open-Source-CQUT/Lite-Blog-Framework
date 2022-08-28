@@ -35,6 +35,10 @@ public class UserVo {
     @NotBlank(message = "性别不能为空", groups = {NormalGroups.Crud.Insert.class})
     private String gender;
 
-    private Integer roleId;
+    private Integer permissionId;
+
+    private String job;
+
+    private String company;
 
 }

@@ -19,10 +19,14 @@ public class UserTokenVo {
 
     private String gender;
 
-    private Integer roleId;
+    private Integer permissionId;
 
     private String loginTime;
 
     private String uuid;
+
+    private String job;
+
+    private String company;
 
 }

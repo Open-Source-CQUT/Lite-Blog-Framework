@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 import java.util.Locale;
+import java.util.Objects;
 
 @Component
 public class LocalMessages {
@@ -18,12 +19,12 @@ public class LocalMessages {
     }
 
     public static String get(String key) {
-        return get(key, LocaleContextHolder.getLocale());
+        return get(key, (Object) null);
     }
 
-    public static String get(String key, Locale local) {
+    public static String get(String key, Object... args) {
         try {
-            return messageSource.getMessage(key, null, local);
+            return messageSource.getMessage(key, args,LocaleContextHolder.getLocale());
         } catch (Exception e) {
             e.printStackTrace();
             return StringUtils.EMPTY;

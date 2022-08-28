@@ -216,3 +216,7 @@ cos:
   private-bucket: private-1308755698
   #日志桶
   log-bucket: log-1308755698
+
+sys:
+  #开发时建议打开此项
+  log-enable: true

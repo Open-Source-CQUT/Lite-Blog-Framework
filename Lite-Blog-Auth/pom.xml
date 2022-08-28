@@ -43,7 +43,6 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>${mybatis.plus.version}</version>
         </dependency>
         <!--fastjson-->
         <dependency>
@@ -64,6 +63,10 @@
         <dependency>
             <groupId>com.lite.mail</groupId>
             <artifactId>Lite-Blog-Mail</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.lite.system</groupId>
+            <artifactId>Lite-Blog-System</artifactId>
         </dependency>
     </dependencies>
 

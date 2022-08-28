@@ -1,18 +1,18 @@
 package com.lite.cos.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.lite.common.entity.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("info_file")
-public class File {
-
-    @TableId(type = IdType.AUTO)
-    private Long id;
+public class File extends BaseEntity {
 
     private String fileName;
 
@@ -29,8 +29,6 @@ public class File {
     private Long uploader;
 
     @TableField(fill = FieldFill.INSERT)
-    private String uploadTime;
-
-    private Boolean deleted;
+    private LocalDateTime uploadTime;
 
 }

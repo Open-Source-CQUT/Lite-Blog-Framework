@@ -19,7 +19,7 @@ public class GlobalExceptionHandler {
     HttpServletResponse response;
 
     @ResponseBody
-    @ExceptionHandler(Exception.class)
+    @ExceptionHandler({Exception.class})
     public ResultResponse<String> BaseExceptionProcessor(Exception e) {
         if (e instanceof BaseException) {
             BaseException baseException = (BaseException) e;

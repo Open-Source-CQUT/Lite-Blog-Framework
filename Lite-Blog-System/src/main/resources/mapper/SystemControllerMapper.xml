@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lite.system.dao.SystemControllerMapper">
+    <insert id="insertControllerList" parameterType="java.util.List">
+        INSERT INTO info_sys_controller
+        (url, simple_name, package_name, full_name, enable, created_time, updated_time, deleted, version)
+        VALUES
+        <foreach collection="list" index="index" item="ctrl" open="" close="" separator=",">
+            (#{ctrl.url},
+             #{ctrl.simpleName},
+             #{ctrl.packageName},
+             #{ctrl.fullName},
+             #{ctrl.enable},
+             #{ctrl.createdTime},
+             #{ctrl.updatedTime},
+             #{ctrl.deleted},
+             #{ctrl.version})
+        </foreach>
+    </insert>
+    <update id="updateControllerList" parameterType="java.util.List">
+        <foreach collection="list" index="index" item="ctrl" separator=";" open="" close="">
+            UPDATE info_sys_controller
+            <set>
+                <if test="ctrl.url != null">
+                    url = #{ctrl.url},
+                </if>
+                <if test="ctrl.updatedTime != null">
+                    updated_time = #{ctrl.updatedTime},
+                </if>
+                <if test="ctrl.version != null">
+                    version = version + 1,
+                </if>
+                <if test="ctrl.permissionId != null">
+                    permission_id = #{ctrl.permissionId}
+                </if>
+            </set>
+            WHERE id = #{ctrl.id}
+        </foreach>
+    </update>
+</mapper>

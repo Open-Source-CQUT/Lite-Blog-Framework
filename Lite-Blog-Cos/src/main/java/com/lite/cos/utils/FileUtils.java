@@ -1,5 +1,6 @@
 package com.lite.cos.utils;
 
+import com.lite.auth.entity.User;
 import com.lite.common.serializer.PasswordEncoder;
 import com.lite.common.utils.DateUtils;
 import com.lite.common.utils.JwtUtil;
@@ -7,6 +8,8 @@ import com.lite.cos.entity.File;
 import com.lite.auth.vo.UserTokenVo;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.time.LocalDateTime;
 
 public class FileUtils {
 
@@ -56,7 +59,7 @@ public class FileUtils {
         wrapFile.setBucket(bucket);
         wrapFile.setUrl(url);
         wrapFile.setUploader(userTokenVo.getId());
-        wrapFile.setUploadTime(DateUtils.formatNow());
+        wrapFile.setUploadTime(LocalDateTime.now());
         wrapFile.setAccess(access);
         wrapFile.setDeleted(false);
 

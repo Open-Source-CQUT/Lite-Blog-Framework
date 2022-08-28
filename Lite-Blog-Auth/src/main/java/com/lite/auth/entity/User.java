@@ -1,6 +1,7 @@
 package com.lite.auth.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.lite.common.entity.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,10 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName("info_user")
-public class User {
-
-    @TableId(type = IdType.AUTO)
-    private Long id;
+public class User extends BaseEntity {
 
     private String mail;
 
@@ -28,14 +26,10 @@ public class User {
 
     private Integer gender;
 
-    private Integer roleId;
+    private Integer permissionId;
 
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private String createdTime;
+    private String job;
 
-    @TableField(fill = FieldFill.UPDATE)
-    private String updatedTime;
-
-    private Boolean deleted;
+    private String company;
 
 }

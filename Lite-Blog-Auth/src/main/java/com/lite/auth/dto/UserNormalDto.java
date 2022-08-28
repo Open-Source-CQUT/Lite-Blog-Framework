@@ -25,5 +25,9 @@ public class UserNormalDto {
 
     private Integer gender;
 
-    private Integer roleId;
+    private Integer permissionId;
+
+    private String job;
+
+    private String company;
 }
