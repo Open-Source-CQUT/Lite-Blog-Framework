@@ -10,4 +10,6 @@
      <tree path="/Lite-Blog-Mq" title="消息队列模块"/>
      <tree path="/Lite-Blog-Schedule" title="定时任务模块"/>
      <tree path="/Lite-Blog-System" title="系统服务模块"/>
- </trees>
+     <tree path="/LiteBlogBoot.bat" title="window启动脚本" extension="bat"/>
+    <tree path="/LiteBlogBoot.sh" title="Linux启动脚本" extension="sh"/>
+</trees>
