@@ -70,6 +70,8 @@
 
 **接口文档：**[项目概览 - 轻言博客 (apifox.cn)](https://www.apifox.cn/apidoc/shared-25197369-00c2-4c14-a603-1c453cfcc812/doc-881581)
 
+**接口权限：**：[Lite-Blog-Doc/接口权限管理.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/接口权限管理.md)
+
 ------
 
 ## 项目预览
@@ -80,7 +82,7 @@
 
 ## 部分截图预览
 
-即将推出
+![image-20220828152447817](assets/README/image-20220828152447817.png)
 
 
 
