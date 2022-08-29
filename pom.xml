@@ -37,7 +37,7 @@
     <packaging>pom</packaging>
 
     <!--公共属性-->
-    <!-- ! 这些版本不要随便改，有些依赖之间存在版本冲突-->
+    <!-- ! 这些版本不要随便改，有些依赖之间存在版本冲突,以下版本是经过测试后可以完美运行的-->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <lite.api.version>1.0.1</lite.api.version>
@@ -65,11 +65,14 @@
         <cos.version>5.6.89</cos.version>
         <maven.compile.plugin.version>3.8.1</maven.compile.plugin.version>
         <mapstruct.lombok.bind.version>0.2.0</mapstruct.lombok.bind.version>
+        <quartz.version>2.3.2</quartz.version>
     </properties>
 
     <!--公共依赖管理-->
     <dependencyManagement>
         <dependencies>
+
+            <!-- * 以下是系统内部依赖配置-->
             <!--公共模块-->
             <dependency>
                 <groupId>com.lite.common</groupId>
@@ -120,7 +123,7 @@
             </dependency>
             <!--Business模块-->
             <dependency>
-                <groupId>com.lite.Business</groupId>
+                <groupId>com.lite.business</groupId>
                 <artifactId>Lite-Blog-Business</artifactId>
                 <version>${lite.business.version}</version>
             </dependency>
@@ -130,6 +133,9 @@
                 <artifactId>Lite-Blog-System</artifactId>
                 <version>${lite.system.version}</version>
             </dependency>
+
+
+            <!-- * 以下则是系统外部依赖配置-->
             <!-- SpringBoot的依赖配置-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -269,6 +275,12 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-thymeleaf</artifactId>
                 <version>${spring.starter.global.version}</version>
+            </dependency>
+            <!--定时任务组件-->
+            <dependency>
+                <groupId>org.quartz-scheduler</groupId>
+                <artifactId>quartz</artifactId>
+                <version>${quartz.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

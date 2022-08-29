@@ -1,4 +1,4 @@
-package com.lite.Business;
+package com.lite.business;
 
 
 public class Main {

@@ -14,5 +14,13 @@
     <artifactId>Lite-Blog-Schedule</artifactId>
     <version>1.0.1</version>
 
+    <dependencies>
 
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+            <version>${quartz.version}</version>
+        </dependency>
+
+    </dependencies>
 </project>

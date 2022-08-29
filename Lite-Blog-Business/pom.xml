@@ -10,7 +10,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.lite.Business</groupId>
+    <groupId>com.lite.business</groupId>
     <artifactId>Lite-Blog-Business</artifactId>
     <version>1.0.1</version>
 
