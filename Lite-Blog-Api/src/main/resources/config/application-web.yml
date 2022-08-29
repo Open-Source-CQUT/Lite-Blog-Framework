@@ -33,6 +33,7 @@ spring:
         - PUT
         - OPTIONS
         - DELETE
+        - HEADER
       #开启验证 如果开启的话allowed-origins不能为*
       allowed-credentials: false
       max-age: 3600
