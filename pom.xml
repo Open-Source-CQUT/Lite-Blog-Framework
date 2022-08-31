@@ -54,7 +54,7 @@
         <maven.compiler.target>8</maven.compiler.target>
         <spring.starter.global.version>2.7.2</spring.starter.global.version>
         <mybatis.plus.version>3.5.2</mybatis.plus.version>
-        <mybatis.plus.generator.version>3.5.2</mybatis.plus.generator.version>
+        <mybatis.plus.generator.version>3.5.1</mybatis.plus.generator.version>
         <p6spy.version>3.9.1</p6spy.version>
         <mysql.version>8.0.29</mysql.version>
         <lombok.version>1.18.24</lombok.version>
@@ -65,7 +65,7 @@
         <cos.version>5.6.89</cos.version>
         <maven.compile.plugin.version>3.8.1</maven.compile.plugin.version>
         <mapstruct.lombok.bind.version>0.2.0</mapstruct.lombok.bind.version>
-        <quartz.version>2.3.2</quartz.version>
+        <freemarker.version>2.3.31</freemarker.version>
     </properties>
 
     <!--公共依赖管理-->
@@ -276,11 +276,19 @@
                 <artifactId>spring-boot-starter-thymeleaf</artifactId>
                 <version>${spring.starter.global.version}</version>
             </dependency>
-            <!--定时任务组件-->
+
+            <!-- https://mvnrepository.com/artifact/org.freemarker/freemarker -->
             <dependency>
-                <groupId>org.quartz-scheduler</groupId>
-                <artifactId>quartz</artifactId>
-                <version>${quartz.version}</version>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>${freemarker.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-quartz -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-quartz</artifactId>
+                <version>${spring.starter.global.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

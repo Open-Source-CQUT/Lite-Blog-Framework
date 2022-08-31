@@ -24,6 +24,7 @@ import com.lite.common.serializer.PasswordEncoder;
 import com.lite.common.serializer.RedisCache;
 import com.lite.mail.Vo.AuthMailVo;
 import com.lite.mail.utils.MailUtils;
+import com.lite.system.entity.PermissionId;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -100,7 +101,7 @@ public class AuthServiceIml implements AuthService {
         newUser.setPassword(PasswordEncoder.enCode(newUser.getPassword()));
 
         //默认设置为普通用户
-        newUser.setPermissionId(0);
+        newUser.setPermissionId(PermissionId.DEFAULT.val());
 
         if (!authMapper.insertUser(newUser))
             throw new AuthException(HttpStatus.INTERNAL_SERVER_ERROR.value(), LocalMessages.get("error.user.auth.register"));

@@ -2,11 +2,11 @@ package com.lite.auth.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.lite.common.entity.BaseEntity;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName("info_user")

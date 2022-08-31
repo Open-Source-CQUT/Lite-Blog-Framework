@@ -14,4 +14,27 @@
     <artifactId>Lite-Blog-Generator</artifactId>
     <version>1.0.1</version>
 
+    <dependencies>
+        <!--代码生成器-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.lite.common</groupId>
+            <artifactId>Lite-Blog-Common</artifactId>
+        </dependency>
+    </dependencies>
 </project>
