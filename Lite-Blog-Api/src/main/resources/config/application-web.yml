@@ -1,4 +1,8 @@
-spring:
+spring:  #前后端日期格式统一
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: always
   #servlet配置
   servlet:
     #上传文件设置
