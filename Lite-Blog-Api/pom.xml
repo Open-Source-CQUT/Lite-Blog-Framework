@@ -33,6 +33,10 @@
             <groupId>com.lite.auth</groupId>
             <artifactId>Lite-Blog-Auth</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.lite.business</groupId>
+            <artifactId>Lite-Blog-Business</artifactId>
+        </dependency>
         <!--系统模块-->
         <dependency>
             <groupId>com.lite.system</groupId>
