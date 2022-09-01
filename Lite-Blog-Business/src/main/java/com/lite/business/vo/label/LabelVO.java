@@ -28,4 +28,8 @@ public class LabelVO {
      * 别名
      */
     private String alias;
+    /**
+     * 更新版本
+     */
+    private Integer version;
 }

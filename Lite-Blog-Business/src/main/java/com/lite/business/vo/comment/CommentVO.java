@@ -23,4 +23,8 @@ public class CommentVO {
      * 评论内容
      */
     private String content;
+    /**
+     * 更新版本
+     */
+    private Integer version;
 }

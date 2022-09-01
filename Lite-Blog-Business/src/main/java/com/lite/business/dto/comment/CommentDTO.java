@@ -26,6 +26,10 @@ public class CommentDTO {
     private String content;
 
     /**
+     * 更新版本
+     */
+    private Integer version;
+    /**
      * 创建时间
      */
     private LocalDateTime createdTime;

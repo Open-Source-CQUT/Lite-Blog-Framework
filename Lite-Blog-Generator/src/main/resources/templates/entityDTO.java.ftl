@@ -71,6 +71,10 @@ public class ${dto} {
 <#------------  END 字段循环遍历  ---------->
 
     /**
+     * 更新版本
+     */
+    private Integer version;
+    /**
      * 创建时间
      */
     private LocalDateTime createdTime;

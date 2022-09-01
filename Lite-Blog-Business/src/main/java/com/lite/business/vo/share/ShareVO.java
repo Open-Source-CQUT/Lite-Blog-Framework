@@ -23,4 +23,8 @@ public class ShareVO {
      * 分享的内容
      */
     private String content;
+    /**
+     * 更新版本
+     */
+    private Integer version;
 }

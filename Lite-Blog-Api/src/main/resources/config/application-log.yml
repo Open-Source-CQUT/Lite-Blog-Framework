@@ -4,6 +4,7 @@ logging:
   level:
     web: debug
     com.lite.api: debug
+    com.lite.business: debug
   charset:
     file: UTF-8
     console: UTF-8

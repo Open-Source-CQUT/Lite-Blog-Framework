@@ -1,49 +1,27 @@
 package com.lite.business.dto.article;
 
-import java.time.LocalDateTime;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 /**
- * <p>
- * ArticleDTO 传输层对象
- * </p>
- *
- * @author stranger
- * @since 2022-09-01
+ * @author Stranger
+ * @version 1.0
+ * @description: TODO
+ * @date 2022/9/1 22:46
  */
 @Data
-public class ArticleDTO {
+public class ArticleSimpleDto {
 
     /**
      * 对象ID
      */
     private Long id;
 
-
     /**
      * 文章标题
      */
     private String title;
-
-    /**
-     * 文章封面
-     */
-    private String cover;
-
-    /**
-     * 文章摘要
-     */
-    private String summary;
-
-    /**
-     * 文章内容
-     */
-    private String content;
-
-    /**
-     * 是否发布
-     */
-    private Boolean published;
 
     /**
      * 更新版本
@@ -58,4 +36,5 @@ public class ArticleDTO {
      * 更新时间
      */
     private LocalDateTime updatedTime;
+
 }

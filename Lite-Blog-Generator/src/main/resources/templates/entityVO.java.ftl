@@ -68,4 +68,8 @@ public class ${vo} {
     private ${field.propertyType} ${field.propertyName};
 </#list>
 <#------------  END 字段循环遍历  ---------->
+    /**
+     * 更新版本
+     */
+    private Integer version;
 }
