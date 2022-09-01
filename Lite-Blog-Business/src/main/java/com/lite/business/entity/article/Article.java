@@ -40,5 +40,10 @@ public class Article extends BaseEntity {
      */
     private String content;
 
+    /**
+     * 是否发布
+     */
+    private Boolean published;
+
 
 }
