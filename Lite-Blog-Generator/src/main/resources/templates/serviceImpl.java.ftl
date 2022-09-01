@@ -3,8 +3,10 @@ package ${customPackage.ServiceImpl};
 import ${customPackage.Entity}.${entity};
 import ${customPackage.Mapper}.${table.mapperName};
 import ${customPackage.Service}.${table.serviceName};
+import ${customPackage.Convert}.${convert};
 import ${superServiceImplClassPackage};
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * <p>
@@ -22,5 +24,11 @@ open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperNam
 <#else>
 public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}> implements ${table.serviceName} {
 
+
+        @Autowired
+        ${table.mapperName} ${entityLowerName}Mapper;
+
+        @Autowired
+        ${convert} ${entityLowerName}Convert;
 }
 </#if>

@@ -1,4 +1,4 @@
-package ${package.Parent}.convert.${entityLowerName};
+package ${customPackage.Convert};
 
 
 import java.util.List;
