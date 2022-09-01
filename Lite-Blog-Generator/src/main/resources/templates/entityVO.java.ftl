@@ -13,7 +13,7 @@ package ${customPackage.VO};
 * @since ${date}
 */
 <#if entityLombokModel>
-    @Data
+@Data
 </#if>
 public class ${vo} {
 

@@ -10,7 +10,7 @@ package com.lite.business.vo.share;
 * @author stranger
 * @since 2022-09-01
 */
-    @Data
+@Data
 public class ShareVO {
 
     /**
