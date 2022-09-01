@@ -17,7 +17,8 @@ public class HelloWorldController {
     //ADMIN代表只有管理员有权限访问此接口
     @Permission(Min = PermissionId.ADMIN)
     @RequestMapping(value = {"/hello","/helloWorld","/helloSpring"},method = {RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE})
-    public ResultResponse<String> Hello(@NotBlank(message = "名称不能为空") @RequestParam String name) {
+    public ResultResponse<String> HelloWorld(@NotBlank(message = "名称不能为空") @RequestParam String name) {
         return ResultResponseUtils.success("Hello,World! "+name);
     }
+
 }

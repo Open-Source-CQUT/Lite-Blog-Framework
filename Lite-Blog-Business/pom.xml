@@ -30,6 +30,10 @@
             <groupId>com.lite.common</groupId>
             <artifactId>Lite-Blog-Common</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
 
     </dependencies>
     <build>

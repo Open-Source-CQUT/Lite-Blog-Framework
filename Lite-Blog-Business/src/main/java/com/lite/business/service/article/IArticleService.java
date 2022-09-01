@@ -1,7 +1,15 @@
 package com.lite.business.service.article;
 
-import com.lite.business.entity.article.Article;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.lite.business.dto.article.ArticleDTO;
+import com.lite.business.dto.article.ArticleSimpleDto;
+import com.lite.business.entity.article.Article;
+import com.lite.business.exceptioin.ArticleException;
+import com.lite.business.vo.article.ArticleSimpleVO;
+import com.lite.business.vo.article.ArticleVO;
+import com.lite.common.dto.ResultResponse;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +21,14 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IArticleService extends IService<Article> {
 
+
+    Boolean publishArticle(ArticleDTO articleDTO);
+
+    ArticleSimpleVO createDraft(ArticleDTO articleDTO) throws ArticleException;
+
+    ArticleSimpleVO saveDraft(ArticleDTO articleDTO) throws ArticleException;
+
+    List<ArticleVO> getArticleList(Integer page);
+
+    List<ArticleVO> getArticleList(Integer page, Integer size);
 }

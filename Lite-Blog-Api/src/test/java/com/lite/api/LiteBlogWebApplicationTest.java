@@ -1,6 +1,10 @@
 package com.lite.api;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.lite.business.convert.article.ArticleConvert;
+import com.lite.business.entity.article.Article;
+import com.lite.business.service.article.IArticleService;
+import com.lite.common.i18n.LocalMessages;
 import com.lite.common.serializer.RedisCache;
 import com.lite.auth.config.CorsConfig;
 import com.lite.auth.config.WebUrlConfig;
@@ -132,5 +136,21 @@ public class LiteBlogWebApplicationTest {
     @Test
     public void strTest() {
         log.info(SystemStringUtils.removeBracketContent("com.lite.auth.authcontroller#uploader(file)"));
+    }
+
+    @Test
+    public void convertTest(){
+        log.info(LocalMessages.get("test"));
+    }
+
+    @Autowired
+    IArticleService articleService;
+
+    @Autowired
+    ArticleConvert articleConvert;
+
+    @Test
+    public void idTest(){
+        log.info(articleService.getArticleList(1).toString());
     }
 }

@@ -159,9 +159,9 @@ CREATE TABLE `info_sys_api`  (
 -- ----------------------------
 -- Records of info_sys_api
 -- ----------------------------
-INSERT INTO `info_sys_api` VALUES (1, 'Hello', 'com.lite.api.controller.HelloWorldController#Hello/hello', '/api/hello', 'GET,POST,DELETE', 1, 1, '2022-08-28 14:00:27', '2022-08-28 14:12:26', 0, 1);
-INSERT INTO `info_sys_api` VALUES (2, 'Hello', 'com.lite.api.controller.HelloWorldController#Hello/helloSpring', '/api/helloSpring', 'GET,POST,DELETE', 1, 1, '2022-08-28 14:00:27', '2022-08-28 14:12:26', 0, 1);
-INSERT INTO `info_sys_api` VALUES (3, 'Hello', 'com.lite.api.controller.HelloWorldController#Hello/helloWorld', '/api/helloWorld', 'GET,POST,DELETE', 1, 1, '2022-08-28 14:00:27', '2022-08-28 14:12:26', 0, 1);
+INSERT INTO `info_sys_api` VALUES (1, 'Hello', 'com.lite.api.controller.HelloSpringControllerr#Hello/hello', '/api/hello', 'GET,POST,DELETE', 1, 1, '2022-08-28 14:00:27', '2022-08-28 14:12:26', 0, 1);
+INSERT INTO `info_sys_api` VALUES (2, 'Hello', 'com.lite.api.controller.HelloSpringControllerr#Hello/helloSpring', '/api/helloSpring', 'GET,POST,DELETE', 1, 1, '2022-08-28 14:00:27', '2022-08-28 14:12:26', 0, 1);
+INSERT INTO `info_sys_api` VALUES (3, 'Hello', 'com.lite.api.controller.HelloSpringControllerr#Hello/helloWorld', '/api/helloWorld', 'GET,POST,DELETE', 1, 1, '2022-08-28 14:00:27', '2022-08-28 14:12:26', 0, 1);
 INSERT INTO `info_sys_api` VALUES (4, 'changePassword', 'com.lite.api.controller.auth.AuthController#changePassword/auth/changePassword', '/api/auth/changePassword', 'POST', 0, 1, '2022-08-28 14:00:27', '2022-08-28 14:12:26', 0, 1);
 INSERT INTO `info_sys_api` VALUES (5, 'login', 'com.lite.api.controller.auth.AuthController#login/auth/login', '/api/auth/login', 'GET', 0, 1, '2022-08-28 14:00:27', '2022-08-28 14:12:26', 0, 1);
 INSERT INTO `info_sys_api` VALUES (6, 'logout', 'com.lite.api.controller.auth.AuthController#logout/auth/logout', '/api/auth/logout', 'POST', 0, 1, '2022-08-28 14:00:27', '2022-08-28 14:12:26', 0, 1);
@@ -199,7 +199,7 @@ CREATE TABLE `info_sys_controller`  (
 -- ----------------------------
 -- Records of info_sys_controller
 -- ----------------------------
-INSERT INTO `info_sys_controller` VALUES (1, '', 'HelloWorldController', 'com.lite.api.controller', 'com.lite.api.controller.HelloWorldController', 1, 1, '2022-08-28 14:00:27', '2022-08-28 14:00:27', 0, '0');
+INSERT INTO `info_sys_controller` VALUES (1, '', 'HelloWorldController', 'com.lite.api.controller', 'com.lite.api.controller.HelloSpringControllerr', 1, 1, '2022-08-28 14:00:27', '2022-08-28 14:00:27', 0, '0');
 INSERT INTO `info_sys_controller` VALUES (2, '/auth', 'AuthController', 'com.lite.api.controller.auth', 'com.lite.api.controller.auth.AuthController', 0, 1, '2022-08-28 14:00:27', '2022-08-28 14:00:27', 0, '0');
 INSERT INTO `info_sys_controller` VALUES (3, '/cos', 'CosController', 'com.lite.api.controller.cos', 'com.lite.api.controller.cos.CosController', 0, 1, '2022-08-28 14:00:27', '2022-08-28 14:00:27', 0, '0');
 INSERT INTO `info_sys_controller` VALUES (4, '', 'LiteBlogExceptionController', 'com.lite.api.controller.error', 'com.lite.api.controller.error.LiteBlogExceptionController', 0, 1, '2022-08-28 14:00:27', '2022-08-28 14:00:27', 0, '0');

@@ -59,6 +59,7 @@
         <mysql.version>8.0.29</mysql.version>
         <lombok.version>1.18.24</lombok.version>
         <fastjson.version>2.0.10</fastjson.version>
+        <jackson.version>2.13.3</jackson.version>
         <jwt.version>0.9.1</jwt.version>
         <hibernate.validator>6.2.0.Final</hibernate.validator>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
@@ -213,6 +214,12 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
+            </dependency>
+            <!--jackson-->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
             </dependency>
             <!--jwt依赖-->
             <dependency>
