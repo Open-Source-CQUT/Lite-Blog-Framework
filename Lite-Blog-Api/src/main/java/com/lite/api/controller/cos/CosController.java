@@ -2,6 +2,8 @@ package com.lite.api.controller.cos;
 
 import com.lite.common.dto.ResultResponse;
 import com.lite.auth.exception.AuthException;
+import com.lite.common.i18n.LocalMessages;
+import com.lite.common.utils.ResultResponseUtils;
 import com.lite.cos.exception.CosFileException;
 import com.lite.cos.service.CosService;
 import com.lite.cos.vo.FileVo;
@@ -23,30 +25,39 @@ public class CosController {
     CosService cosService;
 
     @PutMapping("/upload/avatar")
-    public ResultResponse<FileVo> uploadAvatar(@RequestParam("avatar") @NotNull MultipartFile file) throws CosFileException, AuthException {
+    public ResultResponse<FileVo> uploadAvatar(@RequestParam("avatar") @NotNull MultipartFile file)
+            throws CosFileException, AuthException {
 
         //TODO 上传头像
-        return cosService.uploadAvatar(file);
+        return ResultResponseUtils.success(
+                cosService.uploadAvatar(file), LocalMessages.get("success.cos.avatar.upload"));
     }
 
     @PutMapping("/upload/public")
-    public ResultResponse<FileVo> uploadPublicFile(@RequestParam("file") @NotNull MultipartFile file) throws CosFileException {
+    public ResultResponse<FileVo> uploadPublicFile(@RequestParam("file") @NotNull MultipartFile file)
+            throws CosFileException {
 
         //TODO 上传public文件
-        return cosService.uploadPublicFile(file);
+        return ResultResponseUtils.success(
+                cosService.uploadPublicFile(file), LocalMessages.get("success.cos.upload"));
     }
 
 
     @PutMapping("/upload/private")
-    public ResultResponse<FileVo> uploadPrivateFile(@RequestParam("file") @NotNull MultipartFile file) throws CosFileException {
+    public ResultResponse<FileVo> uploadPrivateFile(@RequestParam("file") @NotNull MultipartFile file)
+            throws CosFileException {
 
         //TODO 上传private文件
-        return cosService.uploadPrivateFile(file);
+
+        return ResultResponseUtils.success(
+                cosService.uploadPrivateFile(file), LocalMessages.get("success.cos.upload"));
     }
 
     @GetMapping("/download/preSigned")
-    public ResultResponse<FileVo> getPreSignedDownloadUrl(@RequestParam @NotBlank String url) throws CosFileException {
-        return cosService.getPreSignedDownLoadUrl(url);
+    public ResultResponse<FileVo> getPreSignedDownloadUrl(@RequestParam @NotBlank String url)
+            throws CosFileException {
+
+        return ResultResponseUtils.success(cosService.getPreSignedDownLoadUrl(url), LocalMessages.get("success.cos.generateURL"));
     }
 
 }

@@ -6,7 +6,7 @@
 
     <insert id="insertUser" parameterType="com.lite.auth.entity.User">
         INSERT INTO `info_user`
-        (mail, password, avatar, nick_name, gender, description, birth, created_time, updated_time, role_id)
+        (mail, password, avatar, nick_name, gender, description, birth, created_time, updated_time, permission_id)
             VALUE
             (#{mail},
             #{password},
@@ -17,7 +17,7 @@
             #{birth},
             #{createdTime},
             #{updatedTime},
-            #{roleId});
+            #{permissionId});
     </insert>
 
     <update id="updateUserPassword" parameterType="java.lang.String">

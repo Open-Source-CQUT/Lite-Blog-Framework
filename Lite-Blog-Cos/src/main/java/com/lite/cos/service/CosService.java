@@ -8,12 +8,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface CosService {
 
-    ResultResponse<FileVo> uploadAvatar(MultipartFile file) throws CosFileException, AuthException;
+    FileVo uploadAvatar(MultipartFile file) throws CosFileException, AuthException;
 
-    ResultResponse<FileVo> uploadPublicFile(MultipartFile file) throws CosFileException;
+    FileVo uploadPublicFile(MultipartFile file) throws CosFileException;
 
-    ResultResponse<FileVo> uploadPrivateFile(MultipartFile file) throws CosFileException;
+    FileVo uploadPrivateFile(MultipartFile file) throws CosFileException;
 
-    ResultResponse<FileVo> getPreSignedDownLoadUrl(String url) throws CosFileException;
+    FileVo getPreSignedDownLoadUrl(String url) throws CosFileException;
 
 }

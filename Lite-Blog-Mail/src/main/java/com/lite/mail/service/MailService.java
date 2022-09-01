@@ -8,9 +8,9 @@ import javax.mail.MessagingException;
 
 public interface MailService {
 
-    ResultResponse<Boolean> sendSimpleMail(MailVo mailVo);
+    Boolean sendSimpleMail(MailVo mailVo);
 
-    ResultResponse<Boolean> sendHtmlMail(MailVo mailVo) throws MessagingException;
+    Boolean sendHtmlMail(MailVo mailVo) throws MessagingException;
 
-    ResultResponse<Boolean> sendAuthMail(String to) throws MessagingException, MailException;
+    Boolean sendAuthMail(String to) throws MessagingException, MailException;
 }

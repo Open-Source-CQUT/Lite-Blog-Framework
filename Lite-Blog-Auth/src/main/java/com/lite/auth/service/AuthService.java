@@ -11,16 +11,16 @@ import com.lite.auth.vo.UserVo;
 public interface AuthService {
 
 
-    ResultResponse<JwtTokenWrapper> login(String mail, String password) throws AuthException;
+    JwtTokenWrapper login(String mail, String password) throws AuthException;
 
-    ResultResponse<Boolean> register(UserNormalDto userNormalDto) throws AuthException;
+    Boolean register(UserNormalDto userNormalDto) throws AuthException;
 
-    ResultResponse<JwtTokenWrapper> refreshToken() throws UserNotFoundException;
+    JwtTokenWrapper refreshToken() throws UserNotFoundException;
 
-    ResultResponse<Boolean> logout();
+    Boolean logout();
 
-    ResultResponse<Boolean> updateUserInfo(UserVo userVo) throws AuthException;
+    Boolean updateUserInfo(UserVo userVo) throws AuthException;
 
-    ResultResponse<Boolean> changePassword(String mail, String oldPassword, String newPassword) throws AuthException;
+    Boolean changePassword(String mail, String oldPassword, String newPassword) throws AuthException;
 
 }

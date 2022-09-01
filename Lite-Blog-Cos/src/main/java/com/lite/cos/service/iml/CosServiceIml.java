@@ -49,13 +49,10 @@ public class CosServiceIml implements CosService {
     LiteBlogContextUtils contextUtils;
 
     @Override
-    public ResultResponse<FileVo> uploadAvatar(MultipartFile file) throws CosFileException, AuthException {
-
-        //上传
-        ResultResponse<FileVo> result = this.uploadPublicFile(file);
+    public FileVo uploadAvatar(MultipartFile file) throws CosFileException, AuthException {
 
         //结果
-        FileVo fileVo = result.getData();
+        FileVo fileVo = this.uploadPublicFile(file);
 
         UserTokenVo userTokenVo = contextUtils.getUserContextInfo();
 
@@ -64,25 +61,25 @@ public class CosServiceIml implements CosService {
         userVo.setAvatar(fileVo.getUrl());
 
         //更新数据库中的用户头像字段
-        if (!authService.updateUserInfo(userVo).getData())
+        if (!authService.updateUserInfo(userVo))
             throw new CosFileException(HttpStatus.INTERNAL_SERVER_ERROR.value(), LocalMessages.get("error.cos.avatar.upload"));
 
-        return ResultResponseUtils.success(fileVo, LocalMessages.get("success.cos.avatar.upload"));
+        return fileVo;
     }
 
     @Override
-    public ResultResponse<FileVo> uploadPublicFile(MultipartFile file) throws CosFileException {
+    public FileVo uploadPublicFile(MultipartFile file) throws CosFileException {
         return doUploadService(file, true);
     }
 
     @Override
-    public ResultResponse<FileVo> uploadPrivateFile(MultipartFile file) throws CosFileException {
+    public FileVo uploadPrivateFile(MultipartFile file) throws CosFileException {
         return doUploadService(file, false);
     }
 
 
     @Override
-    public ResultResponse<FileVo> getPreSignedDownLoadUrl(String url) throws CosFileException {
+    public FileVo getPreSignedDownLoadUrl(String url) throws CosFileException {
 
         //数据库查找信息
         File file = cosMapper.getFile(url).orElseGet(File::new);
@@ -108,10 +105,8 @@ public class CosServiceIml implements CosService {
         //设置url
         file.setUrl(downloadURL.toString());
 
-        FileVo fileVo = fileConverter.entityToVo(file);
-
         //返回信息
-        return ResultResponseUtils.success(fileVo, LocalMessages.get("success.cos.generateURL"));
+        return fileConverter.entityToVo(file);
     }
 
 
@@ -122,7 +117,7 @@ public class CosServiceIml implements CosService {
      * @throws CosFileException cos异常，抛出将被全局异常处理器拦截
      */
     @Transactional
-    public ResultResponse<FileVo> doUploadService(MultipartFile file, Boolean fileAccess) throws CosFileException {
+    public FileVo doUploadService(MultipartFile file, Boolean fileAccess) throws CosFileException {
 
         //获取用户信息
         UserTokenVo tokenVo = contextUtils.getUserContextInfo();
@@ -144,7 +139,7 @@ public class CosServiceIml implements CosService {
         if (Strings.isBlank(uploadResult.getCrc64Ecma()) || !cosMapper.insertFile(wrapFile))
             throw new CosFileException(HttpStatus.INTERNAL_SERVER_ERROR.value(), LocalMessages.get("error.cos.upload"));
 
-        return ResultResponseUtils.success(fileConverter.entityToVo(wrapFile), LocalMessages.get("success.cos.upload"));
+        return fileConverter.entityToVo(wrapFile);
     }
 
 }

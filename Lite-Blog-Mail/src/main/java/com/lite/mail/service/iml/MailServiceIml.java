@@ -42,7 +42,7 @@ public class MailServiceIml implements MailService {
     TemplateEngine templateEngine;
 
     @Override
-    public ResultResponse<Boolean> sendSimpleMail(MailVo mailVo) {
+    public Boolean sendSimpleMail(MailVo mailVo) {
         log.info(String.format("正在发送 TEXT 邮件 | to:%s | subject:%s", mailVo.getTarget(), mailVo.getSubject()));
 
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
@@ -55,11 +55,11 @@ public class MailServiceIml implements MailService {
         javaMailSender.send(simpleMailMessage);
 
         log.info("邮件发送成功");
-        return ResultResponseUtils.success(true, LocalMessages.get("success.mail.send"));
+        return true;
     }
 
     @Override
-    public ResultResponse<Boolean> sendHtmlMail(MailVo mailVo) throws MessagingException {
+    public Boolean sendHtmlMail(MailVo mailVo) throws MessagingException {
         log.info(String.format("正在发送 HTML 邮件 | to:%s | subject:%s", mailVo.getTarget(), mailVo.getSubject()));
 
         MimeMessage message = javaMailSender.createMimeMessage();
@@ -75,11 +75,11 @@ public class MailServiceIml implements MailService {
         javaMailSender.send(message);
 
         log.info("邮件发送成功");
-        return ResultResponseUtils.success(true, LocalMessages.get("success.mail.send"));
+        return true;
     }
 
     @Override
-    public ResultResponse<Boolean> sendAuthMail(String to) throws MessagingException, MailException {
+    public Boolean sendAuthMail(String to) throws MessagingException, MailException {
 
         //生成验证码
         String authCode = MailUtils.generateAuthCode();
@@ -106,7 +106,7 @@ public class MailServiceIml implements MailService {
         //5分钟后过期
         redisCache.expire(key, DateUtils.MINUTES * 5);
 
-        ResultResponse<Boolean> resultResponse;
+        Boolean resultResponse;
 
         //发送邮件
         try {

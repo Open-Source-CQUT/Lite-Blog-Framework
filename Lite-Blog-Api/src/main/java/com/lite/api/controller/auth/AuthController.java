@@ -8,6 +8,8 @@ import com.lite.auth.exception.AuthException;
 import com.lite.auth.exception.UserNotFoundException;
 import com.lite.auth.service.AuthService;
 import com.lite.auth.vo.UserVo;
+import com.lite.common.i18n.LocalMessages;
+import com.lite.common.utils.ResultResponseUtils;
 import com.lite.system.annotation.Module;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +37,9 @@ public class AuthController {
             @RequestParam @NotBlank String password)
             throws AuthException {
 
-        return service.login(mail, password);
+        return ResultResponseUtils.success(
+                service.login(mail, password),
+                LocalMessages.get("success.user.auth.login"));
     }
 
     @PostMapping("/register")
@@ -43,12 +47,17 @@ public class AuthController {
             @Validated(NormalGroups.Crud.Insert.class) @RequestBody UserVo userVo)
             throws AuthException {
 
-        return service.register(userConverter.voToNormalDto(userVo));
+
+        return service.register(userConverter.voToNormalDto(userVo)) ?
+                ResultResponseUtils.success(true, LocalMessages.get("success.user.auth.register")) :
+                ResultResponseUtils.error(false, LocalMessages.get("error.user.auth.register"));
     }
 
     @PostMapping("/updateInfo")
     public ResultResponse<Boolean> updateInfo(@RequestBody UserVo userVo) throws AuthException {
-        return service.updateUserInfo(userVo);
+        return service.updateUserInfo(userVo) ?
+                ResultResponseUtils.success(true, LocalMessages.get("success.user.auth.update")) :
+                ResultResponseUtils.error(false,LocalMessages.get("error.user.auth.update"));
     }
 
     @PostMapping("/changePassword")
@@ -59,20 +68,28 @@ public class AuthController {
             throws AuthException {
 
         //TODO 修改密码
-        return service.changePassword(mail, oldPassword, newPassword);
+        return service.changePassword(mail, oldPassword, newPassword) ?
+                ResultResponseUtils.success(true, LocalMessages.get("success.user.auth.passwordChange")) :
+                ResultResponseUtils.error(false,LocalMessages.get("error.user.auth.passwordChange"));
     }
 
     @PostMapping("/logout")
     public ResultResponse<Boolean> logout() {
 
         //TODO 注销登陆
-        return service.logout();
+        return service.logout() ?
+                ResultResponseUtils.success(true, LocalMessages.get("success.user.auth.logout")) :
+                ResultResponseUtils.error(false, LocalMessages.get("error.user.auth.logout"));
     }
 
     @GetMapping("/refreshToken")
     public ResultResponse<JwtTokenWrapper> refreshToken()
             throws UserNotFoundException {
-        return service.refreshToken();
+
+        return ResultResponseUtils.success(
+                service.refreshToken(),
+                LocalMessages.get("success.jwt.access.refresh")
+        );
     }
 
 }

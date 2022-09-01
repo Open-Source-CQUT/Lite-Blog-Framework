@@ -52,7 +52,7 @@ public class AuthServiceIml implements AuthService {
     LiteBlogContextUtils contextUtils;
 
     @Override
-    public ResultResponse<JwtTokenWrapper> login(String mail, String password) throws AuthException {
+    public JwtTokenWrapper login(String mail, String password) throws AuthException {
 
         User user = authMapper.getUser(mail).orElseGet(User::new);
 
@@ -73,13 +73,11 @@ public class AuthServiceIml implements AuthService {
         //生成refresh-token
         JwtToken refreshToken = authenticator.processAndGetRefreshToken(userVo);
 
-        return ResultResponseUtils.success(
-                new JwtTokenWrapper(accessToken, refreshToken),
-                LocalMessages.get("success.user.auth.login"));
+        return new JwtTokenWrapper(accessToken, refreshToken);
     }
 
     @Override
-    public ResultResponse<Boolean> register(UserNormalDto userNormalDto) throws AuthException {
+    public Boolean register(UserNormalDto userNormalDto) throws AuthException {
 
         String key = MailUtils.getMailRedisKey(userNormalDto.getMail());
         //进行验证码比对
@@ -109,24 +107,22 @@ public class AuthServiceIml implements AuthService {
         //操作成功后删除redis中的缓存
         redisCache.deleteObject(key);
 
-        return ResultResponseUtils.success(true, LocalMessages.get("success.user.auth.register"));
+        return true;
     }
 
     @Override
-    public ResultResponse<JwtTokenWrapper> refreshToken() {
+    public JwtTokenWrapper refreshToken() {
 
         UserTokenVo refreshPayload = contextUtils.getUserContextInfo();
 
         JwtToken accessToken = authenticator.processAndGetAccessToken(refreshPayload);
 
-        return ResultResponseUtils.success(
-                new JwtTokenWrapper(accessToken, null),
-                LocalMessages.get("success.jwt.access.refresh")
-        );
+        return new JwtTokenWrapper(accessToken, null);
+
     }
 
     @Override
-    public ResultResponse<Boolean> logout() {
+    public Boolean logout() {
 
         //能走到这里说明已经通过了拦截器的校验，所以这里的代码不用做安全性检查，如果有发生异常直接抛出交给全局异常处理即可
         //从请求头中读取数据
@@ -138,14 +134,11 @@ public class AuthServiceIml implements AuthService {
         String refreshKey = JwtUtil.getRedisRefreshKey(userTokenVo.getMail(), userTokenVo.getUuid());
 
         //是否注销成功
-        if (!redisCache.deleteObject(accessKey) || !redisCache.deleteObject(refreshKey))
-            return ResultResponseUtils.error(false, LocalMessages.get("error.user.auth.logout"));
-
-        return ResultResponseUtils.success(true, LocalMessages.get("success.user.auth.logout"));
+        return redisCache.deleteObject(accessKey) && redisCache.deleteObject(refreshKey);
     }
 
     @Override
-    public ResultResponse<Boolean> updateUserInfo(UserVo userVo) throws AuthException {
+    public Boolean updateUserInfo(UserVo userVo) throws AuthException {
 
         User user = userConverter.voToEntity(userVo);
 
@@ -155,11 +148,11 @@ public class AuthServiceIml implements AuthService {
         if (!authMapper.updateUserInfo(user))
             throw new AuthException(HttpStatus.INTERNAL_SERVER_ERROR.value(), LocalMessages.get("error.user.auth.update"));
 
-        return ResultResponseUtils.success(true, LocalMessages.get("success.user.auth.update"));
+        return true;
     }
 
     @Override
-    public ResultResponse<Boolean> changePassword(String mail, String oldPassword, String newPassword)
+    public Boolean changePassword(String mail, String oldPassword, String newPassword)
             throws AuthException {
 
         User user = authMapper.getUser(mail).orElseGet(User::new);
@@ -176,6 +169,6 @@ public class AuthServiceIml implements AuthService {
         if (!authMapper.updateUserPassword(mail, PasswordEncoder.enCode(newPassword)))
             throw new AuthException(HttpStatus.INTERNAL_SERVER_ERROR.value(), LocalMessages.get("error.user.auth.passwordChange"));
 
-        return ResultResponseUtils.success(true, LocalMessages.get("success.user.auth.passwordChange"));
+        return true;
     }
 }
