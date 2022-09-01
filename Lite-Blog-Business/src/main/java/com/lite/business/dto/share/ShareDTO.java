@@ -1,5 +1,6 @@
 package com.lite.business.dto.share;
 
+import java.time.LocalDateTime;
 import lombok.Data;
 
 /**
@@ -23,4 +24,14 @@ public class ShareDTO {
      * 分享的内容
      */
     private String content;
+
+    /**
+     * 创建时间
+     */
+    private LocalDateTime createdTime;
+
+    /**
+     * 更新时间
+     */
+    private LocalDateTime updatedTime;
 }

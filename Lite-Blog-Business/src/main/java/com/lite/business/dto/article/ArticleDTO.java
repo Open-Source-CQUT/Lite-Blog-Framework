@@ -1,5 +1,6 @@
 package com.lite.business.dto.article;
 
+import java.time.LocalDateTime;
 import lombok.Data;
 
 /**
@@ -8,10 +9,16 @@ import lombok.Data;
  * </p>
  *
  * @author stranger
- * @since 2022-08-31
+ * @since 2022-09-01
  */
 @Data
 public class ArticleDTO {
+
+    /**
+     * 对象ID
+     */
+    private Long id;
+
 
     /**
      * 文章标题
@@ -32,4 +39,19 @@ public class ArticleDTO {
      * 文章内容
      */
     private String content;
+
+    /**
+     * 是否发布
+     */
+    private Boolean published;
+
+    /**
+     * 创建时间
+     */
+    private LocalDateTime createdTime;
+
+    /**
+     * 更新时间
+     */
+    private LocalDateTime updatedTime;
 }

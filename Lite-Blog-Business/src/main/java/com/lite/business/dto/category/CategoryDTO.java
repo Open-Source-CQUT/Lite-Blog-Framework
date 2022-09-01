@@ -1,5 +1,6 @@
 package com.lite.business.dto.category;
 
+import java.time.LocalDateTime;
 import lombok.Data;
 
 /**
@@ -28,4 +29,14 @@ public class CategoryDTO {
      * 别名
      */
     private String alias;
+
+    /**
+     * 创建时间
+     */
+    private LocalDateTime createdTime;
+
+    /**
+     * 更新时间
+     */
+    private LocalDateTime updatedTime;
 }

@@ -1,5 +1,6 @@
 package com.lite.business.dto.comment;
 
+import java.time.LocalDateTime;
 import lombok.Data;
 
 /**
@@ -23,4 +24,14 @@ public class CommentDTO {
      * 评论内容
      */
     private String content;
+
+    /**
+     * 创建时间
+     */
+    private LocalDateTime createdTime;
+
+    /**
+     * 更新时间
+     */
+    private LocalDateTime updatedTime;
 }
