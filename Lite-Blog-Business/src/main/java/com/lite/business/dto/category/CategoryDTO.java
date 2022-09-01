@@ -8,10 +8,16 @@ import lombok.Data;
  * </p>
  *
  * @author stranger
- * @since 2022-08-31
+ * @since 2022-09-01
  */
 @Data
 public class CategoryDTO {
+
+    /**
+     * 对象ID
+     */
+    private Long id;
+
 
     /**
      * 分类名称

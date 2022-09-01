@@ -8,13 +8,19 @@ package com.lite.business.vo.comment;
     * </p>
 *
 * @author stranger
-* @since 2022-08-31
+* @since 2022-09-01
 */
     @Data
 public class CommentVO {
 
-            /**
-            * 评论内容
-            */
+    /**
+     * 对象ID
+     */
+    private Long id;
+
+
+    /**
+     * 评论内容
+     */
     private String content;
 }

@@ -16,6 +16,12 @@ package ${customPackage.VO};
     @Data
 </#if>
 public class ${vo} {
+
+    /**
+     * 对象ID
+     */
+    private Long id;
+
 <#-- ----------  BEGIN 字段循环遍历  ---------->
 <#list table.fields as field>
     <#if field.keyFlag>
@@ -26,9 +32,9 @@ public class ${vo} {
         <#if swagger>
             @ApiModelProperty("${field.comment}")
         <#else>
-            /**
-            * ${field.comment}
-            */
+    /**
+     * ${field.comment}
+     */
         </#if>
     </#if>
     <#if field.keyFlag>

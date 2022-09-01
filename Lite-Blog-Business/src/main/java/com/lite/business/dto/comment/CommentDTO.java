@@ -8,10 +8,16 @@ import lombok.Data;
  * </p>
  *
  * @author stranger
- * @since 2022-08-31
+ * @since 2022-09-01
  */
 @Data
 public class CommentDTO {
+
+    /**
+     * 对象ID
+     */
+    private Long id;
+
 
     /**
      * 评论内容

@@ -8,18 +8,24 @@ package com.lite.business.vo.category;
     * </p>
 *
 * @author stranger
-* @since 2022-08-31
+* @since 2022-09-01
 */
     @Data
 public class CategoryVO {
 
-            /**
-            * 分类名称
-            */
+    /**
+     * 对象ID
+     */
+    private Long id;
+
+
+    /**
+     * 分类名称
+     */
     private String name;
 
-            /**
-            * 别名
-            */
+    /**
+     * 别名
+     */
     private String alias;
 }
