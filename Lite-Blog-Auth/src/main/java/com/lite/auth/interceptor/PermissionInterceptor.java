@@ -9,6 +9,7 @@ import com.lite.common.i18n.LocalMessages;
 import com.lite.common.serializer.RedisCache;
 import com.lite.system.config.SystemConfig;
 import com.lite.system.entity.SystemApi;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,7 @@ import java.util.Objects;
  * @description: 接口访问权限拦截器，用户处理用户访问权限，最后一个执行的拦截器
  * @date 2022/8/27 19:53
  */
+@Slf4j
 @Order(4)
 @Component
 public class PermissionInterceptor implements HandlerInterceptor {
@@ -45,7 +47,7 @@ public class PermissionInterceptor implements HandlerInterceptor {
         String requestUrl = request.getRequestURI();
 
         //取出访问用户的信息，能够走到这里必定是通过了AuthInterceptor的校验
-        UserTokenVo userContextInfo = contextUtils.getUserContextInfo();
+        UserTokenVo userContextInfo = contextUtils.getLocalUserInfo();
 
         //读取缓存中的API信息进行比对
         Map<String, JSONObject> cacheMap = contextUtils.getRedisCache().getCacheMap(systemConfig.getRedisMapKey());

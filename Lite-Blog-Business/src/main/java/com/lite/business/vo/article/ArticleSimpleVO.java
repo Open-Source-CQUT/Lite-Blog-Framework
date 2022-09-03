@@ -19,6 +19,16 @@ public class ArticleSimpleVO {
     private Long id;
 
     /**
+     * 用户id
+     */
+    private Long uId;
+
+    /**
+     * 用户昵称
+     */
+    private String nickName;
+
+    /**
      * 文章标题
      */
     private String title;
@@ -29,9 +39,10 @@ public class ArticleSimpleVO {
      */
     private Integer version;
     /**
-     * 是否发布
+     * 文章状态
      */
-    private Boolean published;
+    private Long statusId;
+
 
     /**
      * 发布时间

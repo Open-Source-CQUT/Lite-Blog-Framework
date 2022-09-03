@@ -1,4 +1,4 @@
-package com.lite.api.controller.cos;
+package com.lite.api.controller.publics.cos;
 
 import com.lite.common.dto.ResultResponse;
 import com.lite.auth.exception.AuthException;

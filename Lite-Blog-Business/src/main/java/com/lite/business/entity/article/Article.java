@@ -1,5 +1,6 @@
 package com.lite.business.entity.article;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.lite.common.entity.BaseEntity;
 import lombok.*;
@@ -21,6 +22,24 @@ import lombok.*;
 public class Article extends BaseEntity {
 
     /**
+     * 用户id
+     */
+    @TableField(exist = false)
+    private Long uId;
+
+    /**
+     * 用户昵称
+     */
+    @TableField(exist = false)
+    private String nickName;
+
+    /**
+     * 文章状态
+     */
+    @TableField(exist = false)
+    private Long statusId;
+
+    /**
      * 文章标题
      */
     private String title;
@@ -39,11 +58,6 @@ public class Article extends BaseEntity {
      * 文章内容
      */
     private String content;
-
-    /**
-     * 是否发布
-     */
-    private Boolean published;
 
 
 }

@@ -1,4 +1,4 @@
-package com.lite.api.controller.bussiness.comment;
+package com.lite.api.controller.publics.bussiness.comment;
 
 
 import com.lite.business.convert.comment.CommentConvert;

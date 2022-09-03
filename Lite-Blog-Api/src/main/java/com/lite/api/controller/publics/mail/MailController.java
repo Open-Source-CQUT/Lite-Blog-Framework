@@ -1,4 +1,4 @@
-package com.lite.api.controller.mail;
+package com.lite.api.controller.publics.mail;
 
 
 import com.lite.common.dto.ResultResponse;

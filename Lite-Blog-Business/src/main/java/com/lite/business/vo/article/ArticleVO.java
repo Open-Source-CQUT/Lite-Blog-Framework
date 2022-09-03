@@ -1,17 +1,19 @@
 package com.lite.business.vo.article;
 
-    import lombok.Data;
+import com.lite.common.groups.NormalGroups;
+import lombok.Data;
 
-    import java.time.LocalDateTime;
+import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 
 /**
-* <p>
-    * ArticleVO 视图层对象
-    * </p>
-*
-* @author stranger
-* @since 2022-09-01
-*/
+ * <p>
+ * ArticleVO 视图层对象
+ * </p>
+ *
+ * @author stranger
+ * @since 2022-09-01
+ */
 @Data
 public class ArticleVO {
 
@@ -24,6 +26,7 @@ public class ArticleVO {
     /**
      * 文章标题
      */
+    @NotBlank(groups = {NormalGroups.Crud.Insert.class,NormalGroups.Crud.Update.class})
     private String title;
 
     /**
@@ -39,12 +42,24 @@ public class ArticleVO {
     /**
      * 文章内容
      */
+    @NotBlank(groups = NormalGroups.Crud.Update.class)
     private String content;
 
     /**
-     * 是否发布
+     * 文章状态
      */
-    private Boolean published;
+    private Long statusId;
+
+    /**
+     * 用户id
+     */
+    private Long uId;
+
+    /**
+     * 用户昵称
+     */
+    private String nickName;
+
     /**
      * 更新版本
      */

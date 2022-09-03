@@ -2,12 +2,10 @@ package com.lite.business.service.article;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lite.business.dto.article.ArticleDTO;
-import com.lite.business.dto.article.ArticleSimpleDto;
 import com.lite.business.entity.article.Article;
 import com.lite.business.exceptioin.ArticleException;
 import com.lite.business.vo.article.ArticleSimpleVO;
 import com.lite.business.vo.article.ArticleVO;
-import com.lite.common.dto.ResultResponse;
 
 import java.util.List;
 
@@ -28,7 +26,7 @@ public interface IArticleService extends IService<Article> {
 
     ArticleSimpleVO saveDraft(ArticleDTO articleDTO) throws ArticleException;
 
-    List<ArticleVO> getArticleList(Integer page);
+    List<ArticleVO> getArticleList(Long statusId,Integer page, Integer size);
 
-    List<ArticleVO> getArticleList(Integer page, Integer size);
+    ArticleVO getArticleDetail(Long articleId);
 }

@@ -1,4 +1,4 @@
-package com.lite.api.controller.auth;
+package com.lite.api.controller.publics.auth;
 
 import com.lite.common.dto.ResultResponse;
 import com.lite.common.dto.token.JwtTokenWrapper;
@@ -10,7 +10,6 @@ import com.lite.auth.service.AuthService;
 import com.lite.auth.vo.UserVo;
 import com.lite.common.i18n.LocalMessages;
 import com.lite.common.utils.ResultResponseUtils;
-import com.lite.system.annotation.Module;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;

@@ -1,4 +1,4 @@
-package com.lite.api.controller.error;
+package com.lite.api.controller.admin.error;
 
 import com.lite.common.dto.ResultResponse;
 import com.lite.common.i18n.LocalMessages;

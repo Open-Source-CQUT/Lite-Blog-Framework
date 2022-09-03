@@ -21,6 +21,8 @@ public class Authenticator {
     @Autowired
     RedisCache redisCache;
 
+    @Autowired
+    LiteBlogContextUtils liteBlogContextUtils;
 
     /**
      * 校验access-token
@@ -35,6 +37,9 @@ public class Authenticator {
 
         //读取载荷
         UserTokenVo userVo = JSON.parseObject(payload, UserTokenVo.class);
+
+        //初始化LocalUserInfo
+        liteBlogContextUtils.initLocalUserInfo(userVo);
 
         //redis中获取不到则过期
         if (Objects.isNull(

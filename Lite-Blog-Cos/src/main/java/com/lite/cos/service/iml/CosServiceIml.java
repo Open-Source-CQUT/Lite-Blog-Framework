@@ -54,7 +54,7 @@ public class CosServiceIml implements CosService {
         //结果
         FileVo fileVo = this.uploadPublicFile(file);
 
-        UserTokenVo userTokenVo = contextUtils.getUserContextInfo();
+        UserTokenVo userTokenVo = contextUtils.getLocalUserInfo();
 
         UserVo userVo = new UserVo();
         userVo.setMail(userTokenVo.getMail());
@@ -120,7 +120,7 @@ public class CosServiceIml implements CosService {
     public FileVo doUploadService(MultipartFile file, Boolean fileAccess) throws CosFileException {
 
         //获取用户信息
-        UserTokenVo tokenVo = contextUtils.getUserContextInfo();
+        UserTokenVo tokenVo = contextUtils.getLocalUserInfo();
 
         //cos传输对象
         TransferManager transferManager = CosUtils.initTransferManager(cosConfig);

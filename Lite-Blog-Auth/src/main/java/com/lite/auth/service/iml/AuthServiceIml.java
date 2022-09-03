@@ -113,7 +113,7 @@ public class AuthServiceIml implements AuthService {
     @Override
     public JwtTokenWrapper refreshToken() {
 
-        UserTokenVo refreshPayload = contextUtils.getUserContextInfo();
+        UserTokenVo refreshPayload = contextUtils.getLocalUserInfo();
 
         JwtToken accessToken = authenticator.processAndGetAccessToken(refreshPayload);
 
@@ -126,7 +126,7 @@ public class AuthServiceIml implements AuthService {
 
         //能走到这里说明已经通过了拦截器的校验，所以这里的代码不用做安全性检查，如果有发生异常直接抛出交给全局异常处理即可
         //从请求头中读取数据
-        UserTokenVo userTokenVo = contextUtils.getUserContextInfo();
+        UserTokenVo userTokenVo = contextUtils.getLocalUserInfo();
 
         //获取key
         String accessKey = JwtUtil.getRedisAccessKey(userTokenVo.getMail(), userTokenVo.getUuid());

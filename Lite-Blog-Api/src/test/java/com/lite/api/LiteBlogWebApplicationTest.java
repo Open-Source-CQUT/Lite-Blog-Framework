@@ -151,6 +151,5 @@ public class LiteBlogWebApplicationTest {
 
     @Test
     public void idTest(){
-        log.info(articleService.getArticleList(1).toString());
     }
 }

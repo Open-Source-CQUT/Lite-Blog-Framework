@@ -5,6 +5,9 @@ logging:
     web: debug
     com.lite.api: debug
     com.lite.business: debug
+    com.lite.auth: debug
+    com.lite.cos: debug
+    com.lite.mail: debug
   charset:
     file: UTF-8
     console: UTF-8

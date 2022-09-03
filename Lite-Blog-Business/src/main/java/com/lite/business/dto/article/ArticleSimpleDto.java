@@ -24,6 +24,21 @@ public class ArticleSimpleDto {
     private String title;
 
     /**
+     * 文章状态
+     */
+    private Long statusId;
+
+    /**
+     * 用户id
+     */
+    private Long uId;
+
+    /**
+     * 用户昵称
+     */
+    private String nickName;
+
+    /**
      * 更新版本
      */
     private Integer version;

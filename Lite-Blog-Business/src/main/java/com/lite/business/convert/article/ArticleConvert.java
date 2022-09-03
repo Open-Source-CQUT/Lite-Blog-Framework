@@ -4,6 +4,7 @@ package com.lite.business.convert.article;
 import java.util.List;
 
 import com.lite.business.dto.article.ArticleSimpleDto;
+import com.lite.business.entity.article.ArticleUser;
 import com.lite.business.vo.article.ArticleSimpleVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -118,6 +119,5 @@ public interface ArticleConvert {
             @Mapping(source = "updatedTime",target = "publishTime")
     })
     List<ArticleVO> entityListToVoList(List<Article> entityList);
-
 
 }

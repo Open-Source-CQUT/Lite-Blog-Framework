@@ -1,5 +1,6 @@
 package com.lite.auth.interceptor;
 
+import com.lite.auth.utils.LiteBlogContextUtils;
 import com.lite.common.i18n.LocalMessages;
 import com.lite.common.utils.JwtUtil;
 import com.lite.auth.utils.Authenticator;
@@ -19,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 身份校验拦截器，用于处理用户身份的校验
+ * 身份校验拦截器，用于处理用户身份的校验，校验完成后会将用户的身份信息存入ThreadLocal,请求完成后将会移除
  */
 @Order(2)
 @Slf4j
@@ -28,6 +29,9 @@ public class AuthInterceptor implements HandlerInterceptor {
 
     @Autowired
     Authenticator authenticator;
+
+    @Autowired
+    LiteBlogContextUtils contextUtils;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
@@ -42,6 +46,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             if (!authenticator.authenticateAccessToken(accessToken))
                 throw new AuthException(HttpStatus.FORBIDDEN.value(), LocalMessages.get("error.jwt.access.invalid"));
 
+
         } catch (ExpiredJwtException e) {
             //token过期
             response.sendError(HttpStatus.UNAUTHORIZED.value(), LocalMessages.get("error.jwt.access.expired"));
@@ -54,4 +59,9 @@ public class AuthInterceptor implements HandlerInterceptor {
         return true;
     }
 
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+        //请求完成后移除，防止线程无法空闲而导致线程池溢出，最后内存泄露
+        contextUtils.clearLocalUserInfo();
+    }
 }

@@ -3,8 +3,6 @@ package com.lite.auth.utils;
 import com.lite.common.serializer.RedisCache;
 import com.lite.common.utils.JwtUtil;
 import com.lite.auth.vo.UserTokenVo;
-import com.lite.system.config.SystemConfig;
-import lombok.Data;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,21 +16,39 @@ import javax.servlet.http.HttpServletResponse;
 public class LiteBlogContextUtils {
 
     @Autowired
-    HttpServletRequest request;
+    private HttpServletRequest request;
 
     @Autowired
-    HttpServletResponse response;
+    private HttpServletResponse response;
 
     @Autowired
-    RedisCache redisCache;
+    private RedisCache redisCache;
 
     @Autowired
-    WebApplicationContext webApplicationContext;
+    private WebApplicationContext webApplicationContext;
+
+    /**
+     * 每一个线程中独有的用户信息对象,在拦截器完成token校验后将自动注入此对象
+     */
+    private final ThreadLocal<UserTokenVo> localUserInfo = new ThreadLocal<>();
 
     //从header中获取payload
     public UserTokenVo getUserContextInfo() {
         return JwtUtil.parseObject(request.getHeader(JwtUtil.JWT_ACCESS_KEY), UserTokenVo.class, JwtUtil.JWT_ACCESS_KEY);
     }
+
+    public void initLocalUserInfo(UserTokenVo userTokenVo){
+        localUserInfo.set(userTokenVo);
+    }
+
+    public UserTokenVo getLocalUserInfo() {
+        return localUserInfo.get();
+    }
+
+    public void clearLocalUserInfo() {
+        localUserInfo.remove();
+    }
+
 
     public void setResponseStatus(Integer status) {
         response.setStatus(status);

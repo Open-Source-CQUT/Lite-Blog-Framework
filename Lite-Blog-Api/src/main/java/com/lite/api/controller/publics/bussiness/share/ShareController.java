@@ -1,4 +1,4 @@
-package com.lite.api.controller.bussiness.share;
+package com.lite.api.controller.publics.bussiness.share;
 
 
 import com.lite.business.convert.share.ShareConvert;

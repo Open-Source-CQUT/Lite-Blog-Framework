@@ -19,6 +19,15 @@ public class ArticleDTO {
      */
     private Long id;
 
+    /**
+     * 用户id
+     */
+    private Long uId;
+
+    /**
+     * 用户昵称
+     */
+    private String nickName;
 
     /**
      * 文章标题
@@ -41,9 +50,9 @@ public class ArticleDTO {
     private String content;
 
     /**
-     * 是否发布
+     * 文章状态
      */
-    private Boolean published;
+    private Long statusId;
 
     /**
      * 更新版本
@@ -58,4 +67,5 @@ public class ArticleDTO {
      * 更新时间
      */
     private LocalDateTime updatedTime;
+
 }

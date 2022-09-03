@@ -1,4 +1,4 @@
-package com.lite.api.controller.bussiness.label;
+package com.lite.api.controller.publics.bussiness.label;
 
 
 import com.lite.business.convert.label.LabelConvert;

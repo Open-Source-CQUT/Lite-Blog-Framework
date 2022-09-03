@@ -1,4 +1,4 @@
-package com.lite.api.controller.bussiness.category;
+package com.lite.api.controller.publics.bussiness.category;
 
 
 import com.lite.business.convert.category.CategoryConvert;
