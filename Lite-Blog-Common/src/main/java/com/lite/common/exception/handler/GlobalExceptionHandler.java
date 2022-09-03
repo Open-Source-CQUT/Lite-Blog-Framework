@@ -21,6 +21,8 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ExceptionHandler({Exception.class})
     public ResultResponse<String> BaseExceptionProcessor(Exception e) {
+        e.printStackTrace();
+
         if (e instanceof BaseException) {
             BaseException baseException = (BaseException) e;
             response.setStatus(baseException.getStatus());
