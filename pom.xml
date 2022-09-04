@@ -58,7 +58,7 @@
         <p6spy.version>3.9.1</p6spy.version>
         <mysql.version>8.0.29</mysql.version>
         <lombok.version>1.18.24</lombok.version>
-        <fastjson.version>2.0.10</fastjson.version>
+        <fastjson.version>2.0.12</fastjson.version>
         <jackson.version>2.13.3</jackson.version>
         <jwt.version>0.9.1</jwt.version>
         <hibernate.validator>6.2.0.Final</hibernate.validator>
@@ -164,6 +164,12 @@
                 <artifactId>spring-boot-starter-data-redis</artifactId>
                 <version>${spring.starter.global.version}</version>
             </dependency>
+            <!--cache-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-cache</artifactId>
+                <version>${spring.starter.global.version}</version>
+            </dependency>
             <!--mvc-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -209,12 +215,19 @@
                 <version>${spring.starter.global.version}</version>
                 <scope>test</scope>
             </dependency>
-            <!--fastjson-->
+
             <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>fastjson</artifactId>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2</artifactId>
                 <version>${fastjson.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2-extension</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+
             <!--jackson-->
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
@@ -227,20 +240,6 @@
                 <artifactId>jjwt</artifactId>
                 <version>${jwt.version}</version>
             </dependency>
-            <!--hotload-->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-devtools</artifactId>
-                <version>${spring.starter.global.version}</version>
-                <optional>true</optional>
-            </dependency>
-            <!-- knife4j -->
-            <dependency>
-                <groupId>com.github.xiaoymin</groupId>
-                <artifactId>knife4j-spring-boot-starter</artifactId>
-                <version>${knife4j.version}</version>
-            </dependency>
-
             <!--websocket-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>

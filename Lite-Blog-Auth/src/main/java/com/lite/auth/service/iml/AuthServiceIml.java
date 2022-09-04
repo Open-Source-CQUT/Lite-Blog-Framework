@@ -1,6 +1,6 @@
 package com.lite.auth.service.iml;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import com.lite.common.dto.ResultResponse;
 import com.lite.common.dto.token.JwtToken;
 import com.lite.common.dto.token.JwtTokenWrapper;

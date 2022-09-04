@@ -1,7 +1,7 @@
 package com.lite.auth.interceptor;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import com.lite.auth.exception.AuthException;
 import com.lite.auth.utils.LiteBlogContextUtils;
 import com.lite.auth.vo.UserTokenVo;

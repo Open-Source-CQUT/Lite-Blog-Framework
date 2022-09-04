@@ -16,8 +16,10 @@ import com.lite.business.service.article.IArticleUserService;
 import com.lite.business.vo.article.ArticleSimpleVO;
 import com.lite.business.vo.article.ArticleVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.List;
@@ -48,6 +50,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Boolean publishArticle(ArticleDTO articleDTO) {
 
         Article article = articleConvert.dtoToEntity(articleDTO);
@@ -61,6 +64,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public ArticleSimpleVO createDraft(ArticleDTO articleDTO) throws ArticleException {
 
         Article article = articleConvert.dtoToEntity(articleDTO);
@@ -83,6 +87,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public ArticleSimpleVO saveDraft(ArticleDTO articleDTO) throws ArticleException {
 
         Article article = articleConvert.dtoToEntity(articleDTO);
@@ -97,6 +102,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
 
     @Override
+    @Cacheable("ArticleList")
     public List<ArticleVO> getArticleList(Long statusId, Integer page, Integer size) {
 
         Assert.state(page-- > 0, "必须是正整数");
@@ -110,6 +116,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
+    @Cacheable(value = "ArticleDetail",keyGenerator = "KeyGenerator")
     public ArticleVO getArticleDetail(Long articleId) {
         Assert.state(articleId != null && articleId > 0, "非法的文章ID");
 
