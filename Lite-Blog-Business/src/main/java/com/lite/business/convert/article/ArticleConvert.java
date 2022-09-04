@@ -4,8 +4,8 @@ package com.lite.business.convert.article;
 import java.util.List;
 
 import com.lite.business.dto.article.ArticleSimpleDto;
-import com.lite.business.entity.article.ArticleUser;
-import com.lite.business.vo.article.ArticleSimpleVO;
+import com.lite.business.vo.article.ArticleQueryVO;
+import com.lite.business.vo.article.ArticleUpdateResVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -57,10 +57,6 @@ public interface ArticleConvert {
     })
     ArticleVO dtoToVo(ArticleDTO dto);
 
-    @Mappings({
-            @Mapping(source = "updatedTime",target = "publishTime")
-    })
-    ArticleSimpleVO simpleDtoToSimpleVo(ArticleSimpleDto simpleDto);
 
     /**
      * DTO列表 转换成 VO列表
@@ -100,17 +96,21 @@ public interface ArticleConvert {
 
     /**
      * Entity 转换成 VO
+     *
      */
     @Mappings({
-            @Mapping(source = "updatedTime",target = "publishTime")
+            @Mapping(source = "updatedTime",target = "publishTime"),
     })
     ArticleVO entityToVO(Article entity);
 
 
+
+    ArticleUpdateResVO entityToUpdateResVO(Article entity);
+
     @Mappings({
-            @Mapping(source = "updatedTime",target = "publishTime")
+            @Mapping(source = "updatedTime",target = "publishTime"),
     })
-    ArticleSimpleVO entityToSimpleVO(Article entity);
+    ArticleQueryVO entityToQueryVo(Article entity);
 
     /**
      * Entity列表 转换成 DTO列表

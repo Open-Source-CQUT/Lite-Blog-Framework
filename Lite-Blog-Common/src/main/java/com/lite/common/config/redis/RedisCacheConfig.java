@@ -51,18 +51,17 @@ public class RedisCacheConfig {
      *
      * @return 生成的key
      */
-    @Bean("KeyGenerator")
+    @Bean("BusinessKeyGenerator")
     public KeyGenerator keyGenerator() {
         return ((target, method, params) -> {
             //拿到被代理的对象
             Class<?> targetClass = AopProxyUtils.ultimateTargetClass(target);
 
             return new StringBuilder()
-                    .append(targetClass.getName())
-                    .append(".")
-                    .append(method.getName())
-                    .append(".")
-                    .append(SimpleKeyGenerator.generateKey(params));
+                    .append(targetClass.getSimpleName())
+                    .append(".params(")
+                    .append(SimpleKeyGenerator.generateKey(params))
+                    .append(")");
         });
     }
 

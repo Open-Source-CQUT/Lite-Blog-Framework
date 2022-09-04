@@ -4,7 +4,8 @@ package com.lite.api.controller.publics.bussiness.article;
 import com.lite.business.convert.article.ArticleConvert;
 import com.lite.business.exceptioin.ArticleException;
 import com.lite.business.service.article.IArticleService;
-import com.lite.business.vo.article.ArticleSimpleVO;
+import com.lite.business.vo.article.ArticleQueryVO;
+import com.lite.business.vo.article.ArticleUpdateResVO;
 import com.lite.business.vo.article.ArticleVO;
 import com.lite.common.dto.ResultResponse;
 import com.lite.common.utils.ResultResponseUtils;
@@ -56,24 +57,31 @@ public class ArticleController {
      * 创建一份草稿，即未发布的文章
      *
      * @param articleVO 草稿文章
-     * @return 是否创建成功
      */
     @PostMapping("/createDraft")
-    public ResultResponse<ArticleSimpleVO> createDraft(@RequestBody ArticleVO articleVO) throws ArticleException {
+    public ResultResponse<ArticleUpdateResVO> createDraft(@RequestBody ArticleVO articleVO) throws ArticleException {
 
         return ResultResponseUtils.success((articleService.createDraft(articleConvert.voToDto(articleVO))), "文章创建成功");
     }
 
     /**
-     * 保存/更新 一篇草稿文章
+     * 更新一篇已发布的文章
+     */
+    @PostMapping("/updateArticle")
+    public ResultResponse<ArticleUpdateResVO> updateArticle(@RequestBody ArticleVO articleVO) throws ArticleException{
+        return ResultResponseUtils.success(articleService.updateArticle(articleConvert.voToDto(articleVO)),"文章更新成功");
+    }
+
+    /**
+     * 更新 一篇草稿文章
      *
      * @param articleVO 草稿文章
      * @return 是否保存成功
      */
     @PostMapping("/saveDraft")
-    public ResultResponse<ArticleSimpleVO> saveDraft(@RequestBody ArticleVO articleVO) throws ArticleException {
+    public ResultResponse<ArticleUpdateResVO> saveDraft(@RequestBody ArticleVO articleVO) throws ArticleException {
 
-        return ResultResponseUtils.success((articleService.saveDraft(articleConvert.voToDto(articleVO))), "文章保存成功");
+        return ResultResponseUtils.success((articleService.updateDraft(articleConvert.voToDto(articleVO))), "文章保存成功");
     }
 
 
@@ -100,8 +108,19 @@ public class ArticleController {
      * @return 文章信息
      */
     @GetMapping("/getArticleDetails")
-    public ResultResponse<ArticleVO> getArticleDetails(@NotNull @Positive @RequestParam Long id) {
-        return ResultResponseUtils.success(articleService.getArticleDetail(id), "文章信息获取成功");
+    public ResultResponse<ArticleQueryVO> getArticleDetails(@NotNull @Positive @RequestParam Long id) {
+        return ResultResponseUtils.success(articleService.getArticleQueryInfo(id), "文章信息获取成功");
+    }
+
+
+    /**
+     * 获取一篇文章的修改信息，在编辑文章的时候用
+     * @param id 文章ID
+     * @return 文章的编辑信息
+     */
+    @GetMapping("/getArticleUpdateInfo")
+    public ResultResponse<ArticleVO> getArticleUpdateInfo(@NotNull @Positive @RequestParam Long id){
+        return ResultResponseUtils.success(articleService.getArticleUpdateInfo(id),"文章信息获取成功");
     }
 
 }

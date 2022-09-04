@@ -1,21 +1,18 @@
 package com.lite.business.vo.article;
 
-import com.lite.common.groups.NormalGroups;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 /**
- * <p>
- * ArticleVO 视图层对象
- * </p>
- *
- * @author stranger
- * @since 2022-09-01
+ * @author Stranger
+ * @version 1.0
+ * @description: QueryVo与Vo的区别在于，此QueryVo在呈现给前端时不会携带文章的version
+ *               没有version的话就无法修改文章
+ * @date 2022/9/4 16:45
  */
 @Data
-public class ArticleVO {
+public class ArticleQueryVO {
 
     /**
      * 对象ID
@@ -26,7 +23,6 @@ public class ArticleVO {
     /**
      * 文章标题
      */
-    @NotBlank(groups = {NormalGroups.Crud.Insert.class,NormalGroups.Crud.Update.class})
     private String title;
 
     /**
@@ -42,7 +38,6 @@ public class ArticleVO {
     /**
      * 文章内容
      */
-    @NotBlank(groups = NormalGroups.Crud.Update.class)
     private String content;
 
     /**
@@ -59,11 +54,6 @@ public class ArticleVO {
      * 用户昵称
      */
     private String nickName;
-
-    /**
-     * 更新版本
-     */
-    private Integer version;
 
     /**
      * 发布时间

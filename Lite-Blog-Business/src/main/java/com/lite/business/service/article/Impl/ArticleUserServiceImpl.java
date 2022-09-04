@@ -1,7 +1,7 @@
 package com.lite.business.service.article.Impl;
 
 import com.lite.business.entity.article.ArticleUser;
-import com.lite.business.dao.articleuser.ArticleUserMapper;
+import com.lite.business.dao.article.ArticleUserMapper;
 import com.lite.business.service.article.IArticleUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;

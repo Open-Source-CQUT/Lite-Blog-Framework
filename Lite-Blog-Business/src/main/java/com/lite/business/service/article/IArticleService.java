@@ -4,7 +4,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.lite.business.dto.article.ArticleDTO;
 import com.lite.business.entity.article.Article;
 import com.lite.business.exceptioin.ArticleException;
-import com.lite.business.vo.article.ArticleSimpleVO;
+import com.lite.business.vo.article.ArticleQueryVO;
+import com.lite.business.vo.article.ArticleUpdateResVO;
 import com.lite.business.vo.article.ArticleVO;
 
 import java.util.List;
@@ -22,11 +23,19 @@ public interface IArticleService extends IService<Article> {
 
     Boolean publishArticle(ArticleDTO articleDTO);
 
-    ArticleSimpleVO createDraft(ArticleDTO articleDTO) throws ArticleException;
+    ArticleUpdateResVO createDraft(ArticleDTO articleDTO) throws ArticleException;
 
-    ArticleSimpleVO saveDraft(ArticleDTO articleDTO) throws ArticleException;
+    ArticleUpdateResVO updateDraft(ArticleDTO articleDTO) throws ArticleException;
+
+    ArticleUpdateResVO updateArticle(ArticleDTO articleDTO) throws ArticleException;
 
     List<ArticleVO> getArticleList(Long statusId,Integer page, Integer size);
 
-    ArticleVO getArticleDetail(Long articleId);
+    Article getArticleInfo(Long articleId);
+
+    ArticleVO getArticleUpdateInfo(Long articleId);
+
+    ArticleQueryVO getArticleQueryInfo(Long articleId);
+
+
 }

@@ -31,7 +31,7 @@ public class ArticleSimpleDto {
     /**
      * 用户id
      */
-    private Long uId;
+    private Long userId;
 
     /**
      * 用户昵称

@@ -2,6 +2,7 @@ package com.lite.business.entity.article;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.lite.business.entity.status.Status;
 import com.lite.common.entity.BaseEntity;
 import lombok.*;
 
@@ -22,10 +23,10 @@ import lombok.*;
 public class Article extends BaseEntity {
 
     /**
-     * 用户id
+     * 用户id 由于在
      */
     @TableField(exist = false)
-    private Long uId;
+    private Long userId;
 
     /**
      * 用户昵称
@@ -36,7 +37,6 @@ public class Article extends BaseEntity {
     /**
      * 文章状态
      */
-    @TableField(exist = false)
     private Long statusId;
 
     /**
@@ -60,4 +60,27 @@ public class Article extends BaseEntity {
     private String content;
 
 
+    public Article(Article article) {
+        this.title = article.getTitle();
+        this.cover = article.getCover();
+        this.summary = article.getSummary();
+        this.content = article.content;
+        this.statusId = Status.UN_PUBLISHED.val();
+    }
+
+    public Article(String title, String cover, String summary, String content) {
+        this.title = title;
+        this.cover = cover;
+        this.summary = summary;
+        this.content = content;
+        this.statusId = Status.UN_PUBLISHED.val();
+    }
+
+
+    public void clone(Article article){
+        this.title = article.getTitle();
+        this.summary = article.getSummary();
+        this.cover = article.getCover();
+        this.content = article.getContent();
+    }
 }

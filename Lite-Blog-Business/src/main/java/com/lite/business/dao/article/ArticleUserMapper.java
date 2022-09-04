@@ -1,4 +1,4 @@
-package com.lite.business.dao.articleuser;
+package com.lite.business.dao.article;
 
 import com.lite.business.entity.article.ArticleUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;

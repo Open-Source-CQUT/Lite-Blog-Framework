@@ -5,30 +5,21 @@ import com.lite.common.entity.BaseEntity;
 import lombok.*;
 
 /**
- * <p>
- * 文章-用户关系表
- * </p>
- *
- * @author stranger
- * @since 2022-09-03
+ * @author Stranger
+ * @version 1.0
+ * @description: 用于描述文章草稿关系的关系表
+ * @date 2022/9/4 19:09
  */
 @Data
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("relation_article_user")
-public class ArticleUser extends BaseEntity {
+@TableName("relation_article_draft")
+public class ArticleDraft extends BaseEntity {
 
-    /**
-     * 文章ID
-     */
     private Long articleId;
 
-    /**
-     * 用户ID
-     */
-    private Long userId;
-
+    private Long draftId;
 
 }

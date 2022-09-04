@@ -5,10 +5,10 @@
         SELECT article.id,
                article.title,
                article.cover,
+               article.status_id,
                article.summary,
-               iu.id u_id,
+               rau.user_id,
                iu.nick_name,
-               rau.status_id,
                article.created_time,
                article.updated_time,
                article.deleted,
@@ -18,14 +18,14 @@
                  join info_user iu on rau.user_id = iu.id
         <where>
             <if test="statusId != null">
-                rau.status_id = #{statusId}
+                article.status_id = #{statusId}
             </if>
-            <if test="original == true">
+            <if test="original == false">
                 and article.deleted = 0
             </if>
         </where>
 
-        ORDER BY article.updated_time
+        ORDER BY article.updated_time desc
 
         <if test="page == true">
             LIMIT #{offset},#{count};
@@ -36,11 +36,11 @@
         SELECT article.id,
                article.title,
                article.cover,
+               article.status_id,
                article.summary,
                article.content,
-               iu.id u_id,
+               rau.user_id,
                iu.nick_name,
-               rau.status_id,
                article.created_time,
                article.updated_time,
                article.deleted,
@@ -52,9 +52,9 @@
         <where>
             article.id = #{articleId}
             <if test="statusId != null">
-                and rau.status_id = #{statusId}
+                and article.status_id = #{statusId}
             </if>
-            <if test="original == true">
+            <if test="original == false">
                 and article.deleted = 0
             </if>
         </where>
