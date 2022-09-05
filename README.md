@@ -140,6 +140,12 @@
 
 **接口权限：**[Lite-Blog-Doc/接口权限管理.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/接口权限管理.md)
 
+**数据缓存:**[Lite-Blog-Doc/数据缓存.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/数据缓存.md)
+
+**XSS防御:**[Lite-Blog-Doc/XSS脚本过滤.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/XSS脚本过滤.md)
+
+**Redis脚本:**[Lite-Blog-Doc/Redis脚本.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/Redis脚本.md)
+
 ------
 
 ## 项目预览
