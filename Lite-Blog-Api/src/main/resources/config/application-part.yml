@@ -53,3 +53,9 @@ cos:
 sys:
   #开发时建议打开此项
   log-enable: true
+
+#XSS过滤
+mica:
+  xss:
+    enabled: true
+    path-patterns: /**

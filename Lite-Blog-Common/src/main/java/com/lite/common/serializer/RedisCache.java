@@ -1,16 +1,17 @@
 package com.lite.common.serializer;
 
+import com.alibaba.fastjson2.JSONObject;
+import com.lite.common.entity.RedisEvalRes;
+import netscape.javascript.JSObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.BoundSetOperations;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings(value = {"unchecked", "rawtypes"})
@@ -207,5 +208,21 @@ public class RedisCache {
      */
     public Collection<String> keys(final String pattern) {
         return redisTemplate.keys(pattern);
+    }
+
+
+    /**
+     * 在redis中执行一个lua脚本，因为redis配置使用的序列化器是fastjson,所以采用json格式来进行序列化
+     *
+     * @param script 脚本
+     * @param keys   键值集合
+     * @param args   参数
+     * @return 执行的结果
+     */
+
+    public RedisEvalRes execute(RedisScript<JSONObject> script, List<String> keys, Object... args) {
+        return new RedisEvalRes(
+                Objects.requireNonNull(
+                        (JSONObject) redisTemplate.execute(script, keys, args)));
     }
 }

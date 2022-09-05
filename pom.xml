@@ -67,6 +67,7 @@
         <maven.compile.plugin.version>3.8.1</maven.compile.plugin.version>
         <mapstruct.lombok.bind.version>0.2.0</mapstruct.lombok.bind.version>
         <freemarker.version>2.3.31</freemarker.version>
+        <mica.version>2.7.3</mica.version>
     </properties>
 
     <!--公共依赖管理-->
@@ -303,6 +304,20 @@
                 <artifactId>spring-boot-starter-quartz</artifactId>
                 <version>${spring.starter.global.version}</version>
             </dependency>
+
+            <!--XSS过滤-->
+            <dependency>
+                <groupId>net.dreamlu</groupId>
+                <artifactId>mica-core</artifactId>
+                <version>${mica.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.dreamlu</groupId>
+                <artifactId>mica-xss</artifactId>
+                <version>${mica.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

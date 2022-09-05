@@ -12,6 +12,7 @@ import com.lite.system.entity.SystemApi;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -39,6 +40,7 @@ public class PermissionInterceptor implements HandlerInterceptor {
     RedisCache redisCache;
     @Autowired
     LiteBlogContextUtils contextUtils;
+
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

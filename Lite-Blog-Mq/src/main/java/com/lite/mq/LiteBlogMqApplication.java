@@ -7,6 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication()
 public class LiteBlogMqApplication {
     public static void main(String[] args) {
-        SpringApplication.run(LiteBlogMqApplication.class);
+        SpringApplication.run(LiteBlogMqApplication.class,args);
     }
 }

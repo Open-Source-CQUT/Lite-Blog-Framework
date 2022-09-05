@@ -54,7 +54,7 @@ public interface UserConverter {
     @Mappings({
             @Mapping(source = "gender", target = "gender"),
             @Mapping(target = "loginTime", expression = "java(com.lite.common.utils.DateUtils.formatNow())"),
-            @Mapping(target = "uuid", expression = "java(com.lite.common.utils.DateUtils.formatNow())")
+            @Mapping(target = "uuid", expression = "java(com.lite.common.utils.JwtUtil.getUUID())")
     })
     UserTokenVo entityToTokenVo(User user);
 

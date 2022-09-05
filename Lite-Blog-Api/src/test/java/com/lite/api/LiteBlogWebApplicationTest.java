@@ -1,8 +1,9 @@
 package com.lite.api;
 
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONWriter;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.lite.business.convert.article.ArticleConvert;
-import com.lite.business.entity.article.Article;
 import com.lite.business.service.article.IArticleService;
 import com.lite.common.i18n.LocalMessages;
 import com.lite.common.serializer.RedisCache;
@@ -150,6 +151,20 @@ public class LiteBlogWebApplicationTest {
     ArticleConvert articleConvert;
 
     @Test
-    public void idTest(){
+    public void redisTest(){
+
+        User user = new User();
+        user.setMail("2633565580@qq.com");
+        user.setAvatar("1111");
+
+        String fastjson2 = com.alibaba.fastjson2.JSON.toJSONString(user, JSONWriter.Feature.WriteClassName);
+
+        redisCache.setCacheObject("user",user);
+
+        User newUser = redisCache.getCacheObject("user");
+
+        log.info(newUser.toString());
+        log.info(fastjson2);
+
     }
 }

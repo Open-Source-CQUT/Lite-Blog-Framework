@@ -59,6 +59,18 @@
             <scope>runtime</scope>
         </dependency>
 
+        <dependency>
+            <groupId>net.dreamlu</groupId>
+            <artifactId>mica-core</artifactId>
+            <version>2.7.3</version>
+        </dependency>
+        <dependency>
+            <groupId>net.dreamlu</groupId>
+            <artifactId>mica-xss</artifactId>
+            <version>2.7.3</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>
