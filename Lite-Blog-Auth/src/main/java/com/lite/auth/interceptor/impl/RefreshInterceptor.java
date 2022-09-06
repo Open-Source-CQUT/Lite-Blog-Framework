@@ -1,6 +1,8 @@
-package com.lite.auth.interceptor;
+package com.lite.auth.interceptor.impl;
 
 
+import com.lite.auth.config.WebUrlConfig;
+import com.lite.auth.interceptor.BaseInterceptor;
 import com.lite.common.exception.BaseException;
 import com.lite.common.i18n.LocalMessages;
 import com.lite.common.utils.JwtUtil;
@@ -22,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Order(3)
 @Component
-public class RefreshInterceptor implements HandlerInterceptor {
+public class RefreshInterceptor extends BaseInterceptor {
 
     @Autowired
     Authenticator authenticator;
@@ -58,4 +60,9 @@ public class RefreshInterceptor implements HandlerInterceptor {
         return true;
     }
 
+    @Override
+    public void loadUrlPath(WebUrlConfig webUrlConfig) {
+        this.setIncludePath(webUrlConfig.getRefreshInclude());
+        this.setExcludePath(webUrlConfig.getRefreshExclude());
+    }
 }

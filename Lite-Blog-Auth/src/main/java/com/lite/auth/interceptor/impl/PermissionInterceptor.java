@@ -1,8 +1,10 @@
-package com.lite.auth.interceptor;
+package com.lite.auth.interceptor.impl;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
+import com.lite.auth.config.WebUrlConfig;
 import com.lite.auth.exception.AuthException;
+import com.lite.auth.interceptor.BaseInterceptor;
 import com.lite.auth.utils.LiteBlogContextUtils;
 import com.lite.auth.vo.UserTokenVo;
 import com.lite.common.i18n.LocalMessages;
@@ -31,7 +33,7 @@ import java.util.Objects;
 @Slf4j
 @Order(4)
 @Component
-public class PermissionInterceptor implements HandlerInterceptor {
+public class PermissionInterceptor extends BaseInterceptor {
 
     @Autowired
     SystemConfig systemConfig;
@@ -68,4 +70,9 @@ public class PermissionInterceptor implements HandlerInterceptor {
         return true;
     }
 
+    @Override
+    public void loadUrlPath(WebUrlConfig webUrlConfig) {
+        this.setIncludePath(webUrlConfig.getAccessInclude());
+        this.setExcludePath(webUrlConfig.getAccessExclude());
+    }
 }

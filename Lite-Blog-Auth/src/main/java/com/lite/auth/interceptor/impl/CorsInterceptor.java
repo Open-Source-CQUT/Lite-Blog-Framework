@@ -1,6 +1,8 @@
-package com.lite.auth.interceptor;
+package com.lite.auth.interceptor.impl;
 
 import com.lite.auth.config.CorsConfig;
+import com.lite.auth.config.WebUrlConfig;
+import com.lite.auth.interceptor.BaseInterceptor;
 import com.lite.system.utils.SystemStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
@@ -15,10 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * CORS拦截器，处理因复杂请求而产生的OPTION预请求
+ * @author Stranger
  */
 @Order(1)
 @Component
-public class CorsInterceptor implements HandlerInterceptor {
+public class CorsInterceptor extends BaseInterceptor {
 
     @Autowired
     CorsConfig corsConfig;
@@ -49,5 +52,11 @@ public class CorsInterceptor implements HandlerInterceptor {
         }
 
         return true;
+    }
+
+    @Override
+    public void loadUrlPath(WebUrlConfig webUrlConfig) {
+        this.setExcludePath(webUrlConfig.getCorsExclude());
+        this.setIncludePath(webUrlConfig.getCorsInclude());
     }
 }

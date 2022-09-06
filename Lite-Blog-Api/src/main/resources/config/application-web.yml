@@ -1,4 +1,4 @@
-spring:  #前后端日期格式统一
+spring: #前后端日期格式统一
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
@@ -44,8 +44,12 @@ spring:  #前后端日期格式统一
 
     #拦截器配置
     interceptor:
-      #是否开启拦截器默认是true，方便开发可以暂时关闭
-      enable: true
+      statistic-include:
+        - /**
+      statistic-exclude:
+      cors-include:
+        - /**
+      cors-exclude:
       #access 放行url
       access-exclude:
         - /auth/login
@@ -62,8 +66,7 @@ spring:  #前后端日期格式统一
       #refresh 放行url
       refresh-exclude:
         - /**
-      cors-include:
-        - /**
+
 
 #服务器
 server:

@@ -1,5 +1,7 @@
-package com.lite.auth.interceptor;
+package com.lite.auth.interceptor.impl;
 
+import com.lite.auth.config.WebUrlConfig;
+import com.lite.auth.interceptor.BaseInterceptor;
 import com.lite.auth.utils.LiteBlogContextUtils;
 import com.lite.common.i18n.LocalMessages;
 import com.lite.common.utils.JwtUtil;
@@ -18,14 +20,17 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * 身份校验拦截器，用于处理用户身份的校验，校验完成后会将用户的身份信息存入ThreadLocal,请求完成后将会移除
+ * @author Stranger
  */
 @Order(2)
 @Slf4j
 @Component
-public class AuthInterceptor implements HandlerInterceptor {
+public class AuthInterceptor extends BaseInterceptor {
 
     @Autowired
     Authenticator authenticator;
@@ -64,5 +69,12 @@ public class AuthInterceptor implements HandlerInterceptor {
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         //请求完成后移除，防止线程无法空闲而导致线程池溢出，最后内存泄露
         contextUtils.clearLocalUserInfo();
+    }
+
+
+    @Override
+    public void loadUrlPath(WebUrlConfig webUrlConfig) {
+        this.setIncludePath(webUrlConfig.getAccessInclude());
+        this.setExcludePath(webUrlConfig.getAccessExclude());
     }
 }
