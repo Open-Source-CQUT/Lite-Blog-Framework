@@ -150,7 +150,9 @@
 
 ## 使用说明
 
+**注：部分功能尚未开发完毕,但不影响基本使用**
 
+此后台系统上手十分简单，遵循以下步骤即可
 
 **1.导入数据库**
 
@@ -160,14 +162,36 @@
 
 位于`Lite-Blog-Api/src/main/resources/application-dev.yml`的配置文件，每一个配置都有详细的注释
 
-**其中mysql与redis配置为必填**
+其中mysql与redis配置为**必填**
 
  邮件模块与对象存储模块不想使用不填写即可
-
-
 
 **3.导入postman接口调试数据**
 
 导入位于`Lite-Blog-Api/src/main/resources/postmanCollection/`,目录下已经编写好的接口调试数据
 
 便于开发调试接口
+
+**4.测试配置**
+
+运行位于`Lite-Blog-Api/src/test/java/com/lite/api/LiteBlogWebApplicationTest.java`类下的一个基础单元测试
+
+```java
+/**
+* 这是一个非常简单的查询执行用户的测试方法
+* 建议用于测试后端应用是否可以正常运行
+*/
+@Test
+void applicationTest() {
+    LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+    queryWrapper.eq(User::getMail, "2633565580@qq.com");
+    redisCache.setCacheObject("redis",authMapper.selectList(queryWrapper).toString());
+    log.info(redisCache.getCacheObject("redis").toString());
+}
+```
+
+无报错成功运行即代表配置完成。
+
+## 部署说明
+
+暂无
