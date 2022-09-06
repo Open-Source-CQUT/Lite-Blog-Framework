@@ -2,20 +2,20 @@ package com.lite.common.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import org.apache.commons.lang3.builder.EqualsExclude;
 
 import java.time.LocalDateTime;
 
+/**
+ * 基础实体，带有逻辑删除和乐观锁机制
+ * @author Stranger
+ */
 @Data
-public class BaseEntity {
-
-    @TableId(type = IdType.AUTO)
-    private Long id;
-
-    @TableField(fill = FieldFill.INSERT)
-    private LocalDateTime createdTime;
-
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private LocalDateTime updatedTime;
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+public class BaseEntity extends Entity {
 
     @Version
     private Integer version;
@@ -23,13 +23,13 @@ public class BaseEntity {
     private Boolean deleted;
 
     public BaseEntity(){
-        this.createdTime = LocalDateTime.now();
-        this.updatedTime = LocalDateTime.now();
+        this.setCreatedTime(LocalDateTime.now());
+        this.setUpdatedTime(LocalDateTime.now());
         this.deleted = false;
         this.version = 0;
     }
 
     public void update(){
-        this.updatedTime = LocalDateTime.now();
+        this.setUpdatedTime(LocalDateTime.now());
     }
 }

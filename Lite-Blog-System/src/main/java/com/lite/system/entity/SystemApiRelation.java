@@ -2,6 +2,7 @@ package com.lite.system.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.lite.common.entity.BaseEntity;
+import com.lite.common.entity.Entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @TableName("relation_sys_api_controller")
-public class SystemApiRelation extends BaseEntity {
+public class SystemApiRelation extends Entity {
 
     Long controllerId;
 

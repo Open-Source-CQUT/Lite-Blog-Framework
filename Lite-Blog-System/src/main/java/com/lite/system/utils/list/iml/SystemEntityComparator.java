@@ -24,8 +24,9 @@ public class SystemEntityComparator implements ListComparator<SystemEntity> {
      */
     @Override
     public List<? extends SystemEntity> findExtraPart(List<? extends SystemEntity> system, List<? extends SystemEntity> database) {
-        if (Objects.isNull(system) || Objects.isNull(database))
+        if (Objects.isNull(system) || Objects.isNull(database)) {
             return null;
+        }
 
         return system.stream()
                 .filter(systemController -> database.stream()
@@ -39,8 +40,9 @@ public class SystemEntityComparator implements ListComparator<SystemEntity> {
      */
     @Override
     public List<? extends SystemEntity> findLessPart(List<? extends SystemEntity> system, List<? extends SystemEntity> database) {
-        if (Objects.isNull(system) || Objects.isNull(database))
+        if (Objects.isNull(system) || Objects.isNull(database)) {
             return null;
+        }
 
         return database.stream()
                 .filter(databaseController -> system.stream()
@@ -54,15 +56,17 @@ public class SystemEntityComparator implements ListComparator<SystemEntity> {
      */
     @Override
     public List<? extends SystemEntity> findUpdatePart(List<? extends SystemEntity> system, List<? extends SystemEntity> database) {
-        if (Objects.isNull(system) || Objects.isNull(database))
+        if (Objects.isNull(system) || Objects.isNull(database)) {
             return null;
+        }
 
         return system.stream()
                 .filter(systemEntity -> database.stream()
                         .anyMatch(databaseEntity-> {
                             boolean res = (!systemEntity.equals(databaseEntity)) && systemEntity.getFullName().equals(databaseEntity.getFullName());
-                            if (res)
+                            if (res) {
                                 systemEntity.setId(databaseEntity.getId());
+                            }
                             return res;
                         }))
                 .collect(Collectors.toList());

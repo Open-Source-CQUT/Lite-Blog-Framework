@@ -10,6 +10,7 @@ import java.lang.annotation.Target;
 /**
  * 在类上时，代表该类下的所有接口方法的默认权限即类权限
  * 在方法上时，即代表覆盖默认权限
+ * @author Stranger
  */
 @Target({ElementType.METHOD,ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)

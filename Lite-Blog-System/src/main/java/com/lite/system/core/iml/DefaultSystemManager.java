@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -79,15 +80,15 @@ public class DefaultSystemManager extends AbstractSystemManager {
         List<SystemController> systemControllerList = loadSystemControllerInfo();
 
         if (systemConfig.isLogEnable())
-            //日志输出
+        //日志输出
         {
-            log.info(LocalMessages.get("success.sys.ctrl.load",systemControllerList.size()));
+            log.info(LocalMessages.get("success.sys.ctrl.load", systemControllerList.size()));
         }
 
         //进行信息比对
         judgeSystemController(systemControllerList, originalControllerList);
 
-        if (systemConfig.isLogEnable()){
+        if (systemConfig.isLogEnable()) {
             log.info(LocalMessages.get("success.sys.ctrl.map"));
             log.info(LocalMessages.get("arrowhead"));
         }
@@ -106,15 +107,15 @@ public class DefaultSystemManager extends AbstractSystemManager {
         List<SystemApi> systemApis = loadSystemApiInfo();
 
         if (systemConfig.isLogEnable())
-            //日志输出
+        //日志输出
         {
-            log.info(LocalMessages.get("success.sys.api.load",systemApis.size()));
+            log.info(LocalMessages.get("success.sys.api.load", systemApis.size()));
         }
 
         //进行信息比对
         judgeSystemApi(systemApis, originalApiList);
 
-        if (systemConfig.isLogEnable()){
+        if (systemConfig.isLogEnable()) {
             log.info(LocalMessages.get("success.sys.api.map"));
             log.info(LocalMessages.get("arrowhead"));
         }
@@ -205,9 +206,9 @@ public class DefaultSystemManager extends AbstractSystemManager {
         }
 
         if (systemConfig.isLogEnable()) {
-            log.info(LocalMessages.get("success.sys.ctrl.add",extraList.size()));
-            log.info(LocalMessages.get("success.sys.ctrl.less",lessList.size()));
-            log.info(LocalMessages.get("success.sys.ctrl.update",updatedList.size()));
+            log.info(LocalMessages.get("success.sys.ctrl.add", extraList.size()));
+            log.info(LocalMessages.get("success.sys.ctrl.less", lessList.size()));
+            log.info(LocalMessages.get("success.sys.ctrl.update", updatedList.size()));
         }
     }
 
@@ -243,19 +244,30 @@ public class DefaultSystemManager extends AbstractSystemManager {
         }
 
         if (systemConfig.isLogEnable()) {
-            log.info(LocalMessages.get("success.sys.api.add",extraList.size()));
-            log.info(LocalMessages.get("success.sys.api.less",lessList.size()));
-            log.info(LocalMessages.get("success.sys.api.update",updatedList.size()));
+            log.info(LocalMessages.get("success.sys.api.add", extraList.size()));
+            log.info(LocalMessages.get("success.sys.api.less", lessList.size()));
+            log.info(LocalMessages.get("success.sys.api.update", updatedList.size()));
         }
 
     }
 
     public void judgeSystemApiRelation(List<SystemApiRelation> systemRelationList, List<SystemApiRelation> databaseRelationList) {
 
-        systemRelationList.removeAll(databaseRelationList);
+        //创建空白的操作列表,并找出系统相对于数据增加的API关系以及删减的关系
+        List<SystemApiRelation> moreList = new ArrayList<>(systemRelationList);
+        moreList.removeAll(databaseRelationList);
 
-        if (!systemRelationList.isEmpty()) {
-            relationService.saveBatch(systemRelationList);
+        List<SystemApiRelation> lessList = new ArrayList<>(databaseRelationList);
+        lessList.removeAll(systemRelationList);
+
+        //进行数据库操作
+        if (!moreList.isEmpty()){
+            relationService.saveBatch(moreList);
         }
+
+        if (!lessList.isEmpty()){
+            relationService.removeBatchByIds(lessList);
+        }
+
     }
 }

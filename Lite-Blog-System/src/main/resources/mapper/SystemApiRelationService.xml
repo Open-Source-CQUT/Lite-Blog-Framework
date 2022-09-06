@@ -15,9 +15,7 @@
              #{api.enable},
              #{api.permissionId},
              #{api.createdTime},
-             #{api.updatedTime},
-             #{api.deleted},
-             #{api.version})
+             #{api.updatedTime})
         </foreach>
     </insert>
     <update id="updateList" parameterType="java.util.List">
@@ -35,9 +33,6 @@
                 </if>
                 <if test="api.updatedTime != null">
                     updated_time = #{api.updatedTime},
-                </if>
-                <if test="api.version != null">
-                    version = version + 1
                 </if>
             </set>
             WHERE id = #{api.id}

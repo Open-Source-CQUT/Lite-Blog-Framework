@@ -1,6 +1,7 @@
 package com.lite.system.entity;
 
 import com.lite.common.entity.BaseEntity;
+import com.lite.common.entity.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,7 +17,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
-public class SystemEntity extends BaseEntity {
+public class SystemEntity extends Entity {
 
     /**
      * 映射路径

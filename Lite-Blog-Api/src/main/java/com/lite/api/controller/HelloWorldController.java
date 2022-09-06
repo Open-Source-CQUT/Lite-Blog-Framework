@@ -19,7 +19,7 @@ public class HelloWorldController {
 
     @RateLimit(limitTime = 60)
     @Permission(Min = PermissionId.DEFAULT)
-    @RequestMapping(value = {"/hello","/helloChina","/helloSpring"},method = {RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE})
+    @RequestMapping(value = {"/hello","/helloWorld","/helloSpring"},method = {RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE})
     public ResultResponse<String> helloWorld(@NotBlank(message = "名称不能为空") @RequestParam String name) {
         return ResultResponseUtils.success("Hello,World! "+name);
     }
