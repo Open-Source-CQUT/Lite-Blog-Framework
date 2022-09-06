@@ -194,6 +194,9 @@ void applicationTest() {
 
 无报错成功运行即代表配置完成。
 
+**5.启动应用**
+运行位于`Lite-Blog-Api/src/main/java/com/lite/api/LiteBlogWebApplication.java`的启动类
+
 ## 部署说明
 
 暂无
