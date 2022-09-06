@@ -1,7 +1,6 @@
-package com.lite.auth.service.iml;
+package com.lite.auth.service.impl;
 
 import com.alibaba.fastjson2.JSON;
-import com.lite.common.dto.ResultResponse;
 import com.lite.common.dto.token.JwtToken;
 import com.lite.common.dto.token.JwtTokenWrapper;
 import com.lite.common.i18n.LocalMessages;
@@ -14,7 +13,6 @@ import com.lite.auth.utils.Authenticator;
 import com.lite.auth.utils.LiteBlogContextUtils;
 import com.lite.auth.vo.UserTokenVo;
 import com.lite.auth.vo.UserVo;
-import com.lite.common.utils.ResultResponseUtils;
 import com.lite.auth.entity.User;
 import com.lite.auth.exception.AuthException;
 import com.lite.auth.exception.PasswordErrorException;
@@ -32,9 +30,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
+/**
+ * @author Stranger
+ */
 @Slf4j
 @Service
-public class AuthServiceIml implements AuthService {
+public class AuthServiceImpl implements AuthService {
 
     @Autowired
     UserConverter userConverter;
@@ -57,12 +58,14 @@ public class AuthServiceIml implements AuthService {
         User user = authMapper.getUser(mail).orElseGet(User::new);
 
         //用户不存在
-        if (Objects.isNull(user.getMail()))
+        if (Objects.isNull(user.getMail())){
             throw new UserNotFoundException(LocalMessages.get("error.user.auth.userNotFound"));
+        }
 
         //密码是否相同
-        if (!user.getPassword().equals(PasswordEncoder.enCode(password)))
+        if (!user.getPassword().equals(PasswordEncoder.enCode(password))){
             throw new PasswordErrorException(LocalMessages.get("error.user.auth.password"));
+        }
 
         //将对象转换成dto
         UserTokenVo userVo = userConverter.entityToTokenVo(user);
@@ -81,19 +84,21 @@ public class AuthServiceIml implements AuthService {
 
         String key = MailUtils.getMailRedisKey(userNormalDto.getMail());
         //进行验证码比对
-        AuthMailVo authMailVo = JSON.toJavaObject(redisCache.getCacheObject(key), AuthMailVo.class);
+        AuthMailVo authMailVo = JSON.to(redisCache.getCacheObject(key), AuthMailVo.class);
 
         //如果redis中不存在 或者 验证不匹配
-        if (Objects.isNull(authMailVo) || !authMailVo.getAuthCode().equals(userNormalDto.getAuthCode()))
+        if (Objects.isNull(authMailVo) || !authMailVo.getAuthCode().equals(userNormalDto.getAuthCode())) {
             throw new AuthException(HttpStatus.BAD_REQUEST.value(), LocalMessages.get("error.user.auth.authCodeFail"));
+        }
 
         //转换成实体类
         User newUser = userConverter.dtoToEntity(userNormalDto);
 
         if (!Objects.isNull(authMapper.getUser(newUser.getMail())
                 .orElseGet(User::new)
-                .getMail()))
+                .getMail())) {
             throw new UserDuplicateException(LocalMessages.get("error.user.auth.userExisted"));
+        }
 
         //sha1加密
         newUser.setPassword(PasswordEncoder.enCode(newUser.getPassword()));
@@ -101,8 +106,9 @@ public class AuthServiceIml implements AuthService {
         //默认设置为普通用户
         newUser.setPermissionId(PermissionId.DEFAULT.val());
 
-        if (!authMapper.insertUser(newUser))
+        if (!authMapper.insertUser(newUser)) {
             throw new AuthException(HttpStatus.INTERNAL_SERVER_ERROR.value(), LocalMessages.get("error.user.auth.register"));
+        }
 
         //操作成功后删除redis中的缓存
         redisCache.deleteObject(key);
@@ -142,11 +148,13 @@ public class AuthServiceIml implements AuthService {
 
         User user = userConverter.voToEntity(userVo);
 
-        if (Objects.isNull(authMapper.getUser(user.getMail()).orElseGet(User::new).getMail()))
+        if (Objects.isNull(authMapper.getUser(user.getMail()).orElseGet(User::new).getMail())) {
             throw new UserNotFoundException(LocalMessages.get("error.user.auth.userNotFound"));
+        }
 
-        if (!authMapper.updateUserInfo(user))
+        if (!authMapper.updateUserInfo(user)) {
             throw new AuthException(HttpStatus.INTERNAL_SERVER_ERROR.value(), LocalMessages.get("error.user.auth.update"));
+        }
 
         return true;
     }
@@ -158,16 +166,19 @@ public class AuthServiceIml implements AuthService {
         User user = authMapper.getUser(mail).orElseGet(User::new);
 
         //验证用户是否存在
-        if (Objects.isNull(user.getMail()))
+        if (Objects.isNull(user.getMail())) {
             throw new UserNotFoundException(LocalMessages.get("error.user.auth.userNotFound"));
+        }
 
         //验证密码是否正确
-        if (!PasswordEncoder.enCode(oldPassword).equals(user.getPassword()))
+        if (!PasswordEncoder.enCode(oldPassword).equals(user.getPassword())) {
             throw new PasswordErrorException(LocalMessages.get("error.user.auth.password"));
+        }
 
         //是否成功修改密码
-        if (!authMapper.updateUserPassword(mail, PasswordEncoder.enCode(newPassword)))
+        if (!authMapper.updateUserPassword(mail, PasswordEncoder.enCode(newPassword))) {
             throw new AuthException(HttpStatus.INTERNAL_SERVER_ERROR.value(), LocalMessages.get("error.user.auth.passwordChange"));
+        }
 
         return true;
     }

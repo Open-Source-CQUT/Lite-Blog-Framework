@@ -43,8 +43,9 @@ public class AuthInterceptor implements HandlerInterceptor {
             //断言
             Assert.notNull(accessToken, LocalMessages.get("error.jwt.access.notNull"));
 
-            if (!authenticator.authenticateAccessToken(accessToken))
+            if (!authenticator.authenticateAccessToken(accessToken)){
                 throw new AuthException(HttpStatus.FORBIDDEN.value(), LocalMessages.get("error.jwt.access.invalid"));
+            }
 
 
         } catch (ExpiredJwtException e) {

@@ -13,7 +13,7 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = "spring", uses = {GenderRule.class})
 public interface UserConverter {
 
-    UserConverter userMapper = Mappers.getMapper(UserConverter.class);
+    UserConverter USER_MAPPER = Mappers.getMapper(UserConverter.class);
 
     @Mappings({})
     UserNormalDto voToNormalDto(UserVo userVo);

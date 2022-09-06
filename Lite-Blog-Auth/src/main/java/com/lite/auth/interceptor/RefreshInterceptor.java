@@ -42,8 +42,9 @@ public class RefreshInterceptor implements HandlerInterceptor {
             Assert.notNull(accessToken, LocalMessages.get("error.jwt.refresh.notNull"));
 
             //校验
-            if (!authenticator.authenticateRefreshToken(refreshToken, accessToken))
+            if (!authenticator.authenticateRefreshToken(refreshToken, accessToken)){
                 throw new AuthException(HttpStatus.FORBIDDEN.value(), LocalMessages.get("error.jwt.refresh.invalid"));
+            }
 
             //因为获取的是refresh-token，此时再做时效判断没有意义，解析失败一律403，需要重新登陆获取refresh-token
         } catch (BaseException e) {

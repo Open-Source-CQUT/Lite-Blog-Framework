@@ -80,7 +80,9 @@ public class DefaultSystemManager extends AbstractSystemManager {
 
         if (systemConfig.isLogEnable())
             //日志输出
+        {
             log.info(LocalMessages.get("success.sys.ctrl.load",systemControllerList.size()));
+        }
 
         //进行信息比对
         judgeSystemController(systemControllerList, originalControllerList);
@@ -105,7 +107,9 @@ public class DefaultSystemManager extends AbstractSystemManager {
 
         if (systemConfig.isLogEnable())
             //日志输出
+        {
             log.info(LocalMessages.get("success.sys.api.load",systemApis.size()));
+        }
 
         //进行信息比对
         judgeSystemApi(systemApis, originalApiList);
@@ -141,8 +145,9 @@ public class DefaultSystemManager extends AbstractSystemManager {
         //存入redis中
         redisCache.setCacheMap(systemConfig.getRedisMapKey(), systemApiMap);
 
-        if (systemConfig.isLogEnable())
+        if (systemConfig.isLogEnable()) {
             log.info(LocalMessages.get("success.sys.api.redis"));
+        }
     }
 
     public List<SystemApiRelation> wrapRelation(List<SystemController> systemControllerList, List<SystemApi> apiList) {
@@ -187,14 +192,17 @@ public class DefaultSystemManager extends AbstractSystemManager {
         List<SystemController> updatedList = ListUtils.castList(
                 comparator.findUpdatePart(systemList, databaseList), SystemController.class);
 
-        if (!extraList.isEmpty())
+        if (!extraList.isEmpty()) {
             ctrlService.saveBatch(extraList);
+        }
 
-        if (!lessList.isEmpty())
+        if (!lessList.isEmpty()) {
             ctrlService.removeBatchByIds(lessList, true);
+        }
 
-        if (!updatedList.isEmpty())
+        if (!updatedList.isEmpty()) {
             ctrlService.updateCtrlList(updatedList);
+        }
 
         if (systemConfig.isLogEnable()) {
             log.info(LocalMessages.get("success.sys.ctrl.add",extraList.size()));
@@ -221,15 +229,18 @@ public class DefaultSystemManager extends AbstractSystemManager {
         List<SystemApi> updatedList = ListUtils.castList(
                 comparator.findUpdatePart(systemApis, databaseApis), SystemApi.class);
 
-        if (!extraList.isEmpty())
+        if (!extraList.isEmpty()) {
             apiService.saveBatch(extraList);
+        }
 
         //进行delete删除，而非逻辑删除
-        if (!lessList.isEmpty())
+        if (!lessList.isEmpty()) {
             apiService.removeBatchByIds(lessList, true);
+        }
 
-        if (!updatedList.isEmpty())
+        if (!updatedList.isEmpty()) {
             apiService.updateApiList(updatedList);
+        }
 
         if (systemConfig.isLogEnable()) {
             log.info(LocalMessages.get("success.sys.api.add",extraList.size()));
@@ -243,7 +254,8 @@ public class DefaultSystemManager extends AbstractSystemManager {
 
         systemRelationList.removeAll(databaseRelationList);
 
-        if (!systemRelationList.isEmpty())
+        if (!systemRelationList.isEmpty()) {
             relationService.saveBatch(systemRelationList);
+        }
     }
 }

@@ -1,8 +1,6 @@
-package com.lite.cos.service.iml;
+package com.lite.cos.service.impl;
 
-import com.lite.common.dto.ResultResponse;
 import com.lite.common.i18n.LocalMessages;
-import com.lite.common.utils.ResultResponseUtils;
 import com.lite.cos.config.CosConfig;
 import com.lite.cos.convert.FileConverter;
 import com.lite.cos.entity.File;
@@ -32,7 +30,7 @@ import java.util.Objects;
 
 
 @Service
-public class CosServiceIml implements CosService {
+public class CosServiceImpl implements CosService {
 
     @Autowired
     CosConfig cosConfig;
@@ -61,8 +59,9 @@ public class CosServiceIml implements CosService {
         userVo.setAvatar(fileVo.getUrl());
 
         //更新数据库中的用户头像字段
-        if (!authService.updateUserInfo(userVo))
+        if (!authService.updateUserInfo(userVo)) {
             throw new CosFileException(HttpStatus.INTERNAL_SERVER_ERROR.value(), LocalMessages.get("error.cos.avatar.upload"));
+        }
 
         return fileVo;
     }
@@ -85,25 +84,28 @@ public class CosServiceIml implements CosService {
         File file = cosMapper.getFile(url).orElseGet(File::new);
 
         //如果文件不存在
-        if (Strings.isBlank(file.getFileName()))
+        if (Strings.isBlank(file.getFileName())) {
             throw new CosFileException(HttpStatus.BAD_REQUEST.value(), LocalMessages.get("error.cos.invalidURL"));
+        }
 
-        if (file.getAccess())
+        if (file.getAccess()) {
             throw new CosFileException(HttpStatus.BAD_REQUEST.value(), LocalMessages.get("error.cos.accessIsTrue"));
+        }
 
 
         //创建COSClient
         COSClient cosClient = CosUtils.initCosClient(cosConfig);
 
         //生成URL
-        URL downloadURL = CosUtils.generatePreDownloadUrl(cosClient, file);
+        URL downloadUrl = CosUtils.generatePreDownloadUrl(cosClient, file);
 
         //非空校验
-        if (Objects.isNull(downloadURL))
+        if (Objects.isNull(downloadUrl)) {
             throw new CosFileException(HttpStatus.INTERNAL_SERVER_ERROR.value(), LocalMessages.get("error.cos.generateURL"));
+        }
 
         //设置url
-        file.setUrl(downloadURL.toString());
+        file.setUrl(downloadUrl.toString());
 
         //返回信息
         return fileConverter.entityToVo(file);
@@ -116,7 +118,7 @@ public class CosServiceIml implements CosService {
      * @return 带有文件信息的响应体
      * @throws CosFileException cos异常，抛出将被全局异常处理器拦截
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public FileVo doUploadService(MultipartFile file, Boolean fileAccess) throws CosFileException {
 
         //获取用户信息
@@ -136,8 +138,9 @@ public class CosServiceIml implements CosService {
         UploadResult uploadResult = CosUtils.uploadFile(transferManager, bucket, wrapFile.getFileName(), file);
 
         //上传成功则将信息包装存入数据库
-        if (Strings.isBlank(uploadResult.getCrc64Ecma()) || !cosMapper.insertFile(wrapFile))
+        if (Strings.isBlank(uploadResult.getCrc64Ecma()) || !cosMapper.insertFile(wrapFile)) {
             throw new CosFileException(HttpStatus.INTERNAL_SERVER_ERROR.value(), LocalMessages.get("error.cos.upload"));
+        }
 
         return fileConverter.entityToVo(wrapFile);
     }

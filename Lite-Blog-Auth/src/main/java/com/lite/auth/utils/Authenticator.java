@@ -44,8 +44,9 @@ public class Authenticator {
         //redis中获取不到则过期
         if (Objects.isNull(
                 redisCache.getCacheObject(
-                        JwtUtil.getRedisAccessKey(userVo.getMail(), userVo.getUuid()))))
+                        JwtUtil.getRedisAccessKey(userVo.getMail(), userVo.getUuid())))) {
             throw new ExpiredJwtException(null, null, null);
+        }
 
         return true;
     }
@@ -74,8 +75,9 @@ public class Authenticator {
         }
 
         //允许过期时间已过
-        if (Objects.isNull(absolutelyExpireTime) || absolutelyExpireTime.getTime() < System.currentTimeMillis())
+        if (Objects.isNull(absolutelyExpireTime) || absolutelyExpireTime.getTime() < System.currentTimeMillis()) {
             return false;
+        }
 
 
         //读取payload
@@ -85,12 +87,14 @@ public class Authenticator {
         UserTokenVo refreshPayload = JSON.parseObject(payload, UserTokenVo.class);
 
         //uuid必须相同
-        if (Objects.isNull(accessPayload) || !accessPayload.getUuid().equals(refreshPayload.getUuid()))
+        if (Objects.isNull(accessPayload) || !accessPayload.getUuid().equals(refreshPayload.getUuid())) {
             return false;
+        }
 
         //access登陆时间只能大于等于refresh,绝对不可能小于refresh
-        if (DateUtils.isBefore(accessPayload.getLoginTime(), refreshPayload.getLoginTime()))
+        if (DateUtils.isBefore(accessPayload.getLoginTime(), refreshPayload.getLoginTime())) {
             return false;
+        }
 
         //redis中获取不到则过期,refresh过期用户必须重新登陆
         return !Objects.isNull(

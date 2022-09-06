@@ -1,10 +1,8 @@
-package com.lite.mail.service.iml;
+package com.lite.mail.service.impl;
 
-import com.lite.common.dto.ResultResponse;
 import com.lite.common.i18n.LocalMessages;
 import com.lite.common.serializer.RedisCache;
 import com.lite.common.utils.DateUtils;
-import com.lite.common.utils.ResultResponseUtils;
 import com.lite.mail.Vo.AuthMailVo;
 import com.lite.mail.exception.MailException;
 import com.lite.mail.service.MailService;
@@ -27,7 +25,7 @@ import java.util.Objects;
 
 @Slf4j
 @Service
-public class MailServiceIml implements MailService {
+public class MailServiceImpl implements MailService {
 
     @Autowired
     MailConfig mailConfig;
@@ -98,8 +96,9 @@ public class MailServiceIml implements MailService {
         String key = MailUtils.getMailRedisKey(to);
 
         //如果redis中已经存在
-        if (!Objects.isNull(redisCache.getCacheObject(key)))
+        if (!Objects.isNull(redisCache.getCacheObject(key))) {
             throw new MailException(HttpStatus.BAD_REQUEST.value(), LocalMessages.get("info.mail.auth.repeat"));
+        }
 
         redisCache.setCacheObject(key, authMailVo);
 

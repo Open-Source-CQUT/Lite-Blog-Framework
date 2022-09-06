@@ -1,7 +1,6 @@
 package com.lite.business.service.article.Impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.lite.auth.utils.LiteBlogContextUtils;
 import com.lite.auth.vo.UserTokenVo;
 import com.lite.business.convert.article.ArticleConvert;
@@ -99,8 +98,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         article.setStatusId(Status.UN_PUBLISHED.val());
 
         //将新数据插入
-        if (!this.save(article))
+        if (!this.save(article)) {
             throw new ArticleException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "文章创建失败");
+        }
 
         //获取当前线程的用户信息
         UserTokenVo localUserInfo = contextUtils.getLocalUserInfo();
@@ -127,8 +127,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
         Article article = articleConvert.dtoToEntity(articleDTO);
 
-        if (!this.updateById(article))
+        if (!this.updateById(article)) {
             throw new ArticleException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "文章保存失败");
+        }
 
         article = articleMapper.getById(article.getId());
 
@@ -149,21 +150,24 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         Article draft = new Article(article);
 
         //将草稿插入文章表中
-        if (!this.save(draft))
+        if (!this.save(draft)) {
             throw new ArticleException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "草稿创建失败");
+        }
 
         ArticleDraft articleDraft = new ArticleDraft(article.getId(), draft.getId());
 
         //将文章-草稿的关系插入关系表中
-        if (!articleDraftService.save(articleDraft))
+        if (!articleDraftService.save(articleDraft)) {
             throw new ArticleException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "草稿创建失败");
+        }
 
 
         ArticleUser draftUser = new ArticleUser(draft.getId(), contextUtils.getLocalUserInfo().getId());
 
         //将草稿-用户的关系插入关系表中
-        if (!articleUserService.save(draftUser))
+        if (!articleUserService.save(draftUser)) {
             throw new ArticleException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "草稿创建失败");
+        }
 
         //获取插入完成后的草稿
         Article insertedDraft = articleMapper.getById(draft.getId());
@@ -179,8 +183,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
         Assert.state(page-- > 0, "必须是正整数");
 
-        if (Objects.isNull(size))
+        if (Objects.isNull(size)) {
             return articleConvert.entityListToVoList(articleMapper.selectPage(statusId, page * 10, 10));
+        }
 
         Assert.state(size > 0, "必须是正整数");
 

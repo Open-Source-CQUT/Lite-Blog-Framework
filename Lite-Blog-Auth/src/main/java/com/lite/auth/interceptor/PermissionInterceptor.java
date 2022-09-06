@@ -55,13 +55,15 @@ public class PermissionInterceptor implements HandlerInterceptor {
         Map<String, JSONObject> cacheMap = contextUtils.getRedisCache().getCacheMap(systemConfig.getRedisMapKey());
 
         //取得API信息
-        SystemApi systemApi = JSON.toJavaObject(cacheMap.get(requestUrl),SystemApi.class);
+        SystemApi systemApi = JSON.toJavaObject(cacheMap.get(requestUrl), SystemApi.class);
 
-        if (Objects.isNull(systemApi))
-            throw new AuthException(HttpStatus.NOT_FOUND.value(),LocalMessages.get("http.code.404"));
+        if (Objects.isNull(systemApi)) {
+            throw new AuthException(HttpStatus.NOT_FOUND.value(), LocalMessages.get("http.code.404"));
+        }
 
-        if (systemApi.getEnable() && systemApi.getPermissionId() > userContextInfo.getPermissionId())
+        if (systemApi.getEnable() && systemApi.getPermissionId() > userContextInfo.getPermissionId()) {
             throw new AuthException(HttpStatus.FORBIDDEN.value(), LocalMessages.get("error.user.auth.notPermit"));
+        }
 
         return true;
     }

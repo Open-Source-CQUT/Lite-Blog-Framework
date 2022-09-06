@@ -63,7 +63,8 @@ public class RateLimitAspect {
 
         Long resultCode = evalRes.getResult(Long.class);
 
-        if (resultCode == -1)
+        if (resultCode == -1){
             throw new SystemBusyException("系统繁忙,请稍后再试");
+        }
     }
 }
