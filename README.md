@@ -1,4 +1,4 @@
-# Lite-Blog -- 轻量简洁的博客后台系统
+# Lite-Blog--Framework -- 轻量简洁的后台系统框架
 
 ------
 
@@ -59,7 +59,7 @@
 ## **版本要求**
 
 - **SpringBoot：**`2.7.2`
-- 
+
 - **Mysql：**`8.0.27`
 
 - **Tomcat:**  `8.5.73`
@@ -105,11 +105,11 @@
 |
 |-------Lite-Blog-Mail         邮件服务模块
 |
-|-------Lite-Blog-Mq           消息队列模块
+|-------Lite-Blog-Mq           消息队列模块 * (尚未完成)
 |
 |-------Lite-Blog-Generator    代码生成模块
 |
-|-------Lite-Blog-Schedule     定时任务模块
+|-------Lite-Blog-Schedule     定时任务模块 * (尚未完成)
 |
 |-------Lite-Blog-Business     业务模块
 |
@@ -124,45 +124,46 @@
 
 
 
-**接口文档：**[项目概览 - 轻言博客 (apifox.cn)](https://www.apifox.cn/apidoc/shared-25197369-00c2-4c14-a603-1c453cfcc812/doc-881581)
+**接口文档: **[项目概览 - 轻言博客 (apifox.cn)](https://www.apifox.cn/apidoc/shared-25197369-00c2-4c14-a603-1c453cfcc812/doc-881581)
 
-**技术总栈**:[Lite-Blog-Doc/所用技术.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/所用技术.md)
+**技术总栈: **[Lite-Blog-Doc/所用技术.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/所用技术.md)
 
-**登陆校验**：[Lite-Blog-Doc/Token校验.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/Token校验.md)
+**登陆校验: **[Lite-Blog-Doc/Token校验.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/Token校验.md)
 
+**实体映射: **[CQUT-Programmer/Lite-Blog-Doc: Documentation repository for blog systems (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/实体映射.md)
 
-**实体映射：**[CQUT-Programmer/Lite-Blog-Doc: Documentation repository for blog systems (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/实体映射.md)
+**邮件服务: **[Lite-Blog-Doc/邮件服务.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/邮件服务.md)
 
+**多语言配置: **[Lite-Blog-Doc/dev at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/i18n多语言.md)
 
-**邮件服务：**[Lite-Blog-Doc/邮件服务.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/邮件服务.md)
+**对象存储: **[Lite-Blog-Doc/dev at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/腾讯COS.md)
 
-**多语言配置**：[Lite-Blog-Doc/dev at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/i18n多语言.md)
+**接口权限: **[Lite-Blog-Doc/接口权限管理.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/接口权限管理.md)
 
-**腾讯COS：**[Lite-Blog-Doc/dev at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/腾讯COS.md)
+**数据缓存: **[Lite-Blog-Doc/数据缓存.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/数据缓存.md)
 
-**接口权限：**[Lite-Blog-Doc/接口权限管理.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/接口权限管理.md)
+**XSS防御:** [Lite-Blog-Doc/XSS脚本过滤.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/XSS脚本过滤.md)
 
-**数据缓存:**[Lite-Blog-Doc/数据缓存.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/数据缓存.md)
-
-**XSS防御:**[Lite-Blog-Doc/XSS脚本过滤.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/XSS脚本过滤.md)
-
-**Redis脚本:**[Lite-Blog-Doc/Redis脚本.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/Redis脚本.md)
-
-------
-
-## 项目预览
-
-即将推出
+**Redis脚本: **[Lite-Blog-Doc/Redis脚本.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/Redis脚本.md)
 
 
 
-## 部分截图预览
-
-![image-20220828152447817](assets/README/image-20220828152447817.png)
+## 使用说明
 
 
 
-## 部署文档
+**1.导入数据库**
 
-即将推出
+将`Lite-Blog-Api/src/main/resources/dbScript/`位置的sql脚本导入数据库，初始化数据库结构
 
+**2.书写配置文件**
+
+位于`Lite-Blog-Api/src/main/resources/application-dev.yml`的配置文件，每一个配置都有详细的注释
+
+ 邮件模块与对象存储模块不想使用不填写即可
+
+**3.导入postman接口调试数据**
+
+导入位于`Lite-Blog-Api/src/main/resources/postmanCollection/`,目录下已经编写好的接口调试数据
+
+便于开发调试接口

@@ -2,7 +2,6 @@ package com.lite.common.serializer;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.lite.common.entity.RedisEvalRes;
-import netscape.javascript.JSObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.BoundSetOperations;
 import org.springframework.data.redis.core.HashOperations;

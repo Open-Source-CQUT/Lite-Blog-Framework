@@ -3,17 +3,17 @@ spring:
     #数据库驱动
     driver-class-name: com.mysql.cj.jdbc.Driver
     #数据库连接URL
-    url: jdbc:mysql://localhost:3306/lite_blog?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Hongkong&allowMultiQueries=true
+    url: jdbc:mysql://localhost:3306/your_data_base?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Hongkong&allowMultiQueries=true
     #数据库用户名
-    username: xxxxx
+    username: username
     #数据库密码
-    password: xxxxx
+    password: password
     #连接池类型
     type: com.zaxxer.hikari.HikariDataSource
 
     hikari:
       #连接池名称
-      pool-name: Lite-Blog-Pool
+      pool-name: Lite-Blog-framework-Pool
       #最大连接数
       maximum-pool-size: 50
       #最小空闲连接
@@ -30,9 +30,9 @@ spring:
     #端口
     port: 6379
     #主机
-    host: localhost
+    host: host
     #密码
-    password: wyh246859
+    password: password
     #连接池
     lettuce:
       pool:
