@@ -24,13 +24,13 @@
 
 **数据库SQL构建脚本位于 :**
 
-`Lite-Blog-Api/src/main/resources/dbScript/lite_blog_2022_8_28_15_11.sql`
+`Lite-Blog-Api/src/main/resources/dbScript/`
 
 
 
 **POST接口调试导出数据位于:**
 
-`Lite-Blog-Api/src/main/resources/postmanCollection/lite-blog.postman_collection_latest.json`
+`Lite-Blog-Api/src/main/resources/postmanCollection/`
 
 
 

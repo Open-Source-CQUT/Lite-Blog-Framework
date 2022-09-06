@@ -5,9 +5,9 @@ spring:
     #数据库连接URL
     url: jdbc:mysql://localhost:3306/lite_blog?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Hongkong&allowMultiQueries=true
     #数据库用户名
-    username: root
+    username: xxxxx
     #数据库密码
-    password: wyh246859
+    password: xxxxx
     #连接池类型
     type: com.zaxxer.hikari.HikariDataSource
 
