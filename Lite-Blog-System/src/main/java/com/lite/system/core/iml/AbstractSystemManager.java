@@ -1,6 +1,6 @@
 package com.lite.system.core.iml;
 
-import com.lite.common.i18n.LocalMessages;
+import com.lite.common.i18n.SystemMessages;
 import com.lite.system.annotation.Permission;
 import com.lite.system.config.SystemConfig;
 import com.lite.system.entity.PermissionId;
@@ -21,9 +21,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 import org.springframework.web.util.pattern.PathPattern;
 
 import java.util.*;
-import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * 抽象类SystemAbstractManager,此类用于初始化系统信息,获取到信息后如何操作取决于子类如何实现
@@ -69,7 +67,7 @@ public abstract class AbstractSystemManager implements SystemManager {
      * 刷新系统controller信息
      */
     public List<SystemController> loadSystemControllerInfo() {
-        Assert.notNull(handlerMethodList, LocalMessages.get("error.sys.ini"));
+        Assert.notNull(handlerMethodList, SystemMessages.get("error.sys.ini"));
         return handlerMethodList.stream().map(HandlerMethod::getBeanType).distinct().map(handlerClass -> {
                     //获取包名
                     String packageName = handlerClass.getPackage().getName();
@@ -100,7 +98,7 @@ public abstract class AbstractSystemManager implements SystemManager {
      * 刷新系统API信息
      */
     public List<SystemApi> loadSystemApiInfo() {
-        Assert.notNull(handlerMethodMap, LocalMessages.get("error.sys.ini"));
+        Assert.notNull(handlerMethodMap, SystemMessages.get("error.sys.ini"));
         return requestMappingInfoList.stream().distinct()
                 .map(handlerMethodInfo -> {
                     //断言不能为空
@@ -113,7 +111,7 @@ public abstract class AbstractSystemManager implements SystemManager {
                             .map(PathPattern::getPatternString)
                             .collect(Collectors.toList());
 
-                    Assert.notEmpty(urlList, LocalMessages.get("error.sys.api.emptyUrl"));
+                    Assert.notEmpty(urlList, SystemMessages.get("error.sys.api.emptyUrl"));
 
                     String wrapMethod = SystemStringUtils.concatWithComma(handlerMethodInfo
                             .getMethodsCondition()

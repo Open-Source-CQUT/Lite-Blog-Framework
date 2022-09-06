@@ -7,17 +7,15 @@ import com.lite.auth.exception.AuthException;
 import com.lite.auth.interceptor.BaseInterceptor;
 import com.lite.auth.utils.LiteBlogContextUtils;
 import com.lite.auth.vo.UserTokenVo;
-import com.lite.common.i18n.LocalMessages;
+import com.lite.common.i18n.SystemMessages;
 import com.lite.common.serializer.RedisCache;
 import com.lite.system.config.SystemConfig;
 import com.lite.system.entity.SystemApi;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -60,11 +58,11 @@ public class PermissionInterceptor extends BaseInterceptor {
         SystemApi systemApi = JSON.toJavaObject(cacheMap.get(requestUrl), SystemApi.class);
 
         if (Objects.isNull(systemApi)) {
-            throw new AuthException(HttpStatus.NOT_FOUND.value(), LocalMessages.get("http.code.404"));
+            throw new AuthException(HttpStatus.NOT_FOUND.value(), SystemMessages.get("http.code.404"));
         }
 
         if (systemApi.getEnable() && systemApi.getPermissionId() > userContextInfo.getPermissionId()) {
-            throw new AuthException(HttpStatus.FORBIDDEN.value(), LocalMessages.get("error.user.auth.notPermit"));
+            throw new AuthException(HttpStatus.FORBIDDEN.value(), SystemMessages.get("error.user.auth.notPermit"));
         }
 
         return true;

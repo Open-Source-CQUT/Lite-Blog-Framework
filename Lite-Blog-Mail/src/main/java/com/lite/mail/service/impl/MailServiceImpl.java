@@ -1,6 +1,6 @@
 package com.lite.mail.service.impl;
 
-import com.lite.common.i18n.LocalMessages;
+import com.lite.common.i18n.SystemMessages;
 import com.lite.common.serializer.RedisCache;
 import com.lite.common.utils.DateUtils;
 import com.lite.mail.Vo.AuthMailVo;
@@ -97,7 +97,7 @@ public class MailServiceImpl implements MailService {
 
         //如果redis中已经存在
         if (!Objects.isNull(redisCache.getCacheObject(key))) {
-            throw new MailException(HttpStatus.BAD_REQUEST.value(), LocalMessages.get("info.mail.auth.repeat"));
+            throw new MailException(HttpStatus.BAD_REQUEST.value(), SystemMessages.get("info.mail.auth.repeat"));
         }
 
         redisCache.setCacheObject(key, authMailVo);
@@ -109,7 +109,7 @@ public class MailServiceImpl implements MailService {
 
         //发送邮件
         try {
-            resultResponse = sendHtmlMail(new MailVo(to, LocalMessages.get("info.mail.auth.subject"), content));
+            resultResponse = sendHtmlMail(new MailVo(to, SystemMessages.get("info.mail.auth.subject"), content));
         } catch (Exception e) {
             //如果过程中发送什么异常直接抛出，并将redis中的数据删掉
             redisCache.deleteObject(key);

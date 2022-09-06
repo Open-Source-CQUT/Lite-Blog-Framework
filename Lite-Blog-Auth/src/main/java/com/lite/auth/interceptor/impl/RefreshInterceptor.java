@@ -4,7 +4,7 @@ package com.lite.auth.interceptor.impl;
 import com.lite.auth.config.WebUrlConfig;
 import com.lite.auth.interceptor.BaseInterceptor;
 import com.lite.common.exception.BaseException;
-import com.lite.common.i18n.LocalMessages;
+import com.lite.common.i18n.SystemMessages;
 import com.lite.common.utils.JwtUtil;
 import com.lite.auth.exception.AuthException;
 import com.lite.auth.utils.Authenticator;
@@ -13,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,12 +38,12 @@ public class RefreshInterceptor extends BaseInterceptor {
             String accessToken = request.getHeader(JwtUtil.JWT_ACCESS_KEY);
 
             //断言
-            Assert.notNull(refreshToken, LocalMessages.get("error.jwt.access.notNull"));
-            Assert.notNull(accessToken, LocalMessages.get("error.jwt.refresh.notNull"));
+            Assert.notNull(refreshToken, SystemMessages.get("error.jwt.access.notNull"));
+            Assert.notNull(accessToken, SystemMessages.get("error.jwt.refresh.notNull"));
 
             //校验
             if (!authenticator.authenticateRefreshToken(refreshToken, accessToken)){
-                throw new AuthException(HttpStatus.FORBIDDEN.value(), LocalMessages.get("error.jwt.refresh.invalid"));
+                throw new AuthException(HttpStatus.FORBIDDEN.value(), SystemMessages.get("error.jwt.refresh.invalid"));
             }
 
             //因为获取的是refresh-token，此时再做时效判断没有意义，解析失败一律403，需要重新登陆获取refresh-token

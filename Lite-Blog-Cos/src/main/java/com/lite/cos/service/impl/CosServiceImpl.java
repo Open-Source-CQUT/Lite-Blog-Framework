@@ -1,6 +1,6 @@
 package com.lite.cos.service.impl;
 
-import com.lite.common.i18n.LocalMessages;
+import com.lite.common.i18n.SystemMessages;
 import com.lite.cos.config.CosConfig;
 import com.lite.cos.convert.FileConverter;
 import com.lite.cos.entity.File;
@@ -60,7 +60,7 @@ public class CosServiceImpl implements CosService {
 
         //更新数据库中的用户头像字段
         if (!authService.updateUserInfo(userVo)) {
-            throw new CosFileException(HttpStatus.INTERNAL_SERVER_ERROR.value(), LocalMessages.get("error.cos.avatar.upload"));
+            throw new CosFileException(HttpStatus.INTERNAL_SERVER_ERROR.value(), SystemMessages.get("error.cos.avatar.upload"));
         }
 
         return fileVo;
@@ -85,11 +85,11 @@ public class CosServiceImpl implements CosService {
 
         //如果文件不存在
         if (Strings.isBlank(file.getFileName())) {
-            throw new CosFileException(HttpStatus.BAD_REQUEST.value(), LocalMessages.get("error.cos.invalidURL"));
+            throw new CosFileException(HttpStatus.BAD_REQUEST.value(), SystemMessages.get("error.cos.invalidURL"));
         }
 
         if (file.getAccess()) {
-            throw new CosFileException(HttpStatus.BAD_REQUEST.value(), LocalMessages.get("error.cos.accessIsTrue"));
+            throw new CosFileException(HttpStatus.BAD_REQUEST.value(), SystemMessages.get("error.cos.accessIsTrue"));
         }
 
 
@@ -101,7 +101,7 @@ public class CosServiceImpl implements CosService {
 
         //非空校验
         if (Objects.isNull(downloadUrl)) {
-            throw new CosFileException(HttpStatus.INTERNAL_SERVER_ERROR.value(), LocalMessages.get("error.cos.generateURL"));
+            throw new CosFileException(HttpStatus.INTERNAL_SERVER_ERROR.value(), SystemMessages.get("error.cos.generateURL"));
         }
 
         //设置url
@@ -139,7 +139,7 @@ public class CosServiceImpl implements CosService {
 
         //上传成功则将信息包装存入数据库
         if (Strings.isBlank(uploadResult.getCrc64Ecma()) || !cosMapper.insertFile(wrapFile)) {
-            throw new CosFileException(HttpStatus.INTERNAL_SERVER_ERROR.value(), LocalMessages.get("error.cos.upload"));
+            throw new CosFileException(HttpStatus.INTERNAL_SERVER_ERROR.value(), SystemMessages.get("error.cos.upload"));
         }
 
         return fileConverter.entityToVo(wrapFile);

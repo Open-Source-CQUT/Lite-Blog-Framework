@@ -1,11 +1,10 @@
 package com.lite.api;
 
-import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONWriter;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.lite.business.convert.article.ArticleConvert;
 import com.lite.business.service.article.IArticleService;
-import com.lite.common.i18n.LocalMessages;
+import com.lite.common.i18n.SystemMessages;
 import com.lite.common.serializer.RedisCache;
 import com.lite.auth.config.CorsConfig;
 import com.lite.auth.config.WebUrlConfig;
@@ -19,27 +18,17 @@ import com.lite.mail.config.MailConfig;
 import com.lite.mail.service.MailService;
 import com.lite.system.config.SystemConfig;
 import com.lite.system.entity.SystemApi;
-import com.lite.system.entity.SystemController;
 import com.lite.system.utils.SystemStringUtils;
 import com.lite.system.utils.list.iml.SystemEntityComparator;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.util.Strings;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
-import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
-import org.springframework.web.util.pattern.PathPattern;
 
 
 import java.util.*;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 @Slf4j
 @SpringBootTest
@@ -141,7 +130,7 @@ public class LiteBlogWebApplicationTest {
 
     @Test
     public void convertTest(){
-        log.info(LocalMessages.get("test"));
+        log.info(SystemMessages.get("test"));
     }
 
     @Autowired

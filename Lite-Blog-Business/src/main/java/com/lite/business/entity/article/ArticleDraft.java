@@ -2,6 +2,7 @@ package com.lite.business.entity.article;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.lite.common.entity.BaseEntity;
+import com.lite.common.entity.Entity;
 import lombok.*;
 
 /**
@@ -16,7 +17,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName("relation_article_draft")
-public class ArticleDraft extends BaseEntity {
+public class ArticleDraft extends Entity {
 
     private Long articleId;
 

@@ -1,7 +1,7 @@
 package com.lite.api.controller.admin.error;
 
 import com.lite.common.dto.ResultResponse;
-import com.lite.common.i18n.LocalMessages;
+import com.lite.common.i18n.SystemMessages;
 import com.lite.common.utils.ResultResponseUtils;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.boot.web.servlet.error.ErrorController;
@@ -42,7 +42,7 @@ public class LiteBlogExceptionController implements ErrorController {
 
         //如果还不行就取状态码的默认信息
         if (Strings.isBlank(msg)) {
-            msg = LocalMessages.getStatusDefaultMsg(status);
+            msg = SystemMessages.getStatusDefaultMsg(status);
         }
 
         return ResultResponseUtils.error(status, msg);

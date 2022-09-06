@@ -21,7 +21,7 @@ import java.util.List;
 public interface IArticleService extends IService<Article> {
 
 
-    Boolean publishArticle(ArticleDTO articleDTO);
+    Boolean publishArticle(ArticleDTO articleDTO) throws ArticleException;
 
     ArticleUpdateResVO createDraft(ArticleDTO articleDTO) throws ArticleException;
 

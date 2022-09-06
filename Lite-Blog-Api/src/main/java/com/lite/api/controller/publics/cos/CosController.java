@@ -2,7 +2,7 @@ package com.lite.api.controller.publics.cos;
 
 import com.lite.common.dto.ResultResponse;
 import com.lite.auth.exception.AuthException;
-import com.lite.common.i18n.LocalMessages;
+import com.lite.common.i18n.SystemMessages;
 import com.lite.common.utils.ResultResponseUtils;
 import com.lite.cos.exception.CosFileException;
 import com.lite.cos.service.CosService;
@@ -30,7 +30,7 @@ public class CosController {
 
         //TODO 上传头像
         return ResultResponseUtils.success(
-                cosService.uploadAvatar(file), LocalMessages.get("success.cos.avatar.upload"));
+                cosService.uploadAvatar(file), SystemMessages.get("success.cos.avatar.upload"));
     }
 
     @PutMapping("/upload/public")
@@ -39,7 +39,7 @@ public class CosController {
 
         //TODO 上传public文件
         return ResultResponseUtils.success(
-                cosService.uploadPublicFile(file), LocalMessages.get("success.cos.upload"));
+                cosService.uploadPublicFile(file), SystemMessages.get("success.cos.upload"));
     }
 
 
@@ -50,14 +50,14 @@ public class CosController {
         //TODO 上传private文件
 
         return ResultResponseUtils.success(
-                cosService.uploadPrivateFile(file), LocalMessages.get("success.cos.upload"));
+                cosService.uploadPrivateFile(file), SystemMessages.get("success.cos.upload"));
     }
 
     @GetMapping("/download/preSigned")
     public ResultResponse<FileVo> getPreSignedDownloadUrl(@RequestParam @NotBlank String url)
             throws CosFileException {
 
-        return ResultResponseUtils.success(cosService.getPreSignedDownLoadUrl(url), LocalMessages.get("success.cos.generateURL"));
+        return ResultResponseUtils.success(cosService.getPreSignedDownLoadUrl(url), SystemMessages.get("success.cos.generateURL"));
     }
 
 }

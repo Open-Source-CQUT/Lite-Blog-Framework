@@ -3,7 +3,7 @@ package com.lite.auth.interceptor.impl;
 import com.lite.auth.config.WebUrlConfig;
 import com.lite.auth.interceptor.BaseInterceptor;
 import com.lite.auth.utils.LiteBlogContextUtils;
-import com.lite.common.i18n.LocalMessages;
+import com.lite.common.i18n.SystemMessages;
 import com.lite.common.utils.JwtUtil;
 import com.lite.auth.utils.Authenticator;
 import com.lite.auth.exception.AuthException;
@@ -14,14 +14,10 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
-import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * 身份校验拦截器，用于处理用户身份的校验，校验完成后会将用户的身份信息存入ThreadLocal,请求完成后将会移除
@@ -46,19 +42,19 @@ public class AuthInterceptor extends BaseInterceptor {
             String accessToken = request.getHeader(JwtUtil.JWT_ACCESS_KEY);
 
             //断言
-            Assert.notNull(accessToken, LocalMessages.get("error.jwt.access.notNull"));
+            Assert.notNull(accessToken, SystemMessages.get("error.jwt.access.notNull"));
 
             if (!authenticator.authenticateAccessToken(accessToken)){
-                throw new AuthException(HttpStatus.FORBIDDEN.value(), LocalMessages.get("error.jwt.access.invalid"));
+                throw new AuthException(HttpStatus.FORBIDDEN.value(), SystemMessages.get("error.jwt.access.invalid"));
             }
 
 
         } catch (ExpiredJwtException e) {
             //token过期
-            response.sendError(HttpStatus.UNAUTHORIZED.value(), LocalMessages.get("error.jwt.access.expired"));
+            response.sendError(HttpStatus.UNAUTHORIZED.value(), SystemMessages.get("error.jwt.access.expired"));
             return false;
         } catch (Exception e) {
-            response.sendError(HttpStatus.FORBIDDEN.value(), LocalMessages.get("error.jwt.access.invalid"));
+            response.sendError(HttpStatus.FORBIDDEN.value(), SystemMessages.get("error.jwt.access.invalid"));
             return false;
         }
 

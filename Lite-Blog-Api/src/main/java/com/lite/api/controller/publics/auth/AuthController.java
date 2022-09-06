@@ -8,7 +8,7 @@ import com.lite.auth.exception.AuthException;
 import com.lite.auth.exception.UserNotFoundException;
 import com.lite.auth.service.AuthService;
 import com.lite.auth.vo.UserVo;
-import com.lite.common.i18n.LocalMessages;
+import com.lite.common.i18n.SystemMessages;
 import com.lite.common.utils.ResultResponseUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,13 +32,13 @@ public class AuthController {
 
     @GetMapping("/login")
     public ResultResponse<JwtTokenWrapper> login(
-            @RequestParam @Email @NotBlank String mail,
+            @RequestParam @Email() @NotBlank String mail,
             @RequestParam @NotBlank String password)
             throws AuthException {
 
         return ResultResponseUtils.success(
                 service.login(mail, password),
-                LocalMessages.get("success.user.auth.login"));
+                SystemMessages.get("success.user.auth.login"));
     }
 
     @PostMapping("/register")
@@ -48,15 +48,15 @@ public class AuthController {
 
 
         return service.register(userConverter.voToNormalDto(userVo)) ?
-                ResultResponseUtils.success(true, LocalMessages.get("success.user.auth.register")) :
-                ResultResponseUtils.error(false, LocalMessages.get("error.user.auth.register"));
+                ResultResponseUtils.success(true, SystemMessages.get("success.user.auth.register")) :
+                ResultResponseUtils.error(false, SystemMessages.get("error.user.auth.register"));
     }
 
     @PostMapping("/updateInfo")
     public ResultResponse<Boolean> updateInfo(@RequestBody UserVo userVo) throws AuthException {
         return service.updateUserInfo(userVo) ?
-                ResultResponseUtils.success(true, LocalMessages.get("success.user.auth.update")) :
-                ResultResponseUtils.error(false,LocalMessages.get("error.user.auth.update"));
+                ResultResponseUtils.success(true, SystemMessages.get("success.user.auth.update")) :
+                ResultResponseUtils.error(false, SystemMessages.get("error.user.auth.update"));
     }
 
     @PostMapping("/changePassword")
@@ -68,8 +68,8 @@ public class AuthController {
 
         //TODO 修改密码
         return service.changePassword(mail, oldPassword, newPassword) ?
-                ResultResponseUtils.success(true, LocalMessages.get("success.user.auth.passwordChange")) :
-                ResultResponseUtils.error(false,LocalMessages.get("error.user.auth.passwordChange"));
+                ResultResponseUtils.success(true, SystemMessages.get("success.user.auth.passwordChange")) :
+                ResultResponseUtils.error(false, SystemMessages.get("error.user.auth.passwordChange"));
     }
 
     @PostMapping("/logout")
@@ -77,8 +77,8 @@ public class AuthController {
 
         //TODO 注销登陆
         return service.logout() ?
-                ResultResponseUtils.success(true, LocalMessages.get("success.user.auth.logout")) :
-                ResultResponseUtils.error(false, LocalMessages.get("error.user.auth.logout"));
+                ResultResponseUtils.success(true, SystemMessages.get("success.user.auth.logout")) :
+                ResultResponseUtils.error(false, SystemMessages.get("error.user.auth.logout"));
     }
 
     @GetMapping("/refreshToken")
@@ -87,7 +87,7 @@ public class AuthController {
 
         return ResultResponseUtils.success(
                 service.refreshToken(),
-                LocalMessages.get("success.jwt.access.refresh")
+                SystemMessages.get("success.jwt.access.refresh")
         );
     }
 

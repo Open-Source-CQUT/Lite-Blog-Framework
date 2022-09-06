@@ -1,6 +1,6 @@
 package com.lite.system;
 
-import com.lite.common.i18n.LocalMessages;
+import com.lite.common.i18n.SystemMessages;
 import com.lite.system.config.SystemConfig;
 import com.lite.system.core.RunnableFactory;
 import com.lite.system.core.iml.DefaultFactoryCandidate;
@@ -42,15 +42,15 @@ public class SystemApplicationRunner implements ApplicationRunner {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         if (systemConfig.isLogEnable()) {
-            log.info(LocalMessages.get("success.sys.scan"));
-            log.info(LocalMessages.get("arrowhead"));
+            log.info(SystemMessages.get("success.sys.scan"));
+            log.info(SystemMessages.get("arrowhead"));
         }
         runnableFactory.start();
         stopWatch.stop();
         if (systemConfig.isLogEnable()) {
-            log.info(LocalMessages.get("arrowhead"));
-            log.info(LocalMessages.get("success.sys.allCompleted"));
-            log.info(LocalMessages.get("success.sys.timeConsume", stopWatch.getTotalTimeSeconds()));
+            log.info(SystemMessages.get("arrowhead"));
+            log.info(SystemMessages.get("success.sys.allCompleted"));
+            log.info(SystemMessages.get("success.sys.timeConsume", stopWatch.getTotalTimeSeconds()));
         }
     }
 

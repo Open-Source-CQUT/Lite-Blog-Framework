@@ -3,6 +3,7 @@ package com.lite.auth.aspectJ;
 import com.lite.auth.exception.SystemBusyException;
 import com.lite.auth.utils.LiteBlogContextUtils;
 import com.lite.common.entity.RedisEvalRes;
+import com.lite.common.i18n.SystemMessages;
 import com.lite.common.serializer.RedisCache;
 import com.lite.common.serializer.RedisJsonScript;
 import com.lite.system.annotation.RateLimit;
@@ -21,7 +22,7 @@ import java.util.Collections;
 /**
  * @author Stranger
  * @version 1.0
- * @description: TODO
+ * @description: 限流切面类,对于加了指定注解的接口进行限流
  * @date 2022/9/5 20:25
  */
 @Aspect
@@ -64,7 +65,7 @@ public class RateLimitAspect {
         Long resultCode = evalRes.getResult(Long.class);
 
         if (resultCode == -1){
-            throw new SystemBusyException("系统繁忙,请稍后再试");
+            throw new SystemBusyException(SystemMessages.get("系统繁忙,请稍后再试"));
         }
     }
 }

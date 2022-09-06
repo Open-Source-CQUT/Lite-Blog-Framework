@@ -6,16 +6,17 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
-import java.util.Locale;
-import java.util.Objects;
-
+/**
+ * 系统语言对象，用于多语言配置
+ * @author Stranger
+ */
 @Component
-public class LocalMessages {
+public class SystemMessages {
 
     private static MessageSource messageSource = null;
 
-    public LocalMessages(MessageSource messageSource) {
-        LocalMessages.messageSource = messageSource;
+    public SystemMessages(MessageSource messageSource) {
+        SystemMessages.messageSource = messageSource;
     }
 
     public static String get(String key) {
@@ -24,7 +25,7 @@ public class LocalMessages {
 
     public static String get(String key, Object... args) {
         try {
-            return messageSource.getMessage(key, args,LocaleContextHolder.getLocale());
+            return messageSource.getMessage(key, args, LocaleContextHolder.getLocale());
         } catch (Exception e) {
             e.printStackTrace();
             return StringUtils.EMPTY;
@@ -36,8 +37,9 @@ public class LocalMessages {
 
         String msg = get(String.format("http.code.%s", status));
 
-        if (StringUtils.isBlank(msg))
+        if (StringUtils.isBlank(msg)) {
             return get("http.code.400");
+        }
 
         return msg;
     }

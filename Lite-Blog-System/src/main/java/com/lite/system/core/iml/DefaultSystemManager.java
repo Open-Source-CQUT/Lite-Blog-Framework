@@ -1,6 +1,6 @@
 package com.lite.system.core.iml;
 
-import com.lite.common.i18n.LocalMessages;
+import com.lite.common.i18n.SystemMessages;
 import com.lite.common.serializer.RedisCache;
 import com.lite.system.config.SystemConfig;
 import com.lite.system.entity.SystemApi;
@@ -19,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -82,15 +81,15 @@ public class DefaultSystemManager extends AbstractSystemManager {
         if (systemConfig.isLogEnable())
         //日志输出
         {
-            log.info(LocalMessages.get("success.sys.ctrl.load", systemControllerList.size()));
+            log.info(SystemMessages.get("success.sys.ctrl.load", systemControllerList.size()));
         }
 
         //进行信息比对
         judgeSystemController(systemControllerList, originalControllerList);
 
         if (systemConfig.isLogEnable()) {
-            log.info(LocalMessages.get("success.sys.ctrl.map"));
-            log.info(LocalMessages.get("arrowhead"));
+            log.info(SystemMessages.get("success.sys.ctrl.map"));
+            log.info(SystemMessages.get("arrowhead"));
         }
 
     }
@@ -109,15 +108,15 @@ public class DefaultSystemManager extends AbstractSystemManager {
         if (systemConfig.isLogEnable())
         //日志输出
         {
-            log.info(LocalMessages.get("success.sys.api.load", systemApis.size()));
+            log.info(SystemMessages.get("success.sys.api.load", systemApis.size()));
         }
 
         //进行信息比对
         judgeSystemApi(systemApis, originalApiList);
 
         if (systemConfig.isLogEnable()) {
-            log.info(LocalMessages.get("success.sys.api.map"));
-            log.info(LocalMessages.get("arrowhead"));
+            log.info(SystemMessages.get("success.sys.api.map"));
+            log.info(SystemMessages.get("arrowhead"));
         }
     }
 
@@ -147,7 +146,7 @@ public class DefaultSystemManager extends AbstractSystemManager {
         redisCache.setCacheMap(systemConfig.getRedisMapKey(), systemApiMap);
 
         if (systemConfig.isLogEnable()) {
-            log.info(LocalMessages.get("success.sys.api.redis"));
+            log.info(SystemMessages.get("success.sys.api.redis"));
         }
     }
 
@@ -206,9 +205,9 @@ public class DefaultSystemManager extends AbstractSystemManager {
         }
 
         if (systemConfig.isLogEnable()) {
-            log.info(LocalMessages.get("success.sys.ctrl.add", extraList.size()));
-            log.info(LocalMessages.get("success.sys.ctrl.less", lessList.size()));
-            log.info(LocalMessages.get("success.sys.ctrl.update", updatedList.size()));
+            log.info(SystemMessages.get("success.sys.ctrl.add", extraList.size()));
+            log.info(SystemMessages.get("success.sys.ctrl.less", lessList.size()));
+            log.info(SystemMessages.get("success.sys.ctrl.update", updatedList.size()));
         }
     }
 
@@ -244,9 +243,9 @@ public class DefaultSystemManager extends AbstractSystemManager {
         }
 
         if (systemConfig.isLogEnable()) {
-            log.info(LocalMessages.get("success.sys.api.add", extraList.size()));
-            log.info(LocalMessages.get("success.sys.api.less", lessList.size()));
-            log.info(LocalMessages.get("success.sys.api.update", updatedList.size()));
+            log.info(SystemMessages.get("success.sys.api.add", extraList.size()));
+            log.info(SystemMessages.get("success.sys.api.less", lessList.size()));
+            log.info(SystemMessages.get("success.sys.api.update", updatedList.size()));
         }
 
     }

@@ -3,7 +3,7 @@ package com.lite.auth.service.impl;
 import com.alibaba.fastjson2.JSON;
 import com.lite.common.dto.token.JwtToken;
 import com.lite.common.dto.token.JwtTokenWrapper;
-import com.lite.common.i18n.LocalMessages;
+import com.lite.common.i18n.SystemMessages;
 import com.lite.common.utils.JwtUtil;
 import com.lite.auth.convert.UserConverter;
 import com.lite.auth.dao.AuthMapper;
@@ -59,12 +59,12 @@ public class AuthServiceImpl implements AuthService {
 
         //用户不存在
         if (Objects.isNull(user.getMail())){
-            throw new UserNotFoundException(LocalMessages.get("error.user.auth.userNotFound"));
+            throw new UserNotFoundException(SystemMessages.get("error.user.auth.userNotFound"));
         }
 
         //密码是否相同
         if (!user.getPassword().equals(PasswordEncoder.enCode(password))){
-            throw new PasswordErrorException(LocalMessages.get("error.user.auth.password"));
+            throw new PasswordErrorException(SystemMessages.get("error.user.auth.password"));
         }
 
         //将对象转换成dto
@@ -88,7 +88,7 @@ public class AuthServiceImpl implements AuthService {
 
         //如果redis中不存在 或者 验证不匹配
         if (Objects.isNull(authMailVo) || !authMailVo.getAuthCode().equals(userNormalDto.getAuthCode())) {
-            throw new AuthException(HttpStatus.BAD_REQUEST.value(), LocalMessages.get("error.user.auth.authCodeFail"));
+            throw new AuthException(HttpStatus.BAD_REQUEST.value(), SystemMessages.get("error.user.auth.authCodeFail"));
         }
 
         //转换成实体类
@@ -97,7 +97,7 @@ public class AuthServiceImpl implements AuthService {
         if (!Objects.isNull(authMapper.getUser(newUser.getMail())
                 .orElseGet(User::new)
                 .getMail())) {
-            throw new UserDuplicateException(LocalMessages.get("error.user.auth.userExisted"));
+            throw new UserDuplicateException(SystemMessages.get("error.user.auth.userExisted"));
         }
 
         //sha1加密
@@ -107,7 +107,7 @@ public class AuthServiceImpl implements AuthService {
         newUser.setPermissionId(PermissionId.DEFAULT.val());
 
         if (!authMapper.insertUser(newUser)) {
-            throw new AuthException(HttpStatus.INTERNAL_SERVER_ERROR.value(), LocalMessages.get("error.user.auth.register"));
+            throw new AuthException(HttpStatus.INTERNAL_SERVER_ERROR.value(), SystemMessages.get("error.user.auth.register"));
         }
 
         //操作成功后删除redis中的缓存
@@ -149,11 +149,11 @@ public class AuthServiceImpl implements AuthService {
         User user = userConverter.voToEntity(userVo);
 
         if (Objects.isNull(authMapper.getUser(user.getMail()).orElseGet(User::new).getMail())) {
-            throw new UserNotFoundException(LocalMessages.get("error.user.auth.userNotFound"));
+            throw new UserNotFoundException(SystemMessages.get("error.user.auth.userNotFound"));
         }
 
         if (!authMapper.updateUserInfo(user)) {
-            throw new AuthException(HttpStatus.INTERNAL_SERVER_ERROR.value(), LocalMessages.get("error.user.auth.update"));
+            throw new AuthException(HttpStatus.INTERNAL_SERVER_ERROR.value(), SystemMessages.get("error.user.auth.update"));
         }
 
         return true;
@@ -167,17 +167,17 @@ public class AuthServiceImpl implements AuthService {
 
         //验证用户是否存在
         if (Objects.isNull(user.getMail())) {
-            throw new UserNotFoundException(LocalMessages.get("error.user.auth.userNotFound"));
+            throw new UserNotFoundException(SystemMessages.get("error.user.auth.userNotFound"));
         }
 
         //验证密码是否正确
         if (!PasswordEncoder.enCode(oldPassword).equals(user.getPassword())) {
-            throw new PasswordErrorException(LocalMessages.get("error.user.auth.password"));
+            throw new PasswordErrorException(SystemMessages.get("error.user.auth.password"));
         }
 
         //是否成功修改密码
         if (!authMapper.updateUserPassword(mail, PasswordEncoder.enCode(newPassword))) {
-            throw new AuthException(HttpStatus.INTERNAL_SERVER_ERROR.value(), LocalMessages.get("error.user.auth.passwordChange"));
+            throw new AuthException(HttpStatus.INTERNAL_SERVER_ERROR.value(), SystemMessages.get("error.user.auth.passwordChange"));
         }
 
         return true;
