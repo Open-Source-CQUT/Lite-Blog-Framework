@@ -71,7 +71,7 @@ spring: #前后端日期格式统一
 #服务器
 server:
   #工作端口
-  port: 8088
+  port: 8080
   #容器
   tomcat:
     #url编码
