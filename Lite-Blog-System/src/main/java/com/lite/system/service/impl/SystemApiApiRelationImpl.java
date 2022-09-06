@@ -13,5 +13,5 @@ import org.springframework.stereotype.Service;
  * @date 2022/8/27 17:52
  */
 @Service
-public class SystemApiApiRelationIml extends ServiceImpl<SystemApiRelationMapper, SystemApiRelation> implements SystemApiRelationService {
+public class SystemApiApiRelationImpl extends ServiceImpl<SystemApiRelationMapper, SystemApiRelation> implements SystemApiRelationService {
 }

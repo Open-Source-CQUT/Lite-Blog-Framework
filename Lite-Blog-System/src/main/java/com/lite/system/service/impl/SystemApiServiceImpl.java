@@ -18,7 +18,7 @@ import java.util.List;
  */
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class SystemApiServiceIml extends ServiceImpl<SystemApiMapper, SystemApi> implements SystemApiService {
+public class SystemApiServiceImpl extends ServiceImpl<SystemApiMapper, SystemApi> implements SystemApiService {
 
     @Autowired
     SystemApiMapper apiMapper;

@@ -19,7 +19,7 @@ import java.util.List;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class SystemCtrlServiceIml extends ServiceImpl<SystemControllerMapper, SystemController> implements SystemCtrlService {
+public class SystemCtrlServiceImpl extends ServiceImpl<SystemControllerMapper, SystemController> implements SystemCtrlService {
 
     @Autowired
     SystemControllerMapper systemControllerMapper;
