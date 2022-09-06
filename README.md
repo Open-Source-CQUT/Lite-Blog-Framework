@@ -124,9 +124,9 @@
 
 
 
-**接口文档: **[项目概览 - 轻言博客 (apifox.cn)](https://www.apifox.cn/apidoc/shared-25197369-00c2-4c14-a603-1c453cfcc812/doc-881581)
+**接口文档: **[[登陆接口 - Lite-Blog-Framework (apifox.cn)](https://www.apifox.cn/apidoc/project-1573585/api-38408277)](https://www.apifox.cn/apidoc/shared-25197369-00c2-4c14-a603-1c453cfcc812/doc-881581)
 
-**技术总栈: **[Lite-Blog-Doc/所用技术.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/所用技术.md)
+**技术总栈: **[[项目概览 - Lite-Blog-Framework (apifox.cn)](https://www.apifox.cn/apidoc/project-1573585/doc-1361562)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/所用技术.md)
 
 **登陆校验: **[Lite-Blog-Doc/Token校验.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/Token校验.md)
 
@@ -160,7 +160,11 @@
 
 位于`Lite-Blog-Api/src/main/resources/application-dev.yml`的配置文件，每一个配置都有详细的注释
 
+**其中mysql与redis配置为必填**
+
  邮件模块与对象存储模块不想使用不填写即可
+
+
 
 **3.导入postman接口调试数据**
 
