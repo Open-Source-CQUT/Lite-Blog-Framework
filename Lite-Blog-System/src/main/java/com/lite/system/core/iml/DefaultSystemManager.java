@@ -119,8 +119,6 @@ public class DefaultSystemManager extends AbstractSystemManager {
             log.info(LocalMessages.get("success.sys.api.map"));
             log.info(LocalMessages.get("arrowhead"));
         }
-
-
     }
 
     public void processRelationInfo() {
@@ -143,6 +141,8 @@ public class DefaultSystemManager extends AbstractSystemManager {
         //组装成map
         Map<String, SystemApi> systemApiMap = apiList.stream().collect(Collectors.toMap(SystemEntity::getUrl, api -> api));
 
+        //先删除
+        redisCache.deleteObject(systemConfig.getRedisMapKey());
         //存入redis中
         redisCache.setCacheMap(systemConfig.getRedisMapKey(), systemApiMap);
 
