@@ -16,9 +16,12 @@
 
 希望以后在后端的路上可以越走越远，能够达成自己想要的目标。
 
+<br>
+<br>
 
+本框架适用于中小型的博客系统，采用目录结构，单体服务架构，后续也可以拆分微服务架构
 
-本框架适用于中小型的博客系统，只保留最基础的框架，没有任何业务代码，也可用于基本的个人学习与使用。
+目前只保留最基础的框架，没有任何业务代码，可用于基本的个人学习与使用。
 
 ## 开发说明
 
@@ -126,27 +129,27 @@
 
 
 
-**接口文档: **[[登陆接口 - Lite-Blog-Framework (apifox.cn)](https://www.apifox.cn/apidoc/project-1573585/api-38408277)](https://www.apifox.cn/apidoc/shared-25197369-00c2-4c14-a603-1c453cfcc812/doc-881581)
+**接口文档:**[[登陆接口 - Lite-Blog-Framework (apifox.cn)](https://www.apifox.cn/apidoc/project-1573585/api-38408277)](https://www.apifox.cn/apidoc/shared-25197369-00c2-4c14-a603-1c453cfcc812/doc-881581)
 
-**技术总栈: **[[项目概览 - Lite-Blog-Framework (apifox.cn)](https://www.apifox.cn/apidoc/project-1573585/doc-1361562)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/所用技术.md)
+**技术总栈:**[[项目概览 - Lite-Blog-Framework (apifox.cn)](https://www.apifox.cn/apidoc/project-1573585/doc-1361562)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/所用技术.md)
 
-**登陆校验: **[Lite-Blog-Doc/Token校验.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/Token校验.md)
+**登陆校验:**[Lite-Blog-Doc/Token校验.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/Token校验.md)
 
-**实体映射: **[CQUT-Programmer/Lite-Blog-Doc: Documentation repository for blog systems (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/实体映射.md)
+**实体映射:**[CQUT-Programmer/Lite-Blog-Doc: Documentation repository for blog systems (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/实体映射.md)
 
-**邮件服务: **[Lite-Blog-Doc/邮件服务.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/邮件服务.md)
+**邮件服务:**[Lite-Blog-Doc/邮件服务.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/邮件服务.md)
 
-**多语言配置: **[Lite-Blog-Doc/dev at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/i18n多语言.md)
+**多语言配置:**[Lite-Blog-Doc/dev at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/i18n多语言.md)
 
-**对象存储: **[Lite-Blog-Doc/dev at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/腾讯COS.md)
+**对象存储:**[Lite-Blog-Doc/dev at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/腾讯COS.md)
 
-**接口权限: **[Lite-Blog-Doc/接口权限管理.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/接口权限管理.md)
+**接口权限:**[Lite-Blog-Doc/接口权限管理.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/接口权限管理.md)
 
-**数据缓存: **[Lite-Blog-Doc/数据缓存.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/数据缓存.md)
+**数据缓存:**[Lite-Blog-Doc/数据缓存.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/数据缓存.md)
 
 **XSS防御:** [Lite-Blog-Doc/XSS脚本过滤.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/XSS脚本过滤.md)
 
-**Redis脚本: **[Lite-Blog-Doc/Redis脚本.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/Redis脚本.md)
+**Redis脚本:**[Lite-Blog-Doc/Redis脚本.md at main · CQUT-Programmer/Lite-Blog-Doc (github.com)](https://github.com/CQUT-Programmer/Lite-Blog-Doc/blob/main/dev/Redis脚本.md)
 
 
 
@@ -193,6 +196,10 @@ void applicationTest() {
 ```
 
 无报错成功运行即代表配置完成。
+
+**5.启动应用**
+
+运行位于`Lite-Blog-Api/src/main/java/com/lite/api/LiteBlogWebApplication.java`的启动类
 
 ## 部署说明
 
