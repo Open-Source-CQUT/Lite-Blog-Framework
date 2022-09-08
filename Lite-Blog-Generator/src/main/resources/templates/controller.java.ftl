@@ -3,7 +3,9 @@ package ${customPackage.Controller};
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
-import ${customPackage.Convert}.${convert};
+<#if config.mapEnable == true>
+    import ${customPackage.Convert}.${convert};
+</#if>
 import ${customPackage.Service}.${table.serviceName};
 
 <#if restControllerStyle>
@@ -37,10 +39,13 @@ public class ${table.controllerName} extends ${superControllerClass} {
 <#else>
 public class ${table.controllerName} {
 </#if>
-        @Autowired
-        ${table.serviceName} ${entityLowerName}Service;
+    @Autowired
+    ${table.serviceName} ${entityLowerName}Service;
 
-        @Autowired
-        ${convert} ${entityLowerName}Convert;
+<#if config.mapEnable == true>
+    @Autowired
+    ${convert} ${entityLowerName}Convert;
+</#if>
+
 }
 </#if>

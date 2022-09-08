@@ -23,6 +23,20 @@ public class SystemConfig {
 
     private boolean logEnable;
 
+    private boolean enable;
+
     private Class<Map<String, SystemApi>> apiClas;
+
+    private String userTable;
+
+    private String fileTable;
+
+    private String permissionTable;
+
+    private String apiTable;
+
+    private String controllerTable;
+
+    private String apiControllerTable;
 
 }

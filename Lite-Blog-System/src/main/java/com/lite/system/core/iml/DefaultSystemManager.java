@@ -3,6 +3,7 @@ package com.lite.system.core.iml;
 import com.lite.common.i18n.SystemMessages;
 import com.lite.common.serializer.RedisCache;
 import com.lite.system.config.SystemConfig;
+import com.lite.system.dao.SystemMapper;
 import com.lite.system.entity.SystemApi;
 import com.lite.system.entity.SystemApiRelation;
 import com.lite.system.entity.SystemController;
@@ -51,12 +52,18 @@ public class DefaultSystemManager extends AbstractSystemManager {
     @Autowired
     SystemConfig systemConfig;
 
+    @Autowired
+    SystemMapper systemMapper;
+
 
     @Override
     public void loadSystemInfo(WebApplicationContext applicationContext) {
 
         //刷新获取容器信息
         refreshContextInfo(applicationContext);
+
+        //初始化数据库
+        iniDataBase();
 
         //处理controller信息
         processSystemControllerInfo();
@@ -65,6 +72,15 @@ public class DefaultSystemManager extends AbstractSystemManager {
         processSystemApiInfo();
 
         processRelationInfo();
+    }
+
+    private void iniDataBase() {
+        systemMapper.createPermissionTable(systemConfig.getPermissionTable());
+        systemMapper.createUserTable(systemConfig.getUserTable());
+        systemMapper.createFileTable(systemConfig.getFileTable());
+        systemMapper.createApiTable(systemConfig.getApiTable());
+        systemMapper.createControllerTable(systemConfig.getControllerTable());
+        systemMapper.createApiCtrlTable(systemConfig.getApiControllerTable());
     }
 
     /**

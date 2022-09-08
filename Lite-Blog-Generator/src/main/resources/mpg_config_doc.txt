@@ -1,0 +1,69 @@
+#此文件为注释文件
+{
+  #作者名称
+  "author": "stranger",
+  #数据库url
+  "url": "jdbc:mysql://localhost:3306/mybatis_test?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Hongkong&allowMultiQueries=true",
+  #数据库用户名
+  "username": "root",
+  #数据库密码
+  "password": "wyh246859",
+  #模块名
+  "moduleName": "Lite-Blog-Business",
+  #包名
+  "packageName": "com.lite.business",
+  #controller层名称
+  "controller": "controller",
+  #格式化名称
+  "controllerFormatName": "%s",
+  #service层名称
+  "service": "service",
+  #格式化名称
+  "serviceFormatName": "%s",
+  #serviceImpl层名称
+  "serviceImpl": "service.impl",
+  #格式化名称
+  "serviceImplFormatName": "%s",
+  #entity层名称
+  "entity": "entity",
+  #格式化名称
+  "entityFormatName": "%s",
+  #mapper层名称
+  "mapper": "mapper",
+  #格式化名称
+  "mapperFormatName": "%s",
+  #xml层名称
+  "xml": "mapper.xml",
+  #格式化名称
+  "xmlFormatName": "%s",
+  #是否开启lombok
+  "lombokEnable":true,
+  #是否生成controller
+  "controllerEnable":true,
+  #是否生成service
+  "serviceEnable":true,
+  #是否生成ServiceImpl
+  "serviceImplEnable": true,
+  #是否生成entity
+  "entityEnable":true,
+  #是否生成mapper
+  "mapperEnable":true,
+  #是否生成xml
+  "xmlEnable":true,
+  #是否生成dto
+  "dtoEnable":true,
+  #是否生成vo
+  "voEnable":true,
+  #是否生成mapstruct
+  "mapEnable":true,
+  #entity父类全限定名称
+  "superClassName": "",
+  #entity父类数据库字段
+  "superEntityColumns": [],
+  #要生成的代码的数据库表,支持正则,默认是全部表
+  "includeTableList": [],
+  #在include中排除过滤表名
+  "notLikeTable": "",
+  #表明前缀转换
+  "tablePrefix": []
+}

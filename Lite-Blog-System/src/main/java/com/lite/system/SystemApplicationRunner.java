@@ -32,6 +32,9 @@ public class SystemApplicationRunner implements ApplicationRunner {
     @Async
     @Override
     public void run(ApplicationArguments args) {
+        if (!systemConfig.isEnable()){
+            return;
+        }
         //任务开始
         startFactory(() -> new DefaultFactoryCandidate().candidate(webApplicationContext).start());
     }

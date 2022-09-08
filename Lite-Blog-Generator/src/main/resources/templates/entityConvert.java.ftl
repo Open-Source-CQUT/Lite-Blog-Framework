@@ -6,8 +6,12 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import ${customPackage.Entity}.${entity};
+<#if config.dtoEnable>
 import ${customPackage.DTO}.${dto};
+</#if>
+<#if config.voEnable>
 import ${customPackage.VO}.${vo};
+</#if>
 
 /**
 * <p>

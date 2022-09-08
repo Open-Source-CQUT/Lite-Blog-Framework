@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.engine.AbstractTemplateEngine;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+import com.lite.generator.mpg.MyBatisInfo;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
@@ -23,8 +25,16 @@ import java.util.stream.Collectors;
  * @date 2022/8/30 20:50
  */
 @Slf4j
+@NoArgsConstructor
 public final class EnhanceFreemarkerTemplatesEngines extends FreemarkerTemplateEngine {
 
+
+    private MyBatisInfo myBatisInfo;
+
+
+    public EnhanceFreemarkerTemplatesEngines(MyBatisInfo myBatisInfo) {
+        this.myBatisInfo = myBatisInfo;
+    }
 
     /**
      * 为了能够调用重写的getObjectMap方法，故重写batchOutput方法
@@ -107,6 +117,7 @@ public final class EnhanceFreemarkerTemplatesEngines extends FreemarkerTemplateE
         objectMap.put("parentPath",
                 config.getPathInfo().get(OutputFile.entity)
                         .substring(0, config.getPathInfo().get(OutputFile.other).lastIndexOf(File.separator)));
+        objectMap.put("config",myBatisInfo);
         return objectMap;
     }
 

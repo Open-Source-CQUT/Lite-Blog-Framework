@@ -1,5 +1,6 @@
 package ${customPackage.Entity};
 
+
 <#list table.importPackages as pkg>
 import ${pkg};
 </#list>
@@ -24,8 +25,10 @@ import lombok.experimental.Accessors;
  */
 <#if entityLombokModel>
 @Data
+<#if superEntityClass??>
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
+</#if>
 @AllArgsConstructor
 @NoArgsConstructor
     <#if chainModel>

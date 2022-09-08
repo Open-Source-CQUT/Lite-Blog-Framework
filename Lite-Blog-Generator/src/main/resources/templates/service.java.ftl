@@ -2,7 +2,6 @@ package ${customPackage.Service};
 
 import ${customPackage.Entity}.${entity};
 import ${superServiceClassPackage};
-
 /**
  * <p>
  * ${table.comment!} 服务类

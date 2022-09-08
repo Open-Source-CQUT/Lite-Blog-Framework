@@ -3,11 +3,13 @@ package ${customPackage.ServiceImpl};
 import ${customPackage.Entity}.${entity};
 import ${customPackage.Mapper}.${table.mapperName};
 import ${customPackage.Service}.${table.serviceName};
+<#if config.mapEnable == true>
 import ${customPackage.Convert}.${convert};
+</#if>
+
 import ${superServiceImplClassPackage};
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-
 /**
  * <p>
  * ${table.comment!} 服务实现类
@@ -28,7 +30,10 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
         @Autowired
         ${table.mapperName} ${entityLowerName}Mapper;
 
+    <#if config.mapEnable == true>
         @Autowired
         ${convert} ${entityLowerName}Convert;
+    </#if>
+
 }
 </#if>

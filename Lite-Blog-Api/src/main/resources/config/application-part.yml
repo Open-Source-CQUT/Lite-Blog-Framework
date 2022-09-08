@@ -51,8 +51,16 @@ cos:
 
 #系统设置
 sys:
+  enable: true
   #开发时建议打开此项
   log-enable: true
+  user-table: info_user
+  file-table: info_file
+  permission-table: info_sys_permission
+  api-table: info_sys_api
+  controller-table: info_sys_controller
+  api-controller-table: relation_sys_api_controller
+
 
 #XSS过滤
 mica:

@@ -1,21 +1,17 @@
 package com.lite.generator.mpg;
 
-import com.baomidou.mybatisplus.generator.FastAutoGenerator;
+import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.config.*;
+import com.baomidou.mybatisplus.generator.config.builder.Entity;
 import com.baomidou.mybatisplus.generator.config.po.LikeTable;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
-import com.lite.common.entity.BaseEntity;
-import com.lite.generator.core.Generator;
 import com.lite.generator.engine.EnhanceFreemarkerTemplatesEngines;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.logging.log4j.util.Strings;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Collections;
+import java.util.HashMap;
 
 /**
  * @author Stranger
@@ -24,151 +20,184 @@ import java.util.stream.Collectors;
  * @date 2022/8/30 15:46
  */
 @Slf4j
-public class MybatisPlusGenerator implements Generator {
+public class MybatisPlusGenerator extends MybatisPlusAbstractGenerator {
 
     public static final String PROJECT_PATH = "./%s/src/main/java/";
 
     public static final String RESOURCES_PATH = "./%s/src/main/resources/mapper/";
 
-    public static final String CONFIG_PATH = "./Lite-Blog-Generator/src/main/resources/mpg.properties";
 
+    /**
+     * 生成模板代码
+     * @throws IOException IO异常
+     */
     @Override
     public void generate() throws IOException {
-        this.generateByConfig();
-    }
-
-    @Data
-    static class MybatisInfo {
-        String author;
-        String moduleName;
-        String url;
-        String username;
-        String password;
-        String packageName;
-        String likeTable;
-        String[] tablePrefix;
-        boolean dtoEnable;
-        boolean voEnable;
-        boolean mapEnable;
-        List<String> includeTableList;
+        this.generate(this.getConfig());
     }
 
     /**
-     * 根据配置文件自动包装配置对象然后生成代码
+     * 生成模板代码
+     * @param path 指定的配置文件路径
+     * @throws IOException IO异常
      */
-    public void generateByConfig() throws IOException {
-        ResourceBundle resourceBundle = new PropertyResourceBundle(Files.newInputStream(Paths.get(CONFIG_PATH)));
-        MybatisInfo mybatisInfo = new MybatisInfo();
-        mybatisInfo.setAuthor(resourceBundle.getString("author"));
-        mybatisInfo.setUrl(resourceBundle.getString("url"));
-        mybatisInfo.setUsername(resourceBundle.getString("username"));
-        mybatisInfo.setPassword(resourceBundle.getString("password"));
-        mybatisInfo.setModuleName(resourceBundle.getString("moduleName"));
-        mybatisInfo.setPackageName(resourceBundle.getString("packageName"));
-        mybatisInfo.setDtoEnable(Boolean.parseBoolean(resourceBundle.getString("dtoEnable")));
-        mybatisInfo.setVoEnable(Boolean.parseBoolean(resourceBundle.getString("voEnable")));
-        mybatisInfo.setMapEnable(Boolean.parseBoolean(resourceBundle.getString("mapEnable")));
-        mybatisInfo.setLikeTable(resourceBundle.getString("likeTable"));
-        mybatisInfo.setTablePrefix(resourceBundle.getString("tablePrefix").split(","));
-        mybatisInfo.setIncludeTableList(Arrays.stream(resourceBundle.getString("includeTableList").split(",")).collect(Collectors.toList()));
-        generateMvcCode(mybatisInfo);
+    public void generate(String path) throws IOException {
+        this.generate(this.getConfig(path));
     }
 
-    /**
-     * 手动构造信息对象然后生成代码 不推荐使用
-     * @param mybatisInfo 信息对象
-     */
-    private void generateMvcCode(MybatisInfo mybatisInfo) {
+    private void generate(MyBatisInfo mybatisInfo) {
 
-        //作者名称
-        String author = mybatisInfo.getAuthor();
+        AutoGenerator generator = new AutoGenerator(dataSourceConfig(mybatisInfo));
+
+        //模板配置
+        generator.global(globalConfig(mybatisInfo));
+        generator.packageInfo(packageConfig(mybatisInfo));
+        generator.strategy(strategyConfig(mybatisInfo));
+        generator.injection(injectionConfigConsumer(mybatisInfo));
+        generator.template(templateConfig(mybatisInfo));
+
+        //执行
+        generator.execute(new EnhanceFreemarkerTemplatesEngines(mybatisInfo));
+    }
+
+    private DataSourceConfig dataSourceConfig(MyBatisInfo mybatisInfo) {
+        return new DataSourceConfig
+                .Builder(mybatisInfo.getUrl(),
+                mybatisInfo.getUsername(),
+                mybatisInfo.getPassword())
+                .build();
+    }
+
+    private GlobalConfig globalConfig(MyBatisInfo mybatisInfo) {
         //项目路径
         String projectPath = String.format(PROJECT_PATH, mybatisInfo.getModuleName());
-        //项目包名
-        String packageName = mybatisInfo.getPackageName();
-        //MapperXml路径
-        String mapperPath = String.format(RESOURCES_PATH, mybatisInfo.getModuleName());
-        //数据库URL
-        String url = mybatisInfo.getUrl();
-        //数据库用户名
-        String username = mybatisInfo.getUsername();
-        //数据库密码
-        String password = mybatisInfo.getPassword();
-        //待生成的表
-        List<String> includeTableList = mybatisInfo.getIncludeTableList();
 
-        String likeTable = mybatisInfo.getLikeTable();
+        return new GlobalConfig.Builder()
+                .author(mybatisInfo.getAuthor())
+                .outputDir(projectPath)
+                .disableOpenDir()
+                .build();
+    }
 
-        String[] tablePrefix = mybatisInfo.getTablePrefix();
+    private PackageConfig packageConfig(MyBatisInfo mybatisInfo) {
 
-        boolean dtoEnable = mybatisInfo.isDtoEnable();
+        return new PackageConfig.Builder()
+                .parent(mybatisInfo.getPackageName())
+                .entity(mybatisInfo.getEntity())
+                .controller(mybatisInfo.getController())
+                .service(mybatisInfo.getService())
+                .serviceImpl(mybatisInfo.getServiceImpl())
+                .mapper(mybatisInfo.getMapper())
+                .xml(mybatisInfo.getXml())
+                .other(mybatisInfo.getOther())
+                .pathInfo(Collections.singletonMap(OutputFile.mapperXml, String.format(RESOURCES_PATH, mybatisInfo.getModuleName())))
+                .build();
+    }
 
-        boolean voEnable = mybatisInfo.isVoEnable();
+    private StrategyConfig strategyConfig(MyBatisInfo mybatisInfo) {
+        StrategyConfig.Builder builder = new StrategyConfig.Builder();
 
-        boolean mapEnable = mybatisInfo.isMapEnable();
+        //controller策略配置
+        builder.controllerBuilder()
+                .enableRestStyle()
+                .formatFileName(mybatisInfo.getControllerFormatName());
+
+        //包含的表名
+        if (!mybatisInfo.getIncludeTableList().isEmpty()){
+            builder.addInclude(mybatisInfo.getIncludeTableList());
+        }
+
+        //过滤表名
+        if (!StringUtils.isEmpty(mybatisInfo.getNotLikeTable())){
+            builder.notLikeTable(new LikeTable(mybatisInfo.getNotLikeTable()));
+        }
+
+        //entity策略配置
+        Entity.Builder entityBuilder = builder.entityBuilder()
+                .formatFileName(mybatisInfo.getEntityFormatName())
+                .disableSerialVersionUID()
+                .naming(NamingStrategy.underline_to_camel)
+                .columnNaming(NamingStrategy.underline_to_camel);
+
+        //开启lombok
+        if (mybatisInfo.isLombokEnable()) {
+            entityBuilder.enableLombok();
+        }
+
+        //实体父类设置
+        if (!StringUtils.isEmpty(mybatisInfo.getSuperClassName())) {
+            entityBuilder.superClass(mybatisInfo.getSuperClassName());
+            entityBuilder.addSuperEntityColumns(mybatisInfo.getSuperEntityColumns());
+        }
+
+        //service策略配置
+        builder.serviceBuilder()
+                .formatServiceFileName(mybatisInfo.getServiceFormatName())
+                .formatServiceImplFileName(mybatisInfo.getServiceImplFormatName());
+
+        //mapper策略配置
+        builder.mapperBuilder()
+                .formatMapperFileName(mybatisInfo.getMapperFormatName())
+                .formatXmlFileName(mybatisInfo.getXmlFormatName());
 
 
-        log.info("作者:" + author);
-        log.info("父包名为: " + packageName);
-        log.info("MVC文件的生成路径为: " + projectPath + packageName);
-        log.info("MapperXml文件的生成路径为: " + mapperPath);
-        log.info("待生成的数据库表实体: " + mybatisInfo.getIncludeTableList().toString());
-        log.info("过滤的相似表名: "+likeTable);
+        return builder.build();
+    }
 
-        //lamada构造 以下代码其实只有5行，为了可读性所以缩进
-        FastAutoGenerator.create(url, username, password)
-                //全局配置
-                .globalConfig(builder -> builder
-                        .outputDir(projectPath)
-                        .author(author)
-                        .disableOpenDir()
-                        .build())
-                //包配置
-                .packageConfig(builder -> builder.parent(packageName)
-                        .xml("mapper")
-                        .entity("entity")
-                        .pathInfo(Collections.singletonMap(OutputFile.mapperXml, mapperPath))
-                        .mapper("dao")
-                )
-                .injectionConfig(consumer -> {
-                    HashMap<String, String> customMap = new HashMap<>();
-                    if (dtoEnable)
-                        customMap.put("DTO.java", "/templates/entityDTO.java.ftl");
-                    if (voEnable)
-                        customMap.put("VO.java", "/templates/entityVO.java.ftl");
-                    if (mapEnable)
-                        customMap.put("Convert.java", "/templates/entityConvert.java.ftl");
-                    consumer.customFile(customMap);
-                })
-                //策略配置
-                .strategyConfig(builder -> {
-                    StrategyConfig.Builder resBuilder = builder.enableCapitalMode();
-                    if (!includeTableList.isEmpty())
-                        resBuilder.addInclude(includeTableList);
-                    if (!Strings.isBlank(likeTable))
-                        resBuilder.likeTable(new LikeTable(likeTable));
-                    resBuilder.addTablePrefix(tablePrefix)
-                            .entityBuilder()
-                            .superClass(BaseEntity.class)
-                            .disableSerialVersionUID()
-                            .enableLombok()
-                            .naming(NamingStrategy.underline_to_camel)
-                            .columnNaming(NamingStrategy.underline_to_camel)
-                            .addSuperEntityColumns("id", "deleted", "version", "updated_time", "created_time")
-                            .controllerBuilder()
-                            .enableRestStyle();
-                })
-                .templateConfig(builder ->
-                        builder.entity("/templates/entity.java")
-                                .mapper("/templates/mapper.java")
-                                .service("/templates/service.java")
-                                .serviceImpl("/templates/serviceImpl.java")
-                                .mapperXml("/templates/mapper.xml")
-                                .controller("/templates/controller.java")
-                )
-                //设置模板引擎
-                .templateEngine(new EnhanceFreemarkerTemplatesEngines())
-                .execute();
+    private TemplateConfig templateConfig(MyBatisInfo mybatisInfo) {
+
+        TemplateConfig.Builder templateBuilder = new TemplateConfig.Builder();
+
+        templateBuilder.entity("/templates/entity.java")
+                .mapper("/templates/mapper.java")
+                .service("/templates/service.java")
+                .serviceImpl("/templates/serviceImpl.java")
+                .mapperXml("/templates/mapper.xml")
+                .controller("/templates/controller.java");
+
+
+        if (!mybatisInfo.isControllerEnable()) {
+            templateBuilder.disable(TemplateType.CONTROLLER);
+        }
+
+        if (!mybatisInfo.isServiceEnable()) {
+            templateBuilder.disable(TemplateType.SERVICE);
+        }
+
+        if (!mybatisInfo.isServiceImplEnable()) {
+            templateBuilder.disable(TemplateType.SERVICEIMPL);
+        }
+
+        if (!mybatisInfo.isEntityEnable()) {
+            templateBuilder.disable(TemplateType.ENTITY);
+        }
+
+        if (!mybatisInfo.isMapperEnable()) {
+            templateBuilder.disable(TemplateType.MAPPER);
+        }
+
+        return templateBuilder.build();
+    }
+
+    private InjectionConfig injectionConfigConsumer(MyBatisInfo mybatisInfo) {
+
+
+        HashMap<String, String> customMap = new HashMap<>(16);
+
+        if (mybatisInfo.isDtoEnable()) {
+            customMap.put("DTO.java", "/templates/entityDTO.java.ftl");
+        }
+        if (mybatisInfo.isVoEnable()) {
+            customMap.put("VO.java", "/templates/entityVO.java.ftl");
+        }
+        if (mybatisInfo.isMapEnable()) {
+            customMap.put("Convert.java", "/templates/entityConvert.java.ftl");
+        }
+
+        return new InjectionConfig
+                .Builder()
+                .customFile(customMap)
+                .build();
     }
 
 }
