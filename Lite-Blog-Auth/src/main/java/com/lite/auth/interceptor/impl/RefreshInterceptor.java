@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * RefreshToken拦截器，只拦截用于刷新token的接口
  */
-@Order(3)
+@Order(30)
 @Component
 public class RefreshInterceptor extends BaseInterceptor {
 

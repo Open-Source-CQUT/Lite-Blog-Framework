@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  * CORS拦截器，处理因复杂请求而产生的OPTION预请求
  * @author Stranger
  */
-@Order(1)
+@Order(10)
 @Component
 public class CorsInterceptor extends BaseInterceptor {
 

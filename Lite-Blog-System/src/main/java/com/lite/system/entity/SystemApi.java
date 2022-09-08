@@ -40,7 +40,7 @@ public class SystemApi extends SystemEntity{
         super(url, simpleName, fullName);
         this.method = method;
         this.enable = true;
-        this.permissionId = PermissionId.DEFAULT.val();
+        this.permissionId = PermissionId.USER.val();
     }
 
     public String str(){

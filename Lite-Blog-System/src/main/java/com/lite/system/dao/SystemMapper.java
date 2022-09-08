@@ -1,7 +1,10 @@
 package com.lite.system.dao;
 
 import com.lite.common.entity.Entity;
+import com.lite.system.entity.Permission;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @author Stranger
@@ -23,4 +26,6 @@ public interface SystemMapper {
     void createControllerTable(@Param("table") String table);
 
     void createApiCtrlTable(@Param("table") String table);
+
+    void insertPermissionData(@Param("permissionList") List<Permission> permissionList, @Param("table") String table);
 }

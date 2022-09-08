@@ -6,24 +6,18 @@
     <update id="createPermissionTable" parameterType="java.lang.String">
         CREATE TABLE IF NOT EXISTS ${table}
         (
-            `id`           bigint(0) UNSIGNED                               NOT NULL AUTO_INCREMENT COMMENT '主键ID',
             `code`         int(0)                                           NOT NULL COMMENT '权限代码',
             `description`  varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '权限描述',
             `created_time` datetime(0)                                      NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '创建时间',
             `updated_time` datetime(0)                                      NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
             `deleted`      int(0)                                           NULL DEFAULT 0 COMMENT '逻辑删除',
             `version`      varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT '0' COMMENT '乐观锁',
-            PRIMARY KEY (`id`) USING BTREE
+            PRIMARY KEY (`code`) USING BTREE
         ) ENGINE = InnoDB
           AUTO_INCREMENT = 4
           CHARACTER SET = utf8
           COLLATE = utf8_bin COMMENT = '用户权限信息表'
           ROW_FORMAT = Dynamic;
-
-        INSERT IGNORE INTO ${table}
-        VALUES (1, 0, '普通用户', '2022-08-25 20:46:27', '2022-08-25 20:46:32', 0, '0'),
-               (2, 1, '普通管理', '2022-08-25 20:46:59', '2022-08-25 20:47:01', 0, '0'),
-               (3, 2, '超级管理', '2022-08-25 20:47:24', '2022-08-25 20:47:24', 0, '0');
     </update>
     <update id="createUserTable" parameterType="java.lang.String">
         CREATE TABLE IF NOT EXISTS ${table}
@@ -135,4 +129,11 @@
           COLLATE = utf8_bin COMMENT = 'API-Controller关系表'
           ROW_FORMAT = Dynamic;
     </update>
+
+    <insert id="insertPermissionData">
+        INSERT IGNORE INTO ${table} (code,description,created_time,updated_time) VALUES
+        <foreach collection="permissionList" close="" open="" index="index" separator="," item="perm">
+            (#{perm.code}, #{perm.description}, #{perm.createdTime}, #{perm.updatedTime})
+        </foreach>
+    </insert>
 </mapper>

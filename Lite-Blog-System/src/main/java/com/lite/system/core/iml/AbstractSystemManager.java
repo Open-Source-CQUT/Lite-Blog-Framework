@@ -81,7 +81,7 @@ public abstract class AbstractSystemManager implements SystemManager {
                     //获取Permission
                     Permission permission = handlerClass.getAnnotation(Permission.class);
 
-                    Integer permissionId = Objects.isNull(permission) ? PermissionId.DEFAULT.val() : permission.Min().val();
+                    Integer permissionId = Objects.isNull(permission) ? PermissionId.USER.val() : permission.Min().val();
 
                     //url拼接
                     String mappingUrl = annotation == null ? Strings.EMPTY : SystemStringUtils.concatWithComma(annotation.value());
@@ -134,7 +134,7 @@ public abstract class AbstractSystemManager implements SystemManager {
 
                     //权限ID
                     Integer apiPermissionId = Objects.isNull(apiPermission) ?
-                            Objects.isNull(ctrlPermission) ? PermissionId.DEFAULT.val() : ctrlPermission.Min().val() :
+                            Objects.isNull(ctrlPermission) ? PermissionId.USER.val() : ctrlPermission.Min().val() :
                             apiPermission.Min().val();
 
                     //默认采用ctrl上的权限

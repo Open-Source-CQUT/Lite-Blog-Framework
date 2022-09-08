@@ -19,12 +19,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+
 /**
  * 身份校验拦截器，用于处理用户身份的校验，校验完成后会将用户的身份信息存入ThreadLocal,请求完成后将会移除
  * @author Stranger
  */
-@Order(2)
+
 @Slf4j
+@Order(20)
 @Component
 public class AuthInterceptor extends BaseInterceptor {
 
@@ -74,3 +76,4 @@ public class AuthInterceptor extends BaseInterceptor {
         this.setExcludePath(webUrlConfig.getAccessExclude());
     }
 }
+

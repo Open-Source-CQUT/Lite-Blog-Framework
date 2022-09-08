@@ -20,5 +20,5 @@ public @interface Permission {
      * 访问接口所需的最小权限
      */
 
-    PermissionId Min() default PermissionId.DEFAULT;
+    PermissionId Min() default PermissionId.USER;
 }

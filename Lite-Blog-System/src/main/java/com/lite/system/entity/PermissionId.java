@@ -8,18 +8,26 @@ package com.lite.system.entity;
  */
 public enum PermissionId {
 
-    DEFAULT(0),
-    USER(0),
-    ADMIN(1),
-    SUPER_ADMIN(2);
+
+    USER(0, "普通用户"),
+    ADMIN(1, "管理员"),
+    SUPER_ADMIN(2, "超级管理员");
 
     final int id;
-    PermissionId(int id) {
+
+    final String msg;
+
+    PermissionId(int id, String msg) {
         this.id = id;
+        this.msg = msg;
     }
 
     public int val() {
         return id;
+    }
+
+    public String msg() {
+        return this.msg;
     }
 
 }

@@ -29,7 +29,7 @@ import java.util.Objects;
  * @date 2022/8/27 19:53
  */
 @Slf4j
-@Order(4)
+@Order(40)
 @Component
 public class PermissionInterceptor extends BaseInterceptor {
 
@@ -44,6 +44,10 @@ public class PermissionInterceptor extends BaseInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
+        if (!systemConfig.isEnable()){
+            return true;
+        }
 
         //取出用户访问的路径
         String requestUrl = request.getRequestURI();
