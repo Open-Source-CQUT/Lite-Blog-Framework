@@ -20,11 +20,6 @@ import ${pkg};
 </#if>
 public class ${dto} {
 
-    /**
-     * 对象ID
-     */
-    private Long id;
-
 <#-- ----------  BEGIN 字段循环遍历  ---------->
 <#list table.fields as field>
     <#if field.comment!?length gt 0>
