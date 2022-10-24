@@ -104,7 +104,7 @@ public class AuthServiceImpl implements AuthService {
         newUser.setPassword(PasswordEncoder.enCode(newUser.getPassword()));
 
         //默认设置为普通用户
-        newUser.setPermissionId(PermissionId.DEFAULT.val());
+        newUser.setPermissionId(PermissionId.USER.val());
 
         if (!authMapper.insertUser(newUser)) {
             throw new AuthException(HttpStatus.INTERNAL_SERVER_ERROR.value(), SystemMessages.get("error.user.auth.register"));
