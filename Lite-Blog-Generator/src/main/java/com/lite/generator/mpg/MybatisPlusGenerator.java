@@ -29,6 +29,7 @@ public class MybatisPlusGenerator extends MybatisPlusAbstractGenerator {
 
     /**
      * 生成模板代码
+     *
      * @throws IOException IO异常
      */
     @Override
@@ -38,6 +39,7 @@ public class MybatisPlusGenerator extends MybatisPlusAbstractGenerator {
 
     /**
      * 生成模板代码
+     *
      * @param path 指定的配置文件路径
      * @throws IOException IO异常
      */
@@ -103,13 +105,18 @@ public class MybatisPlusGenerator extends MybatisPlusAbstractGenerator {
                 .formatFileName(mybatisInfo.getControllerFormatName());
 
         //包含的表名
-        if (!mybatisInfo.getIncludeTableList().isEmpty()){
+        if (!mybatisInfo.getIncludeTableList().isEmpty()) {
             builder.addInclude(mybatisInfo.getIncludeTableList());
         }
 
         //过滤表名
-        if (!StringUtils.isEmpty(mybatisInfo.getNotLikeTable())){
+        if (!StringUtils.isEmpty(mybatisInfo.getNotLikeTable())) {
             builder.notLikeTable(new LikeTable(mybatisInfo.getNotLikeTable()));
+        }
+
+        //表名前缀转换
+        if (mybatisInfo.getTablePrefix().length > 0) {
+            builder.addTablePrefix(mybatisInfo.getTablePrefix());
         }
 
         //entity策略配置
