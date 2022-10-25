@@ -84,7 +84,7 @@ public class AuthServiceImpl implements AuthService {
 
         String key = MailUtils.getMailRedisKey(userNormalDto.getMail());
         //进行验证码比对
-        AuthMailVo authMailVo = JSON.to(redisCache.getCacheObject(key), AuthMailVo.class);
+        AuthMailVo authMailVo = redisCache.getCacheObject(key);
 
         //如果redis中不存在 或者 验证不匹配
         if (Objects.isNull(authMailVo) || !authMailVo.getAuthCode().equals(userNormalDto.getAuthCode())) {
