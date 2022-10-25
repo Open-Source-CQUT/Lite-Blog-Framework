@@ -55,7 +55,7 @@ spring: #前后端日期格式统一
         - /auth/login
         - /auth/register
         - /auth/refreshToken
-        - - /auth/forgetPassword
+        - /auth/forgetPassword
         - /mail/sendAuthMail
         - /error
       #access 拦截url
