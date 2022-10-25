@@ -1,25 +1,24 @@
 package com.lite.auth.service.impl;
 
-import com.alibaba.fastjson2.JSON;
-import com.lite.common.dto.token.JwtToken;
-import com.lite.common.dto.token.JwtTokenWrapper;
-import com.lite.common.i18n.SystemMessages;
-import com.lite.common.utils.JwtUtil;
 import com.lite.auth.convert.UserConverter;
 import com.lite.auth.dao.AuthMapper;
 import com.lite.auth.dto.UserNormalDto;
-import com.lite.auth.service.AuthService;
-import com.lite.auth.utils.Authenticator;
-import com.lite.auth.utils.LiteBlogContextUtils;
-import com.lite.auth.vo.UserTokenVo;
-import com.lite.auth.vo.UserVo;
 import com.lite.auth.entity.User;
 import com.lite.auth.exception.AuthException;
 import com.lite.auth.exception.PasswordErrorException;
 import com.lite.auth.exception.UserDuplicateException;
 import com.lite.auth.exception.UserNotFoundException;
+import com.lite.auth.service.AuthService;
+import com.lite.auth.utils.Authenticator;
+import com.lite.auth.utils.LiteBlogContextUtils;
+import com.lite.auth.vo.UserTokenVo;
+import com.lite.auth.vo.UserVo;
+import com.lite.common.dto.token.JwtToken;
+import com.lite.common.dto.token.JwtTokenWrapper;
+import com.lite.common.i18n.SystemMessages;
 import com.lite.common.serializer.PasswordEncoder;
 import com.lite.common.serializer.RedisCache;
+import com.lite.common.utils.JwtUtil;
 import com.lite.mail.Vo.AuthMailVo;
 import com.lite.mail.utils.MailUtils;
 import com.lite.system.entity.PermissionId;
@@ -58,12 +57,12 @@ public class AuthServiceImpl implements AuthService {
         User user = authMapper.getUser(mail).orElseGet(User::new);
 
         //用户不存在
-        if (Objects.isNull(user.getMail())){
+        if (Objects.isNull(user.getMail())) {
             throw new UserNotFoundException(SystemMessages.get("error.user.auth.userNotFound"));
         }
 
         //密码是否相同
-        if (!user.getPassword().equals(PasswordEncoder.enCode(password))){
+        if (!user.getPassword().equals(PasswordEncoder.enCode(password))) {
             throw new PasswordErrorException(SystemMessages.get("error.user.auth.password"));
         }
 
@@ -177,6 +176,35 @@ public class AuthServiceImpl implements AuthService {
 
         //是否成功修改密码
         if (!authMapper.updateUserPassword(mail, PasswordEncoder.enCode(newPassword))) {
+            throw new AuthException(HttpStatus.INTERNAL_SERVER_ERROR.value(), SystemMessages.get("error.user.auth.passwordChange"));
+        }
+
+        return true;
+    }
+
+    @Override
+    public Boolean forgetPassword(String mail, String newPassword, String code) throws AuthException {
+
+        User user = authMapper.getUser(mail).orElseGet(User::new);
+
+        //验证用户是否存在
+        if (Objects.isNull(user.getMail())) {
+            throw new UserNotFoundException(SystemMessages.get("error.user.auth.userNotFound"));
+        }
+
+        //获取邮箱验证的key
+        String mailKey = MailUtils.getMailRedisKey(user.getMail());
+
+        //读取redis中的邮箱验证信息
+        AuthMailVo authMailVo = redisCache.getCacheObject(mailKey);
+
+        //进行验证码比对
+        if (Objects.isNull(authMailVo) || !code.equals(authMailVo.getAuthCode())) {
+            throw new AuthException(HttpStatus.BAD_REQUEST.value(), SystemMessages.get("error.user.auth.authCodeFail"));
+        }
+
+        //修改密码
+        if (!authMapper.updateUserPassword(user.getMail(), newPassword)) {
             throw new AuthException(HttpStatus.INTERNAL_SERVER_ERROR.value(), SystemMessages.get("error.user.auth.passwordChange"));
         }
 

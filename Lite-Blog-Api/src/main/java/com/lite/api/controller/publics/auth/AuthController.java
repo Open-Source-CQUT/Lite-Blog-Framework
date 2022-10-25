@@ -72,6 +72,17 @@ public class AuthController {
                 ResultResponseUtils.error(false, SystemMessages.get("error.user.auth.passwordChange"));
     }
 
+    @PostMapping("/forgetPassword")
+    public ResultResponse<Boolean> forgetPassword(
+            @RequestParam @Email @NotBlank String mail,
+            @RequestParam @NotBlank String newPassword,
+            @RequestParam @NotBlank String code) throws AuthException {
+
+        return service.forgetPassword(mail, newPassword, code) ?
+                ResultResponseUtils.success(true, SystemMessages.get("success.user.auth.passwordChange")) :
+                ResultResponseUtils.error(false, SystemMessages.get("error.user.auth.passwordChange"));
+    }
+
     @PostMapping("/logout")
     public ResultResponse<Boolean> logout() {
 

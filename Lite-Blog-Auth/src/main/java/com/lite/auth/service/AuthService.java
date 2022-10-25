@@ -23,4 +23,6 @@ public interface AuthService {
 
     Boolean changePassword(String mail, String oldPassword, String newPassword) throws AuthException;
 
+    Boolean forgetPassword(String mail, String newPassword, String code) throws AuthException;
+
 }
