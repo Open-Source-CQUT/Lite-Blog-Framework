@@ -1,5 +1,6 @@
 package com.lite.common.entity;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 
 /**
@@ -10,5 +11,5 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
  */
 public abstract class QueryConditionWrapper<T> {
 
-    public abstract LambdaUpdateWrapper<T> buildWrapper();
+    public abstract LambdaQueryWrapper<T> buildWrapper();
 }
