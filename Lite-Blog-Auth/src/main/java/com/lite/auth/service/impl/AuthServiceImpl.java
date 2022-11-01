@@ -204,7 +204,7 @@ public class AuthServiceImpl implements AuthService {
         }
 
         //修改密码
-        if (!authMapper.updateUserPassword(user.getMail(), newPassword)) {
+        if (!authMapper.updateUserPassword(user.getMail(), PasswordEncoder.enCode(newPassword))) {
             throw new AuthException(HttpStatus.INTERNAL_SERVER_ERROR.value(), SystemMessages.get("error.user.auth.passwordChange"));
         }
 
