@@ -4,9 +4,14 @@ import com.lite.common.dto.ResultResponse;
 import com.lite.common.utils.ResultResponseUtils;
 import com.lite.system.annotation.Permission;
 import com.lite.system.annotation.RateLimit;
+import com.lite.system.entity.LimitType;
 import com.lite.system.entity.PermissionId;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import javax.validation.constraints.NotBlank;
 
 /**
@@ -17,11 +22,11 @@ import javax.validation.constraints.NotBlank;
 public class HelloWorldController {
 
 
-    @RateLimit(limitTime = 60)
+    @RateLimit(limitTime = 60, type = LimitType.IpAddress)
     @Permission(Min = PermissionId.USER)
-    @RequestMapping(value = {"/hello","/helloWorld","/helloSpring"},method = {RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE})
+    @RequestMapping(value = {"/hello", "/helloWorld", "/helloSpring"}, method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE})
     public ResultResponse<String> helloWorld(@NotBlank(message = "名称不能为空") @RequestParam String name) {
-        return ResultResponseUtils.success("Hello,World! "+name);
+        return ResultResponseUtils.success("Hello,World! " + name);
     }
 
 }
