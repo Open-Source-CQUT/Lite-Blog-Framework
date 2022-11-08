@@ -81,7 +81,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public Boolean register(UserNormalDto userNormalDto) throws AuthException {
 
-        String key = MailUtils.getMailRedisKey(userNormalDto.getMail());
+        String key = MailUtils.getMailRedisKey(userNormalDto.getMail(), userNormalDto.getAuthCode());
         //进行验证码比对
         AuthMailVo authMailVo = redisCache.getCacheObject(key);
 
@@ -159,11 +159,12 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public Boolean changePassword(String mail, String oldPassword, String newPassword)
+    public Boolean changePassword(String oldPassword, String newPassword)
             throws AuthException {
 
-        User user = authMapper.getUser(mail).orElseGet(User::new);
+        String mail = contextUtils.getLocalUserInfo().getMail();
 
+        User user = authMapper.getUser(mail).orElseGet(User::new);
         //验证用户是否存在
         if (Objects.isNull(user.getMail())) {
             throw new UserNotFoundException(SystemMessages.get("error.user.auth.userNotFound"));
@@ -193,7 +194,7 @@ public class AuthServiceImpl implements AuthService {
         }
 
         //获取邮箱验证的key
-        String mailKey = MailUtils.getMailRedisKey(user.getMail());
+        String mailKey = MailUtils.getMailRedisKey(user.getMail(), code);
 
         //读取redis中的邮箱验证信息
         AuthMailVo authMailVo = redisCache.getCacheObject(mailKey);

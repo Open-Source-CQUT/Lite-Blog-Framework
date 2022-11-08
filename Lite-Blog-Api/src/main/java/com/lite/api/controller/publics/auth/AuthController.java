@@ -1,13 +1,13 @@
 package com.lite.api.controller.publics.auth;
 
-import com.lite.common.dto.ResultResponse;
-import com.lite.common.dto.token.JwtTokenWrapper;
-import com.lite.common.groups.NormalGroups;
 import com.lite.auth.convert.UserConverter;
 import com.lite.auth.exception.AuthException;
 import com.lite.auth.exception.UserNotFoundException;
 import com.lite.auth.service.AuthService;
 import com.lite.auth.vo.UserVo;
+import com.lite.common.dto.ResultResponse;
+import com.lite.common.dto.token.JwtTokenWrapper;
+import com.lite.common.groups.NormalGroups;
 import com.lite.common.i18n.SystemMessages;
 import com.lite.common.utils.ResultResponseUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +32,7 @@ public class AuthController {
 
     @GetMapping("/login")
     public ResultResponse<JwtTokenWrapper> login(
-            @RequestParam @Email() @NotBlank String mail,
+            @RequestParam @Email @NotBlank String mail,
             @RequestParam @NotBlank String password)
             throws AuthException {
 
@@ -61,13 +61,11 @@ public class AuthController {
 
     @PostMapping("/changePassword")
     public ResultResponse<Boolean> changePassword(
-            @RequestParam @Email @NotBlank String mail,
             @RequestParam @NotBlank String oldPassword,
             @RequestParam @NotBlank String newPassword)
             throws AuthException {
 
-        //TODO 修改密码
-        return service.changePassword(mail, oldPassword, newPassword) ?
+        return service.changePassword(oldPassword, newPassword) ?
                 ResultResponseUtils.success(true, SystemMessages.get("success.user.auth.passwordChange")) :
                 ResultResponseUtils.error(false, SystemMessages.get("error.user.auth.passwordChange"));
     }
@@ -86,7 +84,6 @@ public class AuthController {
     @PostMapping("/logout")
     public ResultResponse<Boolean> logout() {
 
-        //TODO 注销登陆
         return service.logout() ?
                 ResultResponseUtils.success(true, SystemMessages.get("success.user.auth.logout")) :
                 ResultResponseUtils.error(false, SystemMessages.get("error.user.auth.logout"));
