@@ -2,6 +2,8 @@ package com.lite.auth.interceptor.impl;
 
 import com.lite.auth.config.WebUrlConfig;
 import com.lite.auth.interceptor.BaseInterceptor;
+import com.lite.auth.utils.LiteBlogContextUtils;
+import com.lite.common.i18n.SystemMessages;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
@@ -25,6 +27,9 @@ public class TimeStatisticInterceptor extends BaseInterceptor {
     @Autowired
     WebUrlConfig webUrlConfig;
 
+    @Autowired
+    LiteBlogContextUtils contextUtils;
+
     private final ThreadLocal<StopWatch> apiStopWatch = new ThreadLocal<>();
 
     @Override
@@ -40,7 +45,7 @@ public class TimeStatisticInterceptor extends BaseInterceptor {
         //停止计时任务
         apiStopWatch.get().stop();
         //输出日志
-        log.info("本次请求总共耗时: {}秒",apiStopWatch.get().getTotalTimeSeconds());
+        log.info(SystemMessages.get("time.cost", apiStopWatch.get().getTotalTimeSeconds()));
         //移除threadlocal
         apiStopWatch.remove();
     }

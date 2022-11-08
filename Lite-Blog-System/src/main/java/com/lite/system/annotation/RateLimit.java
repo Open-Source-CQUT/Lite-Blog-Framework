@@ -1,5 +1,7 @@
 package com.lite.system.annotation;
 
+import com.lite.system.entity.LimitType;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -20,5 +22,7 @@ public @interface RateLimit {
     int limitTime() default 1;
 
     int maxCount() default 30;
+
+    LimitType type() default LimitType.Token;
 
 }

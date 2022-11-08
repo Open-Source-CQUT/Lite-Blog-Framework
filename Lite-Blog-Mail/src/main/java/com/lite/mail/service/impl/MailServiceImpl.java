@@ -93,7 +93,7 @@ public class MailServiceImpl implements MailService {
         String content = templateEngine.process(MailUtils.TEMPLATE_PATH, context);
 
         //验证存入redis
-        String key = MailUtils.getMailRedisKey(to);
+        String key = MailUtils.getMailRedisKey(to,authCode);
 
         //如果redis中已经存在
         if (!Objects.isNull(redisCache.getCacheObject(key))) {

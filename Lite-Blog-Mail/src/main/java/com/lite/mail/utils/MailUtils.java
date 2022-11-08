@@ -11,8 +11,8 @@ public class MailUtils {
 
     public static final String TEMPLATE_PATH = "mail";
 
-    public static String getMailRedisKey(String mail) {
-        return KEY + mail;
+    public static String getMailRedisKey(String mail,String code) {
+        return KEY + mail + code;
     }
 
     public static String generateAuthCode() {
